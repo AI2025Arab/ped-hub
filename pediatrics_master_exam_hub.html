@@ -1,0 +1,1011 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الزبدة الشاملة لراوند الأطفال | Pediatrics Master Exam Hub</title>
+    <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Cairo', 'Inter', sans-serif;
+            background-color: #f8fafc;
+            color: #0f172a;
+        }
+        .en-text {
+            font-family: 'Inter', 'Cairo', sans-serif;
+            direction: ltr;
+            text-align: left;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 9999px;
+        }
+        @media print {
+            .no-print { display: none !important; }
+            body { background: white !important; }
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col bg-slate-50 text-slate-900">
+
+    <!-- Top Sticky Header -->
+    <header class="sticky top-0 z-40 bg-slate-900 text-white shadow-lg border-b border-slate-800 no-print">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
+            <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-sky-400 to-indigo-600 flex items-center justify-center text-xl font-bold shadow-md">
+                            🩺
+                        </div>
+                        <div>
+                            <h1 class="text-lg sm:text-xl font-extrabold tracking-tight text-white flex items-center gap-2">
+                                الزبدة الشاملة لمنهج الأطفال
+                                <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-sky-500/20 text-sky-300 border border-sky-400/30">11 Chapters Master</span>
+                            </h1>
+                            <p class="text-xs text-slate-400">تجميعة أشهر الأسباب (Most Common Causes) + كل أرقام ومعادلات المنهج + تريكات الامتحان</p>
+                        </div>
+                    </div>
+                    <button id="resetProgressBtn" class="md:hidden text-xs px-2.5 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 transition">
+                        إعادة الضبط
+                    </button>
+                </div>
+
+                <!-- Search & Quick Stats -->
+                <div class="flex items-center gap-2 sm:gap-3 flex-1 max-w-xl">
+                    <div class="relative flex-1">
+                        <input id="globalSearchInput" type="text" placeholder="ابحث عن أي مرض، رقم، معادلة، أو سبب (مثال: Kawasaki, VSD, 4-2-1, Jaundice)..."
+                            class="w-full rounded-xl bg-slate-800/90 border border-slate-700 text-white placeholder-slate-400 text-sm pr-10 pl-8 py-2 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent transition">
+                        <span class="absolute right-3 top-2.5 text-slate-400">🔍</span>
+                        <button id="clearSearchBtn" class="hidden absolute left-2.5 top-2 text-slate-400 hover:text-white text-sm font-bold px-1">✕</button>
+                    </div>
+                    <button id="filterStarredBtn" class="px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-xs sm:text-sm font-bold flex items-center gap-1.5 transition shrink-0" title="عرض العناصر المحفوظة للمراجعة فقط">
+                        <span>⭐</span>
+                        <span class="hidden sm:inline">المفضلة</span>
+                        <span id="starredCountBadge" class="px-1.5 py-0.2 rounded-full bg-amber-500/20 text-amber-300 text-xs">0</span>
+                    </button>
+                    <button id="printGuideBtn" class="hidden sm:flex px-3 py-2 rounded-xl bg-sky-600 hover:bg-sky-500 text-white text-xs sm:text-sm font-bold items-center gap-1.5 shadow transition shrink-0">
+                        <span>🖨️</span>
+                        <span>طباعة</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Main Navigation Tabs -->
+            <div class="flex items-center gap-1.5 sm:gap-2 mt-3 pt-2 border-t border-slate-800/80 overflow-x-auto custom-scrollbar pb-1">
+                <button data-tab="chapters" class="main-tab-btn px-3.5 py-1.5 rounded-lg text-xs sm:text-sm font-bold bg-sky-600 text-white shadow-sm whitespace-nowrap transition flex items-center gap-1.5">
+                    <span>📚</span>
+                    <span>ملخص الشباتر (11 فصل)</span>
+                </button>
+                <button data-tab="mostcommon" class="main-tab-btn px-3.5 py-1.5 rounded-lg text-xs sm:text-sm font-bold bg-slate-800 text-slate-300 hover:bg-slate-700 whitespace-nowrap transition flex items-center gap-1.5">
+                    <span>🎯</span>
+                    <span>جدول Most Common Causes الشامل</span>
+                </button>
+                <button data-tab="numbers" class="main-tab-btn px-3.5 py-1.5 rounded-lg text-xs sm:text-sm font-bold bg-slate-800 text-slate-300 hover:bg-slate-700 whitespace-nowrap transition flex items-center gap-1.5">
+                    <span>🔢</span>
+                    <span>بنك أرقام ومعادلات المنهج</span>
+                </button>
+                <button data-tab="calculator" class="main-tab-btn px-3.5 py-1.5 rounded-lg text-xs sm:text-sm font-bold bg-slate-800 text-slate-300 hover:bg-slate-700 whitespace-nowrap transition flex items-center gap-1.5">
+                    <span>🧮</span>
+                    <span>حاسبة الطوارئ والنمو السريعة</span>
+                </button>
+                <button data-tab="quiz" class="main-tab-btn px-3.5 py-1.5 rounded-lg text-xs sm:text-sm font-bold bg-slate-800 text-slate-300 hover:bg-slate-700 whitespace-nowrap transition flex items-center gap-1.5">
+                    <span>⚡</span>
+                    <span>اختبر نفسك (Flashcards & MCQs)</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Progress & Chapter Filter Bar -->
+    <section class="bg-white border-b border-slate-200 shadow-sm no-print">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-2.5">
+                <div class="flex items-center gap-2 flex-wrap">
+                    <span class="text-xs font-bold text-slate-500">فلترة حسب الشابتر:</span>
+                    <span id="activeFilterLabel" class="text-xs font-bold text-sky-700 bg-sky-50 px-2 py-0.5 rounded-md border border-sky-200">كل الشباتر (11/11)</span>
+                </div>
+                <div class="flex items-center gap-3">
+                    <div class="flex items-center gap-2 text-xs font-semibold text-slate-600">
+                        <span>إنجاز المذاكرة:</span>
+                        <div class="w-28 h-2 bg-slate-200 rounded-full overflow-hidden">
+                            <div id="studyProgressBar" class="h-full bg-emerald-500 transition-all duration-300" style="width: 0%"></div>
+                        </div>
+                        <span id="studyProgressText" class="font-bold text-emerald-700">0/11</span>
+                    </div>
+                </div>
+            </div>
+            <div id="chapterFilterPills" class="flex items-center gap-1.5 overflow-x-auto custom-scrollbar pb-1">
+                <!-- Populated by JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Dynamic Content Container -->
+    <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
+
+        <!-- Search status banner -->
+        <div id="searchStatusBanner" class="hidden mb-4 p-3 rounded-xl bg-sky-50 border border-sky-200 flex items-center justify-between">
+            <div class="text-sm text-sky-900 font-semibold" id="searchStatusText"></div>
+            <button id="resetAllFiltersBtn" class="text-xs font-bold px-3 py-1 rounded-lg bg-sky-600 text-white hover:bg-sky-700 transition">إلغاء الفلترة</button>
+        </div>
+
+        <!-- TAB 1: Chapters Explorer -->
+        <section id="tab-chapters" class="tab-panel space-y-6">
+            <!-- Rendered by JS -->
+        </section>
+
+        <!-- TAB 2: Master Most Common Causes Table -->
+        <section id="tab-mostcommon" class="tab-panel hidden space-y-4">
+            <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+                <div class="p-4 sm:p-5 bg-gradient-to-l from-slate-900 to-slate-800 text-white flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                    <div>
+                        <h2 class="text-lg font-extrabold flex items-center gap-2">
+                            <span>🎯</span>
+                            <span>الجدول الذهبي لكل أسئلة "Most Common Cause" في الأطفال</span>
+                        </h2>
+                        <p class="text-xs text-slate-300 mt-0.5">مرتبة ومصنفة حسب الشباتر الـ 11 مع الكلمات المفتاحية للامتحان (Exam Clues & Traps)</p>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <button id="toggleHideAnswersMcBtn" class="px-3 py-1.5 rounded-lg bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs transition shadow">
+                            🙈 إخفاء الإجابات للتسميع
+                        </button>
+                    </div>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-right border-collapse">
+                        <thead>
+                            <tr class="bg-slate-100 border-b border-slate-200 text-slate-700 text-xs font-extrabold uppercase">
+                                <th class="py-3 px-3 w-10 text-center">⭐</th>
+                                <th class="py-3 px-4 w-36">الشابتر</th>
+                                <th class="py-3 px-4">السؤال (Most Common...)</th>
+                                <th class="py-3 px-4">الإجابة النموذجية (The Answer)</th>
+                                <th class="py-3 px-4">الزبدة وتريكة الامتحان (Exam Pearl)</th>
+                            </tr>
+                        </thead>
+                        <tbody id="masterMostCommonBody" class="divide-y divide-slate-200 text-sm">
+                            <!-- Populated by JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 3: Master Numbers & Formulas Vault -->
+        <section id="tab-numbers" class="tab-panel hidden space-y-6">
+            <div class="bg-gradient-to-r from-indigo-900 via-slate-900 to-sky-900 rounded-2xl p-5 text-white shadow-md flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <div>
+                    <h2 class="text-lg sm:text-xl font-extrabold flex items-center gap-2">
+                        <span>🔢</span>
+                        <span>بنك الأرقام والمعادلات والـ Cutoffs الكامل لمنهج الأطفال</span>
+                    </h2>
+                    <p class="text-xs sm:text-sm text-sky-200 mt-1">كل رقم، جرعة طوارئ، معادلة نمو، أو نسبة تشخيصية بتتسأل في الـ MCQ والـ OSCE مجمعة في مكان واحد</p>
+                </div>
+                <button id="toggleHideNumbersBtn" class="px-3.5 py-2 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-xs shrink-0 transition shadow">
+                    🙈 إخفاء الأرقام للتسميع الذاتي
+                </button>
+            </div>
+            <div id="masterNumbersGrid" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <!-- Populated by JS -->
+            </div>
+        </section>
+
+        <!-- TAB 4: Interactive Pediatric Emergency & Growth Calculator -->
+        <section id="tab-calculator" class="tab-panel hidden space-y-6">
+            <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-5 sm:p-6">
+                <div class="border-b border-slate-200 pb-4 mb-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                    <div>
+                        <h2 class="text-lg sm:text-xl font-extrabold text-slate-900 flex items-center gap-2">
+                            <span>🧮</span>
+                            <span>حاسبة معادلات الأطفال التفاعلية (النمو + الطوارئ والإنعاش)</span>
+                        </h2>
+                        <p class="text-xs sm:text-sm text-slate-600 mt-0.5">أدخل عمر الطفل والوزن الفعلي لتطبيق معادلات المنهج عملياً ومراجعة القوانين الحسابية للامتحان</p>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <button data-preset="infant" class="calc-preset-btn text-xs font-bold px-2.5 py-1.5 rounded-lg bg-slate-100 hover:bg-sky-50 text-slate-700 border border-slate-200">رضيع 6 شهور (7.5 كجم)</button>
+                        <button data-preset="toddler" class="calc-preset-btn text-xs font-bold px-2.5 py-1.5 rounded-lg bg-slate-100 hover:bg-sky-50 text-slate-700 border border-slate-200">طفل 4 سنوات (16 كجم)</button>
+                        <button data-preset="school" class="calc-preset-btn text-xs font-bold px-2.5 py-1.5 rounded-lg bg-slate-100 hover:bg-sky-50 text-slate-700 border border-slate-200">طفل 8 سنوات (25 كجم)</button>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6 bg-slate-50 p-4 rounded-xl border border-slate-200">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 mb-1">عمر الطفل (بالسنوات)</label>
+                        <input id="calcAgeYears" type="number" min="0" max="16" step="0.5" value="4" class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm font-bold text-slate-900 focus:ring-2 focus:ring-sky-500 focus:outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 mb-1">أو العمر بالشهور (للرضع &lt; سنتين)</label>
+                        <input id="calcAgeMonths" type="number" min="1" max="192" step="1" value="48" class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm font-bold text-slate-900 focus:ring-2 focus:ring-sky-500 focus:outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 mb-1">الوزن الفعلي أو التقديري (كجم)</label>
+                        <input id="calcWeightKg" type="number" min="1" max="80" step="0.5" value="16" class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm font-bold text-slate-900 focus:ring-2 focus:ring-sky-500 focus:outline-none">
+                    </div>
+                </div>
+
+                <div id="calculatorResultsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <!-- Populated dynamically by JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 5: Active Recall Quiz & Flashcards -->
+        <section id="tab-quiz" class="tab-panel hidden space-y-6">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <!-- Flashcard Deck -->
+                <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-5 flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-base sm:text-lg font-extrabold text-slate-900 flex items-center gap-2">
+                                <span>🃏</span>
+                                <span>بطاقات التسميع الفوري (Flashcards)</span>
+                            </h3>
+                            <span id="flashcardCounter" class="text-xs font-bold px-2.5 py-1 rounded-full bg-sky-100 text-sky-800">1 / 20</span>
+                        </div>
+                        <div id="flashcardBox" class="cursor-pointer rounded-2xl border-2 border-sky-200 bg-gradient-to-br from-sky-50 via-white to-indigo-50 p-6 min-h-[230px] flex flex-col items-center justify-center text-center transition hover:shadow-md select-none">
+                            <span id="fcChapterBadge" class="text-xs font-bold px-2.5 py-0.5 rounded-full bg-sky-600 text-white mb-3">الشابتر</span>
+                            <p id="fcQuestionText" class="text-base sm:text-lg font-extrabold text-slate-900 en-text text-center mb-3"></p>
+                            <div id="fcAnswerWrap" class="hidden mt-3 pt-3 border-t border-sky-200 w-full">
+                                <p id="fcAnswerText" class="text-sm sm:text-base font-bold text-emerald-700 en-text text-center mb-2"></p>
+                                <p id="fcNoteText" class="text-xs sm:text-sm text-slate-600"></p>
+                            </div>
+                            <p id="fcHintPrompt" class="text-xs text-sky-600 font-semibold mt-4">اضغط على البطاقة لإظهار الإجابة 👆</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-between gap-2 mt-4 pt-3 border-t border-slate-100">
+                        <button id="prevFcBtn" class="px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs sm:text-sm transition">السابق</button>
+                        <button id="flipFcBtn" class="px-5 py-2 rounded-xl bg-sky-600 hover:bg-sky-500 text-white font-bold text-xs sm:text-sm transition shadow">إظهار / إخفاء الإجابة</button>
+                        <button id="nextFcBtn" class="px-4 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs sm:text-sm transition">التالي</button>
+                    </div>
+                </div>
+
+                <!-- Interactive High-Yield MCQ Simulator -->
+                <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-5 flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-base sm:text-lg font-extrabold text-slate-900 flex items-center gap-2">
+                                <span>🏆</span>
+                                <span>امتحان MCQ سريع عالي التركيز</span>
+                            </h3>
+                            <div class="flex items-center gap-2">
+                                <span id="mcqScoreBadge" class="text-xs font-bold px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-800">النتيجة: 0 / 0</span>
+                                <button id="newMcqBtn" class="text-xs font-bold px-2.5 py-1 rounded-lg bg-slate-900 text-white hover:bg-slate-800 transition">سؤال جديد 🔄</button>
+                            </div>
+                        </div>
+                        <div id="mcqContainer" class="space-y-3">
+                            <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200">
+                                <span id="mcqCategoryTag" class="inline-block text-xs font-bold text-indigo-700 bg-indigo-50 px-2 py-0.5 rounded border border-indigo-200 mb-2"></span>
+                                <p id="mcqPrompt" class="text-sm sm:text-base font-bold text-slate-900 en-text"></p>
+                            </div>
+                            <div id="mcqOptionsList" class="space-y-2">
+                                <!-- Options populated by JS -->
+                            </div>
+                            <div id="mcqFeedbackBox" class="hidden p-3 rounded-xl text-xs sm:text-sm font-semibold"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-slate-200 py-4 mt-8 no-print">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-2">
+            <p class="font-semibold">تم إعداد هذا الدليل التفاعلي لتغطية شباتر الأطفال الـ 11 بالكامل (الأسباب الأشهر + الأرقام والمعادلات + تريكات الامتحان).</p>
+            <p class="en-text">Pediatrics High-Yield Study Companion • Offline-Ready Single HTML</p>
+        </div>
+    </footer>
+
+    <script>
+        const CHAPTERS_DATA = [{"id": "emergency", "title": "Pediatrics Emergencies & PALS", "arTitle": "طوارئ الأطفال والإنعاش", "icon": "🚨", "color": "rose", "summary": "أهم طوارئ الأطفال: توقف القلب، الصدمة، التشنجات المستمرة، الحماض الكيتوني السكري، الحساسية المفرطة، والاختناق.", "mostCommon": [{"q": "Most common cause of Cardiac Arrest in children", "a": "Hypoxia / Respiratory failure & Shock (Asystole / Bradycardia) — NOT primary arrhythmia", "note": "عكس الكبار (VF)، في الأطفال السبب غالباً تنفسي يؤدي إلى Bradycardia ثم Asystole"}, {"q": "Most common shock in pediatrics overall", "a": "Hypovolemic shock (secondary to Acute Gastroenteritis)", "note": "يليها Septic shock، وأول خطوة دائماً Bolus 20 mL/kg Normal Saline"}, {"q": "Most common arrhythmia in children / infants", "a": "Supraventricular Tachycardia (SVT) — HR > 220 in infants, > 180 in children", "note": "العلاج: Vagal maneuvers + Adenosine (0.1 ثم 0.2 mg/kg) أو Sync Cardioversion (0.5–1 J/kg) لو Unstable"}, {"q": "Most common cause of convulsions (6 months – 5 years)", "a": "Febrile Seizures (Simple vs Complex)", "note": "Simple: Generalized, <15 min, once in 24h. Complex: Focal, >15 min, or recurrent in 24h"}, {"q": "Most common cause of Status Epilepticus in children", "a": "Prolonged Febrile Seizure (or CNS infection / anti-epileptic non-compliance)", "note": "الخط الأول: Benzodiazepines (IV Lorazepam 0.1 mg/kg أو Midazolam/Diazepam)، الخط الثاني: Phenytoin/Levetiracetam"}, {"q": "Most common cause of Anaphylaxis in children", "a": "Food allergy (Peanuts, Tree nuts, Cow's milk, Eggs)", "note": "العلاج الفوري المنقذ للحياة: IM Epinephrine (1:1000) بجرعة 0.01 mg/kg في الفخذ الأمامي الجانبي"}, {"q": "Most common site of Foreign Body Aspiration", "a": "Right Main Bronchus (wider, shorter, more vertical)", "note": "تاريخ شرقان مفاجئ (Choking) + Unilateral wheeze/decreased air entry + Hyperinflation on expiratory CXR، والعلاج: Rigid Bronchoscopy"}, {"q": "Most common accidental poisoning in young children", "a": "Paracetamol (Acetaminophen), Iron, Household hydrocarbons/corrosives", "note": "ترياق الباراسيتامول: N-Acetylcysteine (NAC)؛ ترياق الحديد: Deferoxamine؛ ترياق الأفيونات: Naloxone"}], "numbers": [{"label": "CPR Compression : Ventilation Ratio", "val": "30 : 2 (Single rescuer) | 15 : 2 (Two rescuers)", "detail": "وفي حديثي الولادة (Neonatal resuscitation): النسبة 3 : 1 (90 ضغطة + 30 نفس/دقيقة)"}, {"label": "Defibrillation Energy (Shockable: VF / pVT)", "val": "1st Shock: 2 J/kg → 2nd: 4 J/kg → Max: 10 J/kg", "detail": "Synchronized Cardioversion (Unstable SVT/VT): 0.5 – 1 J/kg (تزيد إلى 2 J/kg)"}, {"label": "Epinephrine Dose in Cardiac Arrest", "val": "0.01 mg/kg IV/IO (0.1 mL/kg of 1:10,000)", "detail": "وفي الحساسية المفرطة (Anaphylaxis): 0.01 mg/kg IM من تركيز 1:1,000 (الحد الأقصى 0.3–0.5 mg)"}, {"label": "Fluid Bolus in Shock", "val": "20 mL/kg Isotonic Crystalloid (0.9% NS or RL) over 5–20 min", "detail": "استثناء: 10 mL/kg فقط في Neonates، Cardiogenic shock، Severe Anemia، و DKA"}, {"label": "Maintenance Fluids (Holliday-Segar 4-2-1 Rule)", "val": "First 10 kg: 4 mL/kg/hr (100/day) | Next 10 kg: 2 mL/kg/hr (50/day) | Each kg >20: 1 mL/kg/hr (20/day)", "detail": "مثال طفل 25 كجم: (10×4) + (10×2) + (5×1) = 65 mL/hr"}, {"label": "Hypoglycemia Dextrose 'Rule of 50'", "val": "Neonate: D10W × 2–5 mL/kg | Child: D25W × 2 mL/kg | Adolescent: D50W × 1 mL/kg", "detail": "حاصل ضرب التركيز × الحجم = 50 (يعطي 0.5 g/kg جلكوز)"}, {"label": "Endotracheal Tube (ETT) Formulas (>1 year)", "val": "Uncuffed ID = (Age/4) + 4 | Cuffed ID = (Age/4) + 3.5", "detail": "عمق الأنبوبة (Depth from lip) = (Age/2) + 12 أو (3 × حجم الأنبوبة)؛ وفي الـ Neonate = الوزن (كجم) + 6 سم"}, {"label": "Minimum Acceptable Systolic BP (5th Percentile)", "val": "Neonate: <60 mmHg | Infant (1–12m): <70 | Child (1–10y): < 70 + (2 × Age) | >10y: <90", "detail": "Systolic BP المتوقع المعتاد (50th percentile) = 90 + (2 × Age in years)"}], "pearls": ["Status Epilepticus يُعرف تشغيلياً بالتشنج المستمر لأكثر من 5 دقائق (أو نوبات متكررة دون استعادة الوعي بينها).", "في حالات ابتلاع المواد الكاوية (Corrosives) أو الكيروسين (Hydrocarbons): ممنوع تماماً القيء المتعمد (Emesis) أو غسيل المعدة (Gastric lavage) أو الفحم النشط.", "علامات كوشينج لارتفاع ضغط المخ (Cushing Triad of raised ICP): Hypertension + Bradycardia + Irregular Respiration."]}, {"id": "neonatology", "title": "Neonatology", "arTitle": "حديثي الولادة (Neonatology)", "icon": "👶", "color": "sky", "summary": "تقييم المولود، مشاكل التنفس (RDS, TTN, MAS)، الصفراء، العدوى، إصابات الولادة، وأطفال الأمهات السكريات.", "mostCommon": [{"q": "Most common cause of neonatal respiratory distress overall (esp. full-term / CS)", "a": "Transient Tachypnea of the Newborn (TTN) — 'Wet Lung'", "note": "بسبب تأخر امتصاص سوائل الرئة بعد القيصرية بدون طلق، CXR: Fluid in interlobar fissures & hyperinflation، يتحسن خلال 24–72 ساعة"}, {"q": "Most common cause of respiratory distress & death in Preterm infants", "a": "Respiratory Distress Syndrome (RDS / Hyaline Membrane Disease)", "note": "نقص الـ Surfactant (<34 أسبوع، أو أم مصابة بالسكري)، CXR: Reticulogranular 'Ground-glass' appearance + Air bronchograms"}, {"q": "Most common cause of Jaundice in the first 24 hours (Day 1)", "a": "Hemolytic disease: ABO Incompatibility (most common) & Rh Incompatibility (most severe)", "note": "أي صفراء في أول 24 ساعة هي Pathological دائماً بدون استثناء!"}, {"q": "Most common cause of Early & Late Neonatal Sepsis", "a": "Group B Streptococcus (GBS) & E. coli (Gram-negatives very common in Egypt/developing countries); CoNS in NICU lines", "note": "Early-onset (<72h): عدوى رأسية من قناة الولادة (الأمبيسلين + جنتاميسين)؛ Late-onset (>72h): عدوى مكتسبة"}, {"q": "Most common surgical emergency in the newborn / preterm", "a": "Necrotizing Enterocolitis (NEC)", "note": "Preterm + Formula feeding → Abdominal distension, bloody stools, bilious vomiting. X-ray hallmark: Pneumatosis intestinalis & Portal venous gas"}, {"q": "Most common Birth Injury overall", "a": "Caput Succedaneum (soft tissue) & Clavicular Fracture (most common bone fracture)", "note": "Caput يعبر الـ Sutures ويختفي خلال أيام؛ Cephalohematoma تحت السمحاق لا يعبر الـ Sutures وقد يسبب صفراء متأخرة"}, {"q": "Most common Brachial Plexus Palsy", "a": "Erb's Palsy (C5–C6, +/- C7) — 'Waiter's Tip Position'", "note": "Moro reflex absent on affected side, but Grasp reflex is INTACT! (عكس Klumpke C8-T1 حيث يغيب Grasp ويكون معه Horner syndrome)"}, {"q": "Most common congenital infection (TORCH)", "a": "Cytomegalovirus (CMV) — also most common cause of non-hereditary sensorineural hearing loss", "note": "CMV: Periventricular calcifications؛ Toxoplasmosis: Diffuse intracranial calcifications + Chorioretinitis + Hydrocephalus"}, {"q": "Most common cardiac anomaly in Infant of Diabetic Mother (IDM)", "a": "Asymmetric Septal Hypertrophy (HOCM) — transient; VSD & TGA most common structural defects", "note": "IDM يعاني من Macrosomia، Hypoglycemia، Hypocalcemia، Hypomagnesemia، Polycythemia، و RDS"}], "numbers": [{"label": "APGAR Score Timing & Cutoffs", "val": "Measured at 1 & 5 min (5 items × 2 pts = 10) | ≥7 Normal | 4–6 Moderate | ≤3 Severe", "detail": "Appearance, Pulse (>100=2, <100=1), Grimace, Activity, Respiration. لا يُستخدم لبدء الإنعاش بل لتقييم الاستجابة"}, {"label": "Gestational Age & Birth Weight Cutoffs", "val": "Preterm <37 wks | Term 37–41+6 wks | Post-term ≥42 wks | LBW <2500g | VLBW <1500g | ELBW <1000g", "detail": "SGA <10th percentile | LGA >90th percentile (أو >4000 جم)"}, {"label": "Pathological Jaundice Criteria (Rule of Numbers)", "val": "Onset <24h | Rise >5 mg/dL/day (>0.5/hr) | Peak >12 (Term) or >15 (Preterm) | Direct >2 mg/dL (>20%)", "detail": "أو استمرار الصفراء > 14 يوم في كامل النمو (Term) أو > 21 يوم في المبتسر (Preterm)"}, {"label": "L/S Ratio (Fetal Lung Maturity)", "val": "Lecithin : Sphingomyelin Ratio ≥ 2 : 1 indicates lung maturity", "detail": "في أمهات السكري نحتاج ≥ 3 أو وجود Phosphatidylglycerol (PG)"}, {"label": "Neonatal Lab Cutoffs", "val": "Hypoglycemia <40–45 mg/dL | Polycythemia Central Hct >65% | Hypocalcemia <7 mg/dL (Preterm) / <8 (Term)", "detail": "علاج Polycythemia المصحوبة بأعراض أو Hct >70%: Partial Exchange Transfusion بمحلول ملح"}, {"label": "Umbilical Cord Vessels & Delay in Shedding", "val": "2 Arteries + 1 Vein (AVA) | Falls off in 5–14 days", "detail": "Single umbilical artery يرتبط بتشوهات الكلى؛ تأخر سقوط الحبل السري > 3–4 أسابيع يشير إلى Leukocyte Adhesion Deficiency (LAD)"}], "pearls": ["Meconium Aspiration Syndrome (MAS): يحدث في Post-term/Full-term مع ضائقة جنينية، CXR يظهر Patchy infiltrates + Hyperinflation، وأهم مضاعفاته PPHN & Pneumothorax.", "Breast Milk Jaundice تبدأ في الأسبوع الثاني (بسبب Beta-glucuronidase) والطفل بصحة جيدة؛ بينما Breastfeeding Jaundice في الأسبوع الأول بسبب قلة الرضاعة والجفاف.", "فيتامين K (1 mg IM) يُعطى روتينياً عند الولادة للوقاية من Hemorrhagic Disease of the Newborn (نقص عوامل 2, 7, 9, 10)."]}, {"id": "growth", "title": "Growth & Development", "arTitle": "النمو والتطور (Growth & Development)", "icon": "📈", "color": "emerald", "summary": "معادلات الوزن والطول ومحيط الرأس، قفل اليافوخ، التسنين، التطور الحركي والاجتماعي واللغوي، وقصر القامة.", "mostCommon": [{"q": "Most common cause of Failure to Thrive (FTT) worldwide & clinically", "a": "Non-organic / Nutritional (Inadequate caloric intake / improper formula preparation)", "note": "تأثر الوزن أولاً، ثم الطول، وأخيراً محيط الرأس (Head circumference is spared until late severe malnutrition)"}, {"q": "Most common cause of Short Stature (Normal Variants)", "a": "Familial Short Stature & Constitutional Delay of Growth and Puberty (CDGP)", "note": "Familial: Bone age = Chronological age؛ بينما في Constitutional delay: Bone age < Chronological age = Height age"}, {"q": "Most common cause of Delayed Anterior Fontanelle Closure", "a": "Rickets, Congenital Hypothyroidism, Hydrocephalus, Down Syndrome, Achondroplasia", "note": "وسبب القفل المبكر (Craniosynostosis أو Microcephaly أو Hyperthyroidism)"}, {"q": "Most common cause of Macrocephaly vs Microcephaly", "a": "Macrocephaly: Familial benign or Hydrocephalus | Microcephaly: Congenital TORCH / HIE / Genetic syndromes", "note": "محيط الرأس يقيس نمو المخ خاصة في أول سنتين من العمر"}], "numbers": [{"label": "Weight Milestones & Formulas", "val": "Birth: 3–3.5 kg | Doubles: 4–5m | Triples: 1 yr (10 kg) | Quadruples: 2 yrs (12–14 kg)", "detail": "معادلة الوزن (1–6 سنوات) = (العمر بالسنوات × 2) + 8 | ومن (7–12 سنة) = [(العمر × 7) - 5] ÷ 2. يفقد المولود 5–10% في أول أسبوع ويستعيده عند يوم 10"}, {"label": "Length / Height Milestones & Formulas", "val": "Birth: 50 cm | 6m: 65 cm | 1 yr: 75 cm | 2 yrs: 87 cm | 4 yrs: 100 cm (Doubles!) | 13 yrs: 150 cm (Triples!)", "detail": "معادلة الطول (2–12 سنة) = (العمر بالسنوات × 6) + 77 سم"}, {"label": "Head Circumference (HC) Milestones", "val": "Birth: 35 cm | 3m: 40 cm | 6m: 43 cm | 1 yr: 45–47 cm | 2 yrs: 48 cm | 12 yrs: 52 cm", "detail": "يزيد 2 سم/شهر في أول 3 شهور، ثم 1 سم/شهر من 3–6 شهور، ثم 0.5 سم/شهر من 6–12 شهر"}, {"label": "Fontanelles Closure Timing", "val": "Posterior Fontanelle: 6–8 weeks (up to 2 months) | Anterior Fontanelle: 9–18 months", "detail": "يُفحص اليافوخ الأمامي والطفل هادئ وفي وضع الجلوس (Upright)"}, {"label": "Dentition (Teething) Rules", "val": "Milk/Deciduous Teeth (20 total): Start at 6m (Lower Central Incisors), finish at 24–30m | Formula = Age(m) - 6", "detail": "الأسنان الدائمة (32 سنة): تبدأ عند 6 سنوات بظهور الضرس الأول (First Molar). تأخر التسنين يُعتبر بعد 13 شهراً"}, {"label": "Gross Motor Milestones (Key Exam Numbers)", "val": "Head support: 3–4m | Rolls over: 4–5m | Sits w/ support: 6m, w/o support: 7–8m | Crawls: 9m | Stands: 10–11m | Walks: 12–15m", "detail": "يصعد السلم عند سنتين (خطوة بخطوة)، يقود دراجة ثلاثية (Tricycle) عند 3 سنوات، يقفز على قدم واحدة (Hops) عند 4 سنوات"}, {"label": "Fine Motor & Drawing Milestones", "val": "Palmar grasp: 5–6m | Transfers objects: 6–7m | Immature/Mature Pincer grasp: 9–10m | Tower of 2 cubes: 15m | 3 cubes: 18m | 6 cubes: 2y", "detail": "الرسم: خط رأسي/دائرة (3 سنوات) | علامة + (4 سنوات) | مربع (4.5 سنة) | مثلث (5 سنوات) | معين Diamond (7 سنوات)"}, {"label": "Social & Language Milestones", "val": "Social smile: 6–8 wks | Cooing: 3m | Laughs: 4m | Babbling (ba/da): 6m | Stranger anxiety & Bye-bye: 9m", "detail": "1–2 كلمة + Mama/Dada محددة (12m) | جملة من كلمتين (2y) | جملة من 3 كلمات ويعرف اسمه وسنه وجنسه (3y)"}], "pearls": ["Upper Segment : Lower Segment (US/LS) Ratio: عند الولادة 1.7 : 1، عند 3 سنوات 1.3 : 1، وعند 7–10 سنوات يصبح 1 : 1.", "أول مراكز التعظم ظهوراً في الأشعة عند الولادة هو Distal Femoral & Proximal Tibial epiphyses؛ وعند 6 شهور يظهر الـ Capitate & Hamate في الرسغ.", "Red Flags في التطور: عدم الابتسام عند 3 شهور، عدم صلب الرأس عند 4–5 شهور، عدم الجلوس عند 9–10 شهور، عدم المشي عند 18 شهراً، أو تفضيل يد واحدة قبل عمر سنة (يشير إلى Hemiplegic CP)."]}, {"id": "genetics", "title": "Genetics & Dysmorphology", "arTitle": "الوراثة والمتلازمات (Genetics)", "icon": "🧬", "color": "purple", "summary": "اختلالات الكروموسومات (Down, Edwards, Patau, Turner, Klinefelter)، الوراثة المندلية، وأخطاء التمثيل الغذائي.", "mostCommon": [{"q": "Most common chromosomal abnormality & genetic cause of Intellectual Disability", "a": "Down Syndrome (Trisomy 21) — 95% Meiotic Nondisjunction, 4% Robertsonian Translocation, 1% Mosaic", "note": "Inherited mental retardation (الأشهر وراثياً في الأولاد): Fragile X Syndrome (CGG trinucleotide repeat)"}, {"q": "Most common Congenital Heart Defect in Down Syndrome (Trisomy 21)", "a": "Endocardial Cushion Defect (AVSD / AV Canal defect) — followed by VSD", "note": "وأشهر تشوه في الجهاز الهضمي مع داون: Duodenal Atresia ('Double-bubble sign') و Hirschsprung disease"}, {"q": "Most common Leukemia in Down Syndrome", "a": "ALL overall (>3 yrs); Acute Megakaryoblastic Leukemia (AMKL - M7) in <3 yrs", "note": "داون أيضاً معرضون لـ Atlantoaxial instability و Hypothyroidism و Early Alzheimer"}, {"q": "Most common cause of Primary Amenorrhea & Short Stature in girls", "a": "Turner Syndrome (45, XO)", "note": "لا تتأثر بسن الأم! Webbed neck, shield chest, lymphedema of hands/feet at birth, Streak ovaries"}, {"q": "Most common cardiac anomaly in Turner Syndrome (45, XO)", "a": "Bicuspid Aortic Valve (most common ~30–50%) & Coarctation of the Aorta (~15–30%)", "note": "وأشهر تشوه كلوي في Turner: Horseshoe Kidney"}, {"q": "Most common cause of Dwarfism (Disproportionate Short-limbed)", "a": "Achondroplasia (Autosomal Dominant — FGFR3 mutation, ~80% de novo associated with advanced paternal age)", "note": "ذكاء طبيعي تماماً، قصر الأطراف القريبة (Rhizomelic)، كبر الرأس، و Trident hand"}, {"q": "Most common Inborn Error of Amino Acid Metabolism", "a": "Phenylketonuria (PKU) — Autosomal Recessive deficiency of Phenylalanine Hydroxylase (or BH4)", "note": "شعر وبشرة فاتحة، إكزيما، رائحة بول فئران (Mousy/musty odor)، وتخلف عقلي شديد إذا لم يُعالج بـ Low-phenylalanine diet"}], "numbers": [{"label": "Down Syndrome Incidence & Recurrence Risk", "val": "Incidence ~1 : 700–800 live births | Recurrence ~1% in Nondisjunction", "detail": "لكن في حالة Robertsonian translocation (21q;21q) عند أحد الأبوين تكون نسبة التكرار 100%!"}, {"label": "Mendelian Inheritance Recurrence Probabilities", "val": "Autosomal Dominant (AD): 50% | Autosomal Recessive (AR): 25% affected, 50% carrier", "detail": "X-Linked Recessive (الأم حاملة): 50% من الذكور مصابون و50% من الإناث حاملات للمرض؛ الأب المصاب لا يورث المرض لأبنائه الذكور أبداً"}, {"label": "Trisomy Numbers & Hallmarks", "val": "Trisomy 21 (Down) | Trisomy 18 (Edwards: Clenched fist & Rocker-bottom feet) | Trisomy 13 (Patau: Midline defects, Cleft lip/palate, Polydactyly, Holoprosencephaly)", "detail": "5p deletion = Cri-du-chat syndrome (بكاء يشبه مواء القطة + Microcephaly + VSD)"}, {"label": "Trinucleotide Repeat Expansion Cutoffs", "val": "Fragile X (FMR1 gene on Xq27.3): >200 CGG repeats = Full mutation", "detail": "السمات: وجه طويل، أذنان كبيرتان، فك بارز، Macroorchidism (كبر حجم الخصيتين بعد البلوغ)، وتوحد"}, {"label": "Chromosome 15q11-13 Imprinting Pair", "val": "Paternal deletion → Prader-Willi (Hypotonia, Hyperphagia, Obesity) | Maternal deletion → Angelman ('Happy Puppet', Seizures, Ataxia)", "detail": "مثال كلاسيكي للـ Genomic Imprinting أو Uniparental Disomy"}], "pearls": ["Classic Galactosemia: نقص إنزيم GALT، يظهر بعد الرضاعة بصفراء، تضخم الكبد، ساد (Oil-drop cataract)، وتسمم دموي ببكتيريا E. coli sepsis!", "Marfan Syndrome (AD, Fibrillin-1 on Chr 15): Tall stature, Arachnodactyly, Upward lens subluxation (عكس Homocystinuria: Downward subluxation + Thrombosis)، وخطر Aortic root dissection.", "Klinefelter Syndrome (47, XXY): أشهر سبب لـ Primary hypogonadism في الذكور — طوال القامة، Gynecomastia، Small firm testes، و Barr body إيجابي."]}, {"id": "immunology", "title": "Immunology & Vaccines", "arTitle": "المناعة والتطعيمات (Immunology)", "icon": "🛡️", "color": "amber", "summary": "أمراض نقص المناعة الأولية (B-cell, T-cell, Combined, Phagocytic, Complement) وجدول التطعيمات وأرقامها.", "mostCommon": [{"q": "Most common Primary Immunodeficiency overall", "a": "Selective IgA Deficiency", "note": "عدوى متكررة في الجهاز التنفسي والهضمي (Giardia lamblia)، حساسية مفرطة عند نقل الدم، وزيادة أمراض المناعة الذاتية (Celiac)"}, {"q": "Most common X-linked B-cell immunodeficiency", "a": "Bruton's X-linked Agammaglobulinemia (BTK mutation)", "note": "يظهر في الذكور بعد عمر 6 شهور (بعد انتهاء IgG الأمومي) بعدوى بكتيرية متكررة، Absent tonsils & lymph nodes، وغياب CD19/CD20"}, {"q": "Most common cause of T-cell Immunodeficiency", "a": "DiGeorge Syndrome (22q11.2 deletion — CATCH-22)", "note": "Cardiac anomalies (Truncus arteriosus, TOF), Abnormal facies, Thymic aplasia (Absent thymic shadow on CXR), Cleft palate, Hypocalcemic tetany"}, {"q": "Most common inheritance of Severe Combined Immunodeficiency (SCID)", "a": "X-linked (IL2RG common gamma chain) — most common; Adenosine Deaminase (ADA) deficiency is most common AR form", "note": "طوارئ مناعية في أول 3 شهور: Chronic diarrhea, Failure to thrive, Oral/diaper candidiasis, PCP pneumonia, Lymphopenia <1000"}, {"q": "Most common Phagocytic killing defect", "a": "Chronic Granulomatous Disease (CGD) — NADPH oxidase defect (70% X-linked)", "note": "عدوى متكررة بالكائنات الإيجابية للكاتالاز (Catalase-positive: S. aureus, Serratia, Burkholderia, Aspergillus, Nocardia). التشخيص: DHR test أو NBT test سلبي"}, {"q": "Most common Complement deficiency associated with Neisseria meningitis", "a": "Terminal Complement Deficiency (C5–C9 / MAC)", "note": "بينما نقص C1, C2, C4 يسبب SLE-like syndrome، ونقص C1 esterase inhibitor يسبب Hereditary Angioedema"}], "numbers": [{"label": "Age of Presentation Clue in Immunodeficiency", "val": "T-cell / SCID / Phagocytic: First 1–3 months | B-cell (Bruton): After 6 months | CVID: >2 years / adolescence", "detail": "لأن أجسام الأم المضادة (Maternal IgG) تعبر المشيمة وتحمي الطفل أول 6 شهور"}, {"label": "Lymphopenia Cutoff in Infants (SCID Warning)", "val": "Absolute Lymphocyte Count (ALC) < 1,500–2,000 /mm³ in infancy is a major red flag for SCID", "detail": "يُمنع تماماً إعطاء أي تطعيمات حية مضعفة (Live attenuated vaccines مثل BCG, OPV, MMR, Rotavirus) لمريض SCID أو T-cell defect!"}, {"label": "Wiskott-Aldrich Syndrome Triad & Platelets", "val": "3 Items (WATER): Wiskott-Aldrich + Thrombocytopenia (SMALL platelets) + Eczema + Recurrent infections", "detail": "X-linked recessive (WAS gene): ارتفاع IgA & IgE وانخفاض IgM"}, {"label": "Hyper-IgE Syndrome (Job Syndrome) IgE Level", "val": "Serum IgE > 2,000 IU/mL + Eosinophilia (FATED mnemonic)", "detail": "Coarse Facies, Cold staphylococcal Abscesses, Retained primary Teeth, Hyper-IgE, Dermatologic eczema"}, {"label": "Egyptian EPI Vaccination Schedule Milestones", "val": "Birth: BCG + Hep B0 + OPV0 | 2, 4, 6 months: Pentavalent (DPT-HepB-Hib) + OPV + IPV + | 9m: OPV | 12m: MMR1 + OPV + DPT | 18m: MMR2 + OPV + DPT", "detail": "يُعطى فيتامين A كبسولات مع تطعيمات 9 شهور (100,000 وحدة) و18 شهراً (200,000 وحدة)"}], "pearls": ["Leukocyte Adhesion Deficiency (LAD): نقص CD18 integrins → Delayed umbilical cord separation (>3–4 weeks) + Severe leukocytosis (>50,000) + Recurrent bacterial infections WITHOUT pus formation!", "Ataxia-Telangiectasia (AR, ATM DNA repair gene): Cerebellar ataxia + Oculocutaneous telangiectasia + Sinopulmonary infections + Elevated Alpha-Fetoprotein (AFP).", "Chediak-Higashi Syndrome (AR, LYST gene): Partial oculocutaneous albinism + Giant granules in neutrophils + Recurrent pyogenic infections + Peripheral neuropathy."]}, {"id": "cardiology", "title": "Pediatric Cardiology", "arTitle": "قلب الأطفال (Cardiology)", "icon": "❤️", "color": "red", "summary": "عيوب القلب الخلقية غير الزرقاء والزرقاء (5 T's)، الحمى الروماتيزمية، التهاب الشغاف، وهبوط القلب.", "mostCommon": [{"q": "Most common Congenital Heart Disease (CHD) overall", "a": "Ventricular Septal Defect (VSD) — specifically Perimembranous type (~70–80%)", "note": "إذا احتسبنا صمام الأورطي ثنائي الشرفات (Bicuspid aortic valve) فهو الأكثر شيوعاً في المجتمع، لكن VSD هو أشهر عيب تحويلي (Shunt)"}, {"q": "Most common Cyanotic CHD in the Newborn (Day 1 / First week)", "a": "Transposition of the Great Arteries (d-TGA)", "note": "CXR: 'Egg-on-a-string' (narrow mediastinum). الحياة تعتمد على بقاء PDA مفتوحة عبر Prostaglandin E1 (PGE1) + Rashkind balloon septostomy"}, {"q": "Most common Cyanotic CHD overall & after infancy (>1 year)", "a": "Tetralogy of Fallot (TOF)", "note": "الأربعة عناصر: VSD + Pulmonary Stenosis (يحدد الشدة!) + Overriding Aorta + RVH. CXR: 'Boot-shaped heart' (Coeur en sabot)"}, {"q": "Most common type of ASD", "a": "Ostium Secundum ASD (~75%)", "note": "العلامة المميزة في السماعة: Wide FIXED split S2 + Ejection systolic murmur on pulmonary area"}, {"q": "Most common cause of Acquired Heart Disease in children (in developing countries)", "a": "Acute Rheumatic Fever (ARF) / Rheumatic Heart Disease ( vs Kawasaki in developed countries)", "note": "أشهر صمام يُصاب في الحمى الروماتيزمية: Mitral valve (Mitral Regurgitation في الحاد، و Mitral Stenosis لاحقاً) يليه الـ Aortic"}, {"q": "Most common cause of Infective Endocarditis in children", "a": " Streptococcus viridans (subacute on top of CHD/RHD) & Staphylococcus aureus (acute/catheters)", "note": "يتطلب سحب 3 مزارع دم (Blood cultures) قبل المضاد الحيوي + Echocardiography"}, {"q": "Most common cause of Viral Myocarditis in children", "a": "Coxsackievirus B (Enteroviruses) & Adenovirus / Parvovirus B19", "note": "تسرع قلب غير متناسب مع الحرارة، Cardiomegaly، Gallop rhythm، وضعف الانقباض في الإيكو"}, {"q": "Most common cause of Heart Failure by Age", "a": "1st Week: HLHS / Severe CoA | 1–3 Months: Large Left-to-Right Shunts (VSD, PDA, AVSD) | School age: Rheumatic carditis / Myocarditis", "note": "L-to-R shunts لا تسبب هبوط قلب في أول أيام الولادة لأن مقاومة الأوعية الرئوية (PVR) تكون عالية ثم تنخفض عند عمر 4–8 أسابيع"}], "numbers": [{"label": "5 T's of Cyanotic CHD (Right-to-Left Shunts)", "val": "1. Truncus Arteriosus | 2. TGA (2 vessels) | 3. Tricuspid Atresia | 4. Tetralogy of Fallot (4 features) | 5. TAPVR (5 words = Snowman sign)", "detail": "تذكر: Tricuspid Atresia هي العيب الأزرق الوحيد الذي يعطي Left Axis Deviation (LAD) + LVH في رسم القلب!"}, {"label": "Jones Criteria for Acute Rheumatic Fever", "val": "Initial Episode: 2 Major OR (1 Major + 2 Minor) + Evidence of preceding GAS infection", "detail": "Major (JONES): Joints (Migratory polyarthritis), ❤️ Carditis, Nodules, Erythema marginatum, Sydenham chorea. Minor: Fever ≥38.5°C, Arthralgia, ESR ≥60 / CRP ≥3, Prolonged PR interval"}, {"label": "Secondary Prophylaxis Duration for Rheumatic Fever (Benzathine Penicillin every 2–3 wks)", "val": "No Carditis: 5 yrs or until age 21 | Carditis w/o residual valve disease: 10 yrs or until age 21 | Persistent Valvular Disease: 10 yrs or until age 40 (or lifelong)", "detail": "تُؤخذ المدة الأطول دائماً في كل فئة!"}, {"label": "Hyperoxia Test (100% O2 for 10 min)", "val": "PaO2 > 150–200 mmHg → Pulmonary cause | PaO2 stays < 100 mmHg → Cyanotic CHD", "detail": "يُستخدم للتفريق بين الزرقة القلبية والزرقة الرئوية في حديثي الولادة"}, {"label": "PDA Closure Drugs", "val": "To CLOSE PDA: Indomethacin or Ibuprofen (Prostaglandin inhibitors) | To KEEP PDA OPEN: PGE1 (Alprostadil)", "detail": "PDA murmur: Continuous 'Machinery' murmur (Gibson murmur) في infraclavicular area اليسرى مع Bounding pulses"}], "pearls": ["Tet Spells (Hypercyanotic spells in TOF): تحدث مع البكاء أو الصباح؛ العلاج: Knee-chest position (يزيد SVR) + Oxygen + Morphine (0.1 mg/kg) + Sodium Bicarbonate + Propranolol/Phenylephrine.", "Coarctation of the Aorta (CoA): ارتفاع ضغط الدم في الأطراف العلوية مع ضعف/تأخر النبض الفخذي (Radio-femoral delay) في الساقين، و Rib notching بعد سن 5 سنوات.", "Eisenmenger Syndrome: انعكاس التحويلة من L→R إلى R→L بسبب Pulmonary Hypertension غير رجعي، مما يسبب زرقة متأخرة (Cyanosis + Clubbing) واختفاء اللغط."]}, {"id": "rheumatology", "title": "Rheumatology & Vasculitis", "arTitle": "الروماتيزم والتهاب الأوعية (Rheumatology)", "icon": "🦴", "color": "orange", "summary": "مرض كاواساكي، فرفرية هينوخ شونلاين (HSP)، التهاب المفاصل اليافعي (JIA)، الذئبة الحمراء، والحمى الروماتيزمية.", "mostCommon": [{"q": "Most common systemic vasculitis in children", "a": "Henoch-Schönlein Purpura (HSP / IgA Vasculitis)", "note": "الرباعية الشهيرة (Tetrad): Palpable purpura on buttocks/legs (Normal platelets!) + Arthritis/Arthralgia + Colicky abdominal pain (Intussusception) + IgA Nephropathy"}, {"q": "Most common cause of Acquired Coronary Artery Aneurysms in children", "a": "Kawasaki Disease (Mucocutaneous Lymph Node Syndrome) — Medium-vessel vasculitis", "note": "العلاج الأساسي خلال أول 10 أيام: IVIG (2 g/kg جرعة واحدة) + Aspirin لمنع تمدد الشرايين التاجية"}, {"q": "Most common chronic rheumatic disease in children", "a": "Juvenile Idiopathic Arthritis (JIA)", "note": "يُشخص باستمرار التهاب المفاصل > 6 أسابيع في طفل عمره < 16 سنة بعد استبعاد الأسباب الأخرى"}, {"q": "Most common subtype of JIA", "a": "Oligoarticular (Pauciarticular) JIA (≤4 joints in first 6 months)", "note": "أشهر في البنات الصغيرات، يصيب المفاصل الكبيرة (الركبة)، وإذا كان ANA إيجابي يرتفع خطر Chronic Anterior Uveitis غير المؤلم (فحص قاع عين دوري بـ Slit lamp!)"}, {"q": "Most serious extra-articular complication of Systemic JIA (Still's Disease)", "a": "Macrophage Activation Syndrome (MAS) — Secondary HLH", "note": "Still's disease: حمى يومية متموجة (Quotidian fever ≥2 weeks) + Salmon-pink evanescent rash + Hepatosplenomegaly + Serositis + High Ferritin"}, {"q": "Most common cause of Neonatal Lupus cardiac block", "a": "Transplacental passage of maternal Anti-Ro (SSA) & Anti-La (SSB) antibodies", "note": "يسبب Congenital Complete Heart Block (بطء شديد في نبض الجنين والمولود يحتاج Pacemaker)"}], "numbers": [{"label": "Kawasaki Disease Diagnostic Numbers (CRASH & Burn)", "val": "Fever for ≥ 5 Days + at least 4 of 5 Clinical Criteria", "detail": "1. Conjunctivitis (bilateral non-purulent) | 2. Rash (polymorphous) | 3. Adenopathy (cervical >1.5 cm) | 4. Strawberry tongue / lip fissures | 5. Hands & feet edema/erythema then desquamation"}, {"label": "Kawasaki IVIG & Aspirin Dosing", "val": "IVIG: 2 g/kg single infusion over 10–12h | Aspirin: High/Mod dose (30–100 mg/kg/day) until afebrile, then Low antiplatelet dose (3–5 mg/kg/day) for 6–8 wks", "detail": "هذه من الحالات النادرة المسموح فيها بإعطاء الأسبرين للأطفال (مع الحمى الروماتيزمية)"}, {"label": "JIA Classification Numbers", "val": "Age < 16 years | Duration ≥ 6 weeks | Oligoarticular: ≤ 4 joints | Polyarticular: ≥ 5 joints", "detail": "Quotidian fever in Systemic JIA: ترتفع لـ ≥39°C مرة أو مرتين يومياً وتعود للطبيعي بين النوبات لمدة ≥ أسبوعين"}, {"label": "HSP Platelet Count & Intussusception Site", "val": "Platelet count is NORMAL or elevated (150,000–450,000) | Intussusception is usually Ileo-ileal", "detail": "يُعالج المغص الشديد أو إصابة الكلى/الخصية بالكورتيزون، وتتم متابعة البول وضغط الدم لمدة 6 شهور"}], "pearls": ["الفرق الذهبي بين التهاب المفاصل في الحمى الروماتيزمية (ARF) و JIA: في ARF يكون Migratory، مؤلم جداً، يستجيب بشكل درامي للأسبرين، ولا يترك أي تشوه بالمفاصل.", "Juvenile Dermatomyositis (JDM): ضعف العضلات القريبة (Proximal muscle weakness - Gower sign) + Heliotrope rash حول العينين + Gottron papules على المفاصل + ارتفاع CPK.", "في مريض MAS (Macrophage Activation Syndrome): ينخفض الـ ESR بشكل مفاجئ متناقض (بسبب استهلاك الـ Fibrinogen) مع ارتفاع شديد في الـ Ferritin (>10,000) و Pancytopenia."]}, {"id": "endocrinology", "title": "Pediatric Endocrinology", "arTitle": "الغدد الصماء والسكري (Endocrinology)", "icon": "🧪", "color": "teal", "summary": "قصور الغدة الدرقية الخلقي، تضخم الكظر الخلقي (CAH)، السكري من النوع الأول و DKA، واضطرابات البلوغ والكساح.", "mostCommon": [{"q": "Most common preventable cause of Intellectual Disability (Mental Retardation)", "a": "Congenital Hypothyroidism (Cretinism)", "note": "أشهر سبب له: Thyroid Dysgenesis (Agenesis / Ectopic lingual thyroid ~85%)، يليه Dyshormonogenesis (AR). يُكتشف بفحص كعب القدم (Day 3–7)"}, {"q": "Most common cause of Acquired Hypothyroidism in children", "a": "Hashimoto's Chronic Autoimmune Thyroiditis", "note": "أشهر في البنات والمراهقين (Anti-TPO & Anti-thyroglobulin antibodies)، ويقدم بقصر قامة وتأخر عمر العظم و Goiter"}, {"q": "Most common enzyme deficiency in Congenital Adrenal Hyperplasia (CAH)", "a": "21-Hydroxylase Deficiency (>90–95% of cases) — Autosomal Recessive", "note": "نقص الكورتيزول والألدوستيرون + زيادة الأندروجينات → Ambiguous genitalia in females (46,XX DSD) + Salt-losing crisis at 1–3 weeks (Hyponatremia, Hyperkalemia, Hypoglycemia, Shock)"}, {"q": "Most common cause of Ambiguous Genitalia (46,XX DSD) in newborns", "a": "Congenital Adrenal Hyperplasia (21-Hydroxylase Deficiency)", "note": "التشخيص المؤكد: ارتفاع شديد في 17-Hydroxyprogesterone (17-OHP)؛ والعلاج: Hydrocortisone + Fludrocortisone + ملح"}, {"q": "Most common cause of death in Type 1 Diabetes Mellitus (T1DM) & DKA", "a": "Cerebral Edema (especially during rapid fluid/osmolality correction in DKA)", "note": "العلاج الفوري للوذمة المخية في DKA: Mannitol (0.5–1 g/kg IV) أو 3% Hypertonic Saline + رفع رأس السرير 30 درجة"}, {"q": "Most common cause of Central Precocious Puberty", "a": "Idiopathic in Girls (>80–90%) | CNS Lesion / Hypothalamic Hamartoma in Boys (>50%!)", "note": "أي بلوغ مبكر مركزي في ولد (أو بنت <6 سنوات) يستوجب عمل MRI على المخ والمخامى فوراً"}, {"q": "Most common cause of Rickets in infants/children", "a": "Nutritional Vitamin D Deficiency (exclusive breastfeeding without Vit D supplementation + lack of sun exposure)", "note": "أول علامة إكلينيكية في الرضع (<6 شهور): Craniotabes؛ وفي المختبر: ارتفاع Alkaline Phosphatase (ALP) ونقص الفوسفور"}], "numbers": [{"label": "DKA Diagnostic Criteria & Insulin Dose", "val": "Blood Glucose > 200 mg/dL | Venous pH < 7.3 or HCO3 < 15 mEq/L | Ketonemia / Ketonuria", "detail": "Severity: Mild (pH 7.2–7.3), Moderate (7.1–7.2), Severe (<7.1). الإنسولين يبدأ بعد ساعة من السوائل بجرعة 0.05 – 0.1 U/kg/hr IV Regular insulin بدون Bolus!"}, {"label": "Diabetes Mellitus Diagnostic Cutoffs", "val": "Fasting BG ≥ 126 mg/dL | Random BG ≥ 200 mg/dL (+ symptoms) | 2-hr OGTT ≥ 200 | HbA1c ≥ 6.5%", "detail": "في الأطفال يظهر T1DM غالباً بأعراض كلاسيكية (Polyuria, Polydipsia, Weight loss, Nocturnal enuresis) أو DKA في 30% من الحالات"}, {"label": "Congenital Hypothyroidism Screening & Treatment Dose", "val": "Heel-prick screening at Day 3–7 | TSH > 20–40 mIU/L + Low Free T4 | Start L-Thyroxine 10–15 mcg/kg/day immediately", "detail": "يجب بدء العلاج قبل عمر أسبوعين لحماية الذكاء؛ لا نعتمد على الأعراض لأن الطفل يبدو طبيعياً عند الولادة"}, {"label": "Puberty Timing Cutoffs (Normal, Precocious, Delayed)", "val": "Girls Normal: 8–13 yrs (Starts with Thelarche) | Boys Normal: 9–14 yrs (Starts with Testicular enlargement ≥4 mL / ≥2.5 cm)", "detail": "البلوغ المبكر (Precocious): <8 سنوات في البنات و <9 سنوات في الأولاد | تأخر البلوغ (Delayed): >13 سنة في البنات و >14 سنة في الأولاد"}, {"label": "Growth Hormone Stimulation Test Cutoff", "val": "Peak GH < 10 ng/mL after 2 provocative stimuli (e.g., Insulin, Clonidine, Glucagon) confirms GH Deficiency", "detail": "لا نعتمد على عينة GH عشوائية لأن إفرازه نبضي (Pulsatile) أثناء النوم؛ نفحص أيضاً IGF-1 و IGFBP-3 وعمر العظم"}], "pearls": ["في 11-Beta-Hydroxylase Deficiency (ثاني أشهر سبب لـ CAH ~5%): يحدث Virilization + HYPERTENSION & Hypokalemia (بسبب تراكم DOC ذي المفعول المشابه للألدوستيرون).", "في DKA: البوتاسيوم الكلي في الجسم ناقص دائماً حتى لو كان الـ Serum K طبيعياً، لذا نضيف KCl (20–40 mEq/L) للسوائل بمجرد التأكد من تبول الطفل وأن البوتاسيوم ليس >5.5.", "علامات الكساح (Rickets): Craniotabes، Delayed fontanelle closure، Frontal bossing، Rachitic rosary، Harrison sulcus، Marfan sign، و Bow legs / Knock knees."]}, {"id": "nephrology", "title": "Pediatric Nephrology", "arTitle": "كلى الأطفال (Nephrology)", "icon": "🫘", "color": "indigo", "summary": "المتلازمة الكلائية (Nephrotic)، الالتهاب الكلوي الحاد (PSGN)، متلازمة انحلال الدم واليوريميا (HUS)، وعدوى المسالك البولية.", "mostCommon": [{"q": "Most common cause of Nephrotic Syndrome in children (1–10 years)", "a": "Minimal Change Disease (MCD) — ~80–85% of idiopathic cases", "note": "Normal C3، استجابة ممتازة للكورتيزون (Steroid-sensitive >90%)، وفي الميكروسكوب الإلكتروني: Fusion/Effacement of podocyte foot processes"}, {"q": "Most common cause of Steroid-Resistant Nephrotic Syndrome in children", "a": "Focal Segmental Glomerulosclerosis (FSGS)", "note": "يستوجب عمل Renal Biopsy إذا كان العمر <1 سنة أو >10–12 سنة، أو مع Gross hematuria، Hypertension، Low C3، أو عدم الاستجابة للكورتيزون بعد 4–6 أسابيع"}, {"q": "Most common infection in Nephrotic Syndrome (Spontaneous Bacterial Peritonitis)", "a": "Streptococcus pneumoniae (followed by E. coli / Gram-negative bacilli)", "note": "بسبب فقدان الـ IgG و Factor B (البديل للمكملات) في البول مع الاستسقاء؛ وكذلك قابلية عالية للجلطات (Renal vein thrombosis) بسبب فقدان Antithrombin III"}, {"q": "Most common cause of Acute Nephritic Syndrome in children", "a": "Post-Streptococcal Glomerulonephritis (PSGN)", "note": "يحدث بعد 1–2 أسبوع من التهاب الحلق أو 3–6 أسابيع من Impetigo الجلدية. يتميز بـ Cola/tea-colored urine، Periorbital edema، Hypertension، وانخفاض مؤقت في C3 يعود للطبيعي خلال 6–8 أسابيع"}, {"q": "Most common cause of Acute Kidney Injury (Intrinsic ARF) in young children (<5 years)", "a": "Hemolytic Uremic Syndrome (Typical D+ HUS — E. coli O157:H7 Shiga-like toxin)", "note": "الثلاثية الكلاسيكية بعد إسهال مدمم: Microangiopathic Hemolytic Anemia (Schistocytes) + Thrombocytopenia + Acute Kidney Injury"}, {"q": "Most common causative organism of Urinary Tract Infection (UTI)", "a": "Escherichia coli (E. coli) — 80–90% of cases", "note": "أشهر تشوه تشريحي مصاحب لـ UTI في الرضع: Vesicoureteral Reflux (VUR)؛ ويُشخص بـ MCUG / VCUG"}, {"q": "Most common cause of Bilateral Hydronephrosis / Bladder Outlet Obstruction in male infants", "a": "Posterior Urethral Valves (PUV)", "note": "تظهر في السونار قبل الولادة بـ Bilateral hydronephrosis + Thick-walled distended bladder ('Keyhole sign') و Oligohydramnios"}, {"q": "Most common Renal Malignancy in children", "a": "Wilms Tumor (Nephroblastoma) — peaks at 2–5 years", "note": "كتلة بطنية ملساء لا تعبر خط المنتصف غالباً (عكس Neuroblastoma التي تعبر خط المنتصف وتتكلس). ممنوع الضغط المتكرر على البطن لتجنب انفجار المحفظة!"}], "numbers": [{"label": "Nephrotic Syndrome Diagnostic Cutoffs", "val": "Heavy Proteinuria > 40 mg/m²/hr (or >50 mg/kg/day or UPCR > 2) | Hypoalbuminemia < 2.5 g/dL | Edema | Cholesterol > 200 mg/dL", "detail": "علاج النوبة الأولى (Prednisolone): 2 mg/kg/day (أو 60 mg/m²/day، بحد أقصى 60 mg) يومياً لمدة 4–6 أسابيع ثم يوم بعد يوم (40 mg/m²) لـ 4–6 أسابيع"}, {"label": "Hematuria & Proteinuria Dipstick/Microscopy Cutoffs", "val": "Microscopic Hematuria: > 5 RBCs/HPF | Significant Proteinuria: > 4 mg/m²/hr (Nephrotic > 40 mg/m²/hr)", "detail": "وجود RBC casts و Dysmorphic RBCs يؤكد المصدر الكبيبي (Glomerular origin)"}, {"label": "UTI Urine Culture Colony Count Cutoffs", "val": "Clean-catch Midstream: ≥ 100,000 (10⁵) CFU/mL | Catheterization: ≥ 50,000 CFU/mL | Suprapubic Aspiration: Any growth", "detail": "تُستخدم DMSA scan كأدق فحص للكشف عن تندب الكلى (Renal scarring) والتهاب الحويضة والكلية الحاد"}, {"label": "C3 Complement Normalization in PSGN", "val": "Low C3 (with normal C4) MUST return to normal within 6–8 weeks", "detail": "إذا استمر انخفاض C3 لأكثر من 8 أسابيع، نفكر في MPGN أو Lupus nephritis ونحتاج خزعة كلى (Renal biopsy)"}, {"label": "Oliguria & Anuria Definitions", "val": "Oliguria: < 1 mL/kg/hr in Infants | < 0.5 mL/kg/hr in Children (< 300 mL/m²/day)", "detail": "معدل الترشيح الكبيبي (GFR) عند الولادة ~30 mL/min/1.73m² ويصل لمستوى البالغين (~120) عند عمر 1.5 – 2 سنة"}], "pearls": ["متلازمة ألبورت (Alport Syndrome): X-linked defect in Type IV Collagen → Recurrent hematuria + Sensorineural deafness + Anterior lenticonus.", "ممنوع إعطاء مضادات حيوية أو مضادات حركية الأمعاء في إسهال E. coli O157:H7 لأنها تزيد إفراز سم الشيجا وترفع خطر حدوث HUS!", "Renal Tubular Acidosis (RTA): جميع أنواعها تسبب Normal Anion Gap Hyperchloremic Metabolic Acidosis؛ النوع الأول (Distal: pH البول >5.5 + حصوات كلى)، النوع الثاني (Proximal: متلازمة Fanconi)، النوع الرابع (Hyperkalemia)."]}, {"id": "git", "title": "GIT & Hepatology (JT)", "arTitle": "الجهاز الهضمي والكبد (GIT / JT)", "icon": "🥣", "color": "lime", "summary": "النزلات المعوية والجفاف، ضيق البواب، الانغلاف المعوي، رتج ميكل، مرض هيرشسبرنج، رتق القنوات المرارية، والسيلياك.", "mostCommon": [{"q": "Most common cause of Acute Gastroenteritis (AGE) in infants & children", "a": "Viral: Rotavirus (worldwide/unvaccinated) & Norovirus | Bacterial: E. coli, Salmonella, Shigella, Campylobacter", "note": "أهم خط في العلاج: محلول معالجة الجفاف بالفم (Low-osmolarity ORS) + مكملات الزنك لمدة 10–14 يوم + استمرار الرضاعة"}, {"q": "Most common surgical cause of Non-Bilious Projectile Vomiting in infancy (3–6 weeks)", "a": "Hypertrophic Pyloric Stenosis (HPS)", "note": "الطفل جائع دائماً بعد القيء ('Hungry vomiter')، كتلة زيتونية (Olive-shaped mass)، واضطراب الغازات المميز: Hypochloremic, Hypokalemic Metabolic Alkalosis. العلاج: إصلاح الجفاف والأملاح أولاً ثم Ramstedt Pyloromyotomy"}, {"q": "Most common cause of Intestinal Obstruction between 3 months & 3 years (peak 5–9m)", "a": "Intussusception (most commonly Ileo-colic)", "note": "ثلاثية: نوبات مغص شديد متقطع (سحب الركبتين للبطن) + Sausage-shaped abdominal mass + 'Red currant jelly' stool. السونار: Target / Donut sign؛ العلاج: Pneumatic/Hydrostatic reduction"}, {"q": "Most common congenital anomaly of the GIT & cause of painless lower GI bleeding", "a": "Meckel's Diverticulum (Remnant of Vitellointestinal / Omphalomesenteric duct)", "note": "يحتوي على نسيج معدي هاجر (Ectopic gastric mucosa) يفرز حمضاً يسبب قرحة ونزيف غير مؤلم؛ يُشخص بـ Technetium-99m Pertechnetate scan (Meckel scan)"}, {"q": "Most common site & cause of Neonatal Lower Intestinal Obstruction (Delayed meconium >48h)", "a": "Hirschsprung Disease (Congenital Aganglionic Megacolon — most commonly Rectosigmoid 75–80%)", "note": "غياب خلايا Auerbach & Meissner عصبية؛ فحص المس الشرجي يتبعه خروج انفجاري للبراز والغازات (Squirt/Blast sign)؛ التشخيص الأدق: Rectal suction biopsy"}, {"q": "Most common type of Tracheoesophageal Fistula (TEF) & Esophageal Atresia", "a": "Proximal Esophageal Atresia with Distal TEF (Type C — ~85%)", "note": "Polyhydramnios في الحمل + Frothy saliva + اختناق مع أول رضعة + فشل مرور الرايل للمعدة (يلتف في CXR مع وجود غازات في المعدة)"}, {"q": "Most common cause of Neonatal Cholestasis & #1 indication for Pediatric Liver Transplant", "a": "Extrahepatic Biliary Atresia", "note": "صفراء مباشرة (Direct hyperbilirubinemia) + Clay/acholic stools + Dark urine. العملية المنقذة: Kasai Hepatoportoenterostomy قبل عمر 60 يوماً!"}], "numbers": [{"label": "Meckel's Diverticulum 'Rule of 2s'", "val": "2% of population | 2 inches long |Within 2 feet of ileocecal valve | Presents < 2 years | 2 : 1 Male:Female | 2 types of ectopic tissue (Gastric & Pancreatic)", "detail": "أشهر عرض إكلينيكي في الأطفال هو Painless brick-red rectal bleeding يسبب أنيميا حادة"}, {"label": "Pyloric Stenosis Ultrasound Criteria ('Pi Rule')", "val": "Pyloric muscle thickness > 3–4 mm | Pyloric canal length > 14–16 mm", "detail": "يرتبط بإعطاء مضاد Erythromycin في أول أسبوعين من العمر، وأشهر في الذكور البكريين"}, {"label": "Dehydration Assessment & ORS Rehydration Plan (WHO)", "val": "Mild (<5%): 50 mL/kg ORS over 4h | Moderate (5–10%, Plan B): 75 mL/kg ORS over 4h | Severe (>10%, Plan C): 100 mL/kg IV Ringer Lactate/NS", "detail": "في الجفاف الشديد (Plan C): الرضع <1 سنة يأخذون 30 mL/kg في ساعة ثم 70 mL/kg في 5 ساعات؛ الأطفال >1 سنة يأخذون 30 mL/kg في نصف ساعة ثم 70 mL/kg في 2.5 ساعة"}, {"label": "Zinc Supplementation in Acute Diarrhea", "val": "< 6 months: 10 mg/day for 10–14 days | ≥ 6 months: 20 mg/day for 10–14 days", "detail": "يقلل مدة وشدة الإسهال ويمنع تكراره لمدة 2–3 شهور تالية"}, {"label": "WHO Low-Osmolarity ORS Composition", "val": "Total Osmolarity: 245 mOsm/L | Na: 75 mEq/L | Glucose: 75 mmol/L | K: 20 mEq/L | Chloride: 65 | Citrate: 10", "detail": "نسبة الصوديوم للجلكوز 1 : 1 لتعظيم الامتصاص عبر ناقل SGLT-1 في الأمعاء"}], "pearls": ["أي قيء أخضر مراري (Bilious vomiting) في حديثي الولادة هو طوارئ جراحية (Malrotation with Midgut Volvulus) حتى يثبت العكس بـ Upper GI Contrast Study!", "Celiac Disease: حساسية للجلوتين (القمح/الشعير/الجاودار)، يرتبط بـ HLA-DQ2/DQ8؛ الفحص المبدئي: Anti-tTG IgA (مع قياس Total IgA)، والتأكيد بـ Duodenal biopsy (Villous atrophy & crypt hyperplasia).", "Wilson Disease (AR, ATP7B gene on Chr 13): يظهر بعد عمر 3–5 سنوات بأمراض كبدية أو عصبية + Kayser-Fleischer rings + انخفاض Ceruloplasmin (<20 mg/dL) وارتفاع النحاس في بول 24 ساعة."]}, {"id": "chest", "title": "Chest & Respiratory", "arTitle": "الصدر والجهاز التنفسي (Chest)", "icon": "🫁", "color": "cyan", "summary": "الخناق (Croup)، التهاب لسان المزمار، التهاب الشعيبات الهوائية، الربو الشعبي، الالتهاب الرئوي، والتليف الكيسي.", "mostCommon": [{"q": "Most common cause of Acute Infectious Stridor in children (6m – 3y)", "a": "Viral Croup (Acute Laryngotracheobronchitis) — Parainfluenza virus types 1 & 2", "note": "Barking 'seal-like' cough + Hoarseness + Inspiratory stridor worse at night. X-ray neck: 'Steeple sign' (subglottic narrowing). العلاج: Dexamethasone + Nebulized Epinephrine"}, {"q": "Most common cause of Chronic Congenital Stridor in infants", "a": "Laryngomalacia (Floppy supraglottic larynx)", "note": "يبدأ في أول أسابيع، يزداد مع البكاء والرضاعة والنوم على الظهر، ويتحسن عند النوم على البطن (Prone)، ويختفي تلقائياً عند 12–18 شهراً"}, {"q": "Most common Lower Respiratory Tract Infection in infants (<2 years)", "a": "Acute Bronchiolitis — Respiratory Syncytial Virus (RSV >70%)", "note": "يبدأ برشح ثم Tachypnea, Wheezing, Hyperinflation. العلاج الأساسي داعم (Oxygen + Hydration + Nasal suction)؛ الوقاية في المبتسرين بـ Palivizumab"}, {"q": "Most common cause of Community-Acquired Pneumonia by Age", "a": "Neonate: GBS & E. coli | 1m–5y: Viruses (RSV) then S. pneumoniae | >5y: Mycoplasma pneumoniae & S. pneumoniae", "note": "Afebrile pneumonia of infancy (1–3m) مع التهاب ملتحمة وStaccato cough وEosinophilia سببها Chlamydia trachomatis (تعالج بـ Macrolides)"}, {"q": "Most common chronic respiratory disease of childhood", "a": "Bronchial Asthma", "note": "سعال وأزيز متكرر يزداد ليلاً ومع المجهود والهواء البارد ويستجيب لموسعات الشعب (SABA)"}, {"q": "Most common life-limiting Autosomal Recessive disorder in Caucasians / cause of Pancreatic Insufficiency & Bronchiectasis", "a": "Cystic Fibrosis (CFTR gene mutation on Chr 7q — most common mutation is ΔF508)", "note": "في حديثي الولادة يظهر بـ Meconium Ileus؛ وفي الكبار بعدوى رئوية مزمنة بـ Staphylococcus aureus أولاً ثم Pseudomonas aeruginosa"}], "numbers": [{"label": "WHO Tachypnea Cutoffs (Fast Breathing for Pneumonia Diagnosis)", "val": "< 2 months: ≥ 60 breaths/min | 2 – 12 months: ≥ 50 breaths/min | 1 – 5 years: ≥ 40 breaths/min | > 5 years: ≥ 30 breaths/min", "detail": "من أهم أرقام امتحانات الأطفال على الإطلاق لتشخيص الالتهاب الرئوي سريرياً!"}, {"label": "Sweat Chloride Test Cutoffs (Cystic Fibrosis)", "val": "Diagnostic: ≥ 60 mmol/L (on 2 occasions) | Intermediate/Borderline: 30 – 59 mmol/L | Normal: < 30 mmol/L", "detail": "يُجرى باستخدام Pilocarpine iontophoresis؛ ويُفحص المولود أيضاً بـ Immunoreactive Trypsinogen (IRT)"}, {"label": "Asthma Spirometry Reversibility Criteria (Children ≥5–6 years)", "val": "FEV1 / FVC < 0.80–0.90 + Increase in FEV1 ≥ 12% after inhaled SABA bronchodilator", "detail": "في نوبة الربو الحادة الشديدة (Status Asthmaticus): غياب صوت الأزيز (Silent chest) + PaCO2 طبيعي أو مرتفع هو علامة خطر وشيكة لفشل التنفس!"}, {"label": "Croup Dexamethasone Dose", "val": "Single dose 0.15 – 0.6 mg/kg PO/IM/IV (max 10–16 mg)", "detail": "إذا أُعطي Nebulized Epinephrine بسبب Stridor at rest يجب ملاحظة الطفل في الطوارئ لمدة 2–4 ساعات خوفاً من Rebound stridor"}], "pearls": ["Acute Epiglottitis (Haemophilus influenzae type b): طوارئ قصوى! حرارة عالية مفاجئة، Toxic look، سيلان اللعاب (Drooling)، وضع الارتكاز الثلاثي (Tripod position)، و 'Thumb sign' في الأشعة؛ ممنوع فحص الحلق بخافض اللسان!", "Foreign Body Aspiration vs Croup: كلاهما يسبب Stridor/cough، لكن FB يبدأ بتاريخ شرقان مفاجئ في طفل سليم تماماً بدون حرارة أو رشح سابق.", "Pertussis (السعال الديكي - Bordetella pertussis): 3 مراحل (Catarrhal 1-2w → Paroxysmal whooping cough + post-tussive vomiting + apnea in infants 2-6w → Convalescent) مع Lymphocytosis شديدة جداً؛ العلاج: Azithromycin."]}];
+
+        // State Management
+        let state = {
+            activeTab: 'chapters',
+            selectedChapter: 'all',
+            searchQuery: '',
+            onlyStarred: false,
+            hideMcAnswers: false,
+            hideNumbersVal: false,
+            starredItems: {},
+            completedChapters: {},
+            fcIndex: 0,
+            fcShowAnswer: false,
+            mcqCorrect: 0,
+            mcqTotal: 0,
+            currentMcq: null
+        };
+
+        // Load saved state safely
+        try {
+            const savedStars = localStorage.getItem('peds_starred_v1');
+            if (savedStars) state.starredItems = JSON.parse(savedStars);
+            const savedDone = localStorage.getItem('peds_done_chapters_v1');
+            if (savedDone) state.completedChapters = JSON.parse(savedDone);
+        } catch (e) {}
+
+        function saveState() {
+            try {
+                localStorage.setItem('peds_starred_v1', JSON.stringify(state.starredItems));
+                localStorage.setItem('peds_done_chapters_v1', JSON.stringify(state.completedChapters));
+            } catch (e) {}
+        }
+
+        function getColorClasses(color) {
+            const map = {
+                rose: { bg: 'bg-rose-50', border: 'border-rose-200', badge: 'bg-rose-100 text-rose-800', header: 'from-rose-600 to-rose-700' },
+                sky: { bg: 'bg-sky-50', border: 'border-sky-200', badge: 'bg-sky-100 text-sky-800', header: 'from-sky-600 to-sky-700' },
+                emerald: { bg: 'bg-emerald-50', border: 'border-emerald-200', badge: 'bg-emerald-100 text-emerald-800', header: 'from-emerald-600 to-emerald-700' },
+                purple: { bg: 'bg-purple-50', border: 'border-purple-200', badge: 'bg-purple-100 text-purple-800', header: 'from-purple-600 to-purple-700' },
+                amber: { bg: 'bg-amber-50', border: 'border-amber-200', badge: 'bg-amber-100 text-amber-800', header: 'from-amber-600 to-amber-700' },
+                red: { bg: 'bg-red-50', border: 'border-red-200', badge: 'bg-red-100 text-red-800', header: 'from-red-600 to-red-700' },
+                orange: { bg: 'bg-orange-50', border: 'border-orange-200', badge: 'bg-orange-100 text-orange-800', header: 'from-orange-600 to-orange-700' },
+                teal: { bg: 'bg-teal-50', border: 'border-teal-200', badge: 'bg-teal-100 text-teal-800', header: 'from-teal-600 to-teal-700' },
+                indigo: { bg: 'bg-indigo-50', border: 'border-indigo-200', badge: 'bg-indigo-100 text-indigo-800', header: 'from-indigo-600 to-indigo-700' },
+                lime: { bg: 'bg-lime-50', border: 'border-lime-200', badge: 'bg-lime-100 text-lime-800', header: 'from-lime-600 to-lime-700' },
+                cyan: { bg: 'bg-cyan-50', border: 'border-cyan-200', badge: 'bg-cyan-100 text-cyan-800', header: 'from-cyan-600 to-cyan-700' }
+            };
+            return map[color] || map.sky;
+        }
+
+        function matchesSearch(textObj) {
+            if (!state.searchQuery.trim()) return true;
+            const q = state.searchQuery.toLowerCase().trim();
+            const combined = Object.values(textObj).join(' ').toLowerCase();
+            return combined.includes(q);
+        }
+
+        function updateHeaderStats() {
+            const starCount = Object.keys(state.starredItems).filter(k => state.starredItems[k]).length;
+            document.getElementById('starredCountBadge').textContent = starCount;
+            const filterStarBtn = document.getElementById('filterStarredBtn');
+            if (state.onlyStarred) {
+                filterStarBtn.className = 'px-3 py-2 rounded-xl bg-amber-500 text-slate-950 border border-amber-400 text-xs sm:text-sm font-bold flex items-center gap-1.5 transition shrink-0';
+            } else {
+                filterStarBtn.className = 'px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-xs sm:text-sm font-bold flex items-center gap-1.5 transition shrink-0';
+            }
+
+            const doneCount = CHAPTERS_DATA.filter(c => state.completedChapters[c.id]).length;
+            const pct = Math.round((doneCount / CHAPTERS_DATA.length) * 100);
+            document.getElementById('studyProgressBar').style.width = pct + '%';
+            document.getElementById('studyProgressText').textContent = doneCount + '/' + CHAPTERS_DATA.length + ' (' + pct + '%)';
+
+            const banner = document.getElementById('searchStatusBanner');
+            const bannerText = document.getElementById('searchStatusText');
+            if (state.searchQuery.trim() || state.onlyStarred || state.selectedChapter !== 'all') {
+                banner.classList.remove('hidden');
+                let parts = [];
+                if (state.selectedChapter !== 'all') {
+                    const ch = CHAPTERS_DATA.find(c => c.id === state.selectedChapter);
+                    if (ch) parts.push('الشابتر: ' + ch.arTitle);
+                }
+                if (state.searchQuery.trim()) parts.push('البحث عن: "' + state.searchQuery + '"');
+                if (state.onlyStarred) parts.push('العناصر المفضلة فقط ⭐');
+                bannerText.textContent = 'الفلترة النشطة: ' + parts.join(' | ');
+            } else {
+                banner.classList.add('hidden');
+            }
+        }
+
+        function renderChapterPills() {
+            const container = document.getElementById('chapterFilterPills');
+            let html = `<button data-ch="all" class="ch-pill-btn px-3 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap transition ${state.selectedChapter === 'all' ? 'bg-slate-900 text-white shadow' : 'bg-slate-100 text-slate-700 hover:bg-slate-200'}">الكل (11 شابتر)</button>`;
+            CHAPTERS_DATA.forEach(ch => {
+                const isSelected = state.selectedChapter === ch.id;
+                const isDone = !!state.completedChapters[ch.id];
+                html += `<button data-ch="${ch.id}" class="ch-pill-btn px-3 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap transition flex items-center gap-1.5 ${isSelected ? 'bg-sky-600 text-white shadow' : 'bg-slate-100 text-slate-700 hover:bg-slate-200'}">
+                    <span>${ch.icon}</span>
+                    <span>${ch.arTitle}</span>
+                    ${isDone ? '<span class="text-emerald-400">✓</span>' : ''}
+                </button>`;
+            });
+            container.innerHTML = html;
+
+            const activeLabel = document.getElementById('activeFilterLabel');
+            if (state.selectedChapter === 'all') {
+                activeLabel.textContent = 'كل الشباتر (11/11)';
+            } else {
+                const found = CHAPTERS_DATA.find(c => c.id === state.selectedChapter);
+                activeLabel.textContent = found ? found.icon + ' ' + found.arTitle : '';
+            }
+
+            container.querySelectorAll('.ch-pill-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    state.selectedChapter = btn.getAttribute('data-ch');
+                    renderAll();
+                });
+            });
+        }
+
+        function renderChaptersTab() {
+            const container = document.getElementById('tab-chapters');
+            let html = '';
+            let visibleChapters = 0;
+
+            CHAPTERS_DATA.forEach(ch => {
+                if (state.selectedChapter !== 'all' && state.selectedChapter !== ch.id) return;
+
+                const filteredMc = ch.mostCommon.filter((item, idx) => {
+                    const key = `mc_${ch.id}_${idx}`;
+                    if (state.onlyStarred && !state.starredItems[key]) return false;
+                    return matchesSearch({ q: item.q, a: item.a, note: item.note, ch: ch.arTitle + ' ' + ch.title });
+                });
+
+                const filteredNums = ch.numbers.filter((item, idx) => {
+                    const key = `num_${ch.id}_${idx}`;
+                    if (state.onlyStarred && !state.starredItems[key]) return false;
+                    return matchesSearch({ l: item.label, v: item.val, d: item.detail, ch: ch.arTitle + ' ' + ch.title });
+                });
+
+                const filteredPearls = ch.pearls.filter(p => !state.onlyStarred && matchesSearch({ p, ch: ch.arTitle + ' ' + ch.title }));
+
+                if (filteredMc.length === 0 && filteredNums.length === 0 && filteredPearls.length === 0) return;
+                visibleChapters++;
+
+                const cStyle = getColorClasses(ch.color);
+                const isDone = !!state.completedChapters[ch.id];
+
+                html += `
+                <article class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+                    <!-- Chapter Header -->
+                    <div class="bg-gradient-to-l ${cStyle.header} text-white p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                        <div class="flex items-start sm:items-center gap-3">
+                            <div class="w-12 h-12 rounded-2xl bg-white/15 backdrop-blur flex items-center justify-center text-2xl shrink-0">
+                                ${ch.icon}
+                            </div>
+                            <div>
+                                <div class="flex items-center gap-2 flex-wrap">
+                                    <h2 class="text-lg sm:text-xl font-extrabold">${ch.arTitle}</h2>
+                                    <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-white/20 en-text">${ch.title}</span>
+                                </div>
+                                <p class="text-xs sm:text-sm text-white/90 mt-1">${ch.summary}</p>
+                            </div>
+                        </div>
+                        <button data-done-ch="${ch.id}" class="toggle-done-btn px-3.5 py-2 rounded-xl text-xs font-extrabold transition shrink-0 flex items-center gap-1.5 ${isDone ? 'bg-emerald-400 text-slate-950 shadow' : 'bg-white/15 hover:bg-white/25 text-white border border-white/30'}">
+                            <span>${isDone ? '✅ تم مذاكرة الشابتر' : '⬜ تحديد كمكتمل'}</span>
+                        </button>
+                    </div>
+
+                    <div class="p-4 sm:p-6 space-y-6">
+                        <!-- Most Common Section -->
+                        ${filteredMc.length > 0 ? `
+                        <div>
+                            <h3 class="text-sm sm:text-base font-extrabold text-slate-900 mb-3 flex items-center gap-2">
+                                <span class="w-6 h-6 rounded-lg bg-rose-100 text-rose-700 flex items-center justify-center text-xs">🎯</span>
+                                <span>أشهر الأسباب والتشخيصات (Most Common Causes & Conditions)</span>
+                                <span class="text-xs font-bold px-2 py-0.5 rounded-full bg-slate-100 text-slate-600">${filteredMc.length}</span>
+                            </h3>
+                            <div class="overflow-x-auto rounded-xl border border-slate-200">
+                                <table class="w-full text-right border-collapse">
+                                    <thead>
+                                        <tr class="bg-slate-50 border-b border-slate-200 text-slate-600 text-xs font-bold">
+                                            <th class="py-2.5 px-3 w-10 text-center">⭐</th>
+                                            <th class="py-2.5 px-3 w-1/3">السؤال (Most Common...)</th>
+                                            <th class="py-2.5 px-3 w-1/3">الإجابة الذهبية</th>
+                                            <th class="py-2.5 px-3 w-1/3">مفتاح الحالة وتريكة الامتحان</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="divide-y divide-slate-200 text-xs sm:text-sm">
+                                        ${ch.mostCommon.map((item, idx) => {
+                                            const key = `mc_${ch.id}_${idx}`;
+                                            if (state.onlyStarred && !state.starredItems[key]) return '';
+                                            if (!matchesSearch({ q: item.q, a: item.a, note: item.note, ch: ch.arTitle + ' ' + ch.title })) return '';
+                                            const starred = !!state.starredItems[key];
+                                            return `
+                                            <tr class="hover:bg-slate-50/80 transition">
+                                                <td class="py-3 px-3 text-center">
+                                                    <button data-star="${key}" class="star-toggle-btn text-base hover:scale-110 transition">${starred ? '⭐' : '☆'}</button>
+                                                </td>
+                                                <td class="py-3 px-3 font-bold text-slate-900 en-text">${item.q}</td>
+                                                <td class="py-3 px-3 font-extrabold text-emerald-700 en-text bg-emerald-50/40">${item.a}</td>
+                                                <td class="py-3 px-3 text-slate-700 leading-relaxed">${item.note}</td>
+                                            </tr>`;
+                                        }).join('')}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        ` : ''}
+
+                        <!-- Numbers & Cutoffs Section -->
+                        ${filteredNums.length > 0 ? `
+                        <div>
+                            <h3 class="text-sm sm:text-base font-extrabold text-slate-900 mb-3 flex items-center gap-2">
+                                <span class="w-6 h-6 rounded-lg bg-indigo-100 text-indigo-700 flex items-center justify-center text-xs">🔢</span>
+                                <span>الأرقام والمعادلات والـ Cutoffs الهامة في الشابتر</span>
+                                <span class="text-xs font-bold px-2 py-0.5 rounded-full bg-slate-100 text-slate-600">${filteredNums.length}</span>
+                            </h3>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                                ${ch.numbers.map((item, idx) => {
+                                    const key = `num_${ch.id}_${idx}`;
+                                    if (state.onlyStarred && !state.starredItems[key]) return '';
+                                    if (!matchesSearch({ l: item.label, v: item.val, d: item.detail, ch: ch.arTitle + ' ' + ch.title })) return '';
+                                    const starred = !!state.starredItems[key];
+                                    return `
+                                    <div class="rounded-xl border ${cStyle.border} ${cStyle.bg} p-3.5 flex flex-col justify-between">
+                                        <div>
+                                            <div class="flex items-start justify-between gap-2 mb-1.5">
+                                                <h4 class="font-extrabold text-slate-900 text-xs sm:text-sm en-text">${item.label}</h4>
+                                                <button data-star="${key}" class="star-toggle-btn text-base leading-none shrink-0">${starred ? '⭐' : '☆'}</button>
+                                            </div>
+                                            <div class="p-2 rounded-lg bg-white border border-slate-200/80 font-extrabold text-indigo-900 text-xs sm:text-sm en-text shadow-sm mb-2">
+                                                ${item.val}
+                                            </div>
+                                        </div>
+                                        <p class="text-xs text-slate-700 leading-relaxed">${item.detail}</p>
+                                    </div>`;
+                                }).join('')}
+                            </div>
+                        </div>
+                        ` : ''}
+
+                        <!-- High-Yield Pearls Section -->
+                        ${filteredPearls.length > 0 ? `
+                        <div class="rounded-xl bg-amber-50/80 border border-amber-200 p-4">
+                            <h3 class="text-xs sm:text-sm font-extrabold text-amber-900 mb-2 flex items-center gap-1.5">
+                                <span>💡</span>
+                                <span>تريكات الامتحان والـ Gold Pearls (${ch.arTitle}):</span>
+                            </h3>
+                            <ul class="space-y-1.5 text-xs sm:text-sm text-slate-800 list-disc list-inside">
+                                ${filteredPearls.map(p => `<li class="leading-relaxed">${p}</li>`).join('')}
+                            </ul>
+                        </div>
+                        ` : ''}
+                    </div>
+                </article>`;
+            });
+
+            if (visibleChapters === 0) {
+                html = `<div class="bg-white rounded-2xl p-8 text-center border border-slate-200">
+                    <p class="text-lg font-bold text-slate-700">لا توجد نتائج مطابقة للبحث الحالي.</p>
+                    <p class="text-xs text-slate-500 mt-1">جرب مسح كلمة البحث أو اختيار "كل الشباتر".</p>
+                </div>`;
+            }
+
+            container.innerHTML = html;
+
+            container.querySelectorAll('.toggle-done-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const chId = btn.getAttribute('data-done-ch');
+                    state.completedChapters[chId] = !state.completedChapters[chId];
+                    saveState();
+                    renderAll();
+                });
+            });
+
+            container.querySelectorAll('.star-toggle-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const key = btn.getAttribute('data-star');
+                    state.starredItems[key] = !state.starredItems[key];
+                    saveState();
+                    renderAll();
+                });
+            });
+        }
+
+        function renderMasterMostCommonTab() {
+            const tbody = document.getElementById('masterMostCommonBody');
+            let rowsHtml = '';
+            CHAPTERS_DATA.forEach(ch => {
+                if (state.selectedChapter !== 'all' && state.selectedChapter !== ch.id) return;
+                const cStyle = getColorClasses(ch.color);
+                ch.mostCommon.forEach((item, idx) => {
+                    const key = `mc_${ch.id}_${idx}`;
+                    if (state.onlyStarred && !state.starredItems[key]) return;
+                    if (!matchesSearch({ q: item.q, a: item.a, note: item.note, ch: ch.arTitle + ' ' + ch.title })) return;
+                    const starred = !!state.starredItems[key];
+                    rowsHtml += `
+                    <tr class="hover:bg-slate-50 transition">
+                        <td class="py-3 px-3 text-center">
+                            <button data-star="${key}" class="star-toggle-btn text-base">${starred ? '⭐' : '☆'}</button>
+                        </td>
+                        <td class="py-3 px-4">
+                            <span class="inline-flex items-center gap-1 text-xs font-bold px-2.5 py-1 rounded-full ${cStyle.badge}">
+                                <span>${ch.icon}</span>
+                                <span>${ch.arTitle}</span>
+                            </span>
+                        </td>
+                        <td class="py-3 px-4 font-bold text-slate-900 en-text">${item.q}</td>
+                        <td class="py-3 px-4 font-extrabold text-emerald-700 en-text">
+                            ${state.hideMcAnswers ? `<button class="reveal-single-btn px-3 py-1 rounded-lg bg-slate-200 hover:bg-sky-100 text-slate-700 text-xs font-bold">إظهار الإجابة 👁️</button><span class="hidden-ans hidden">${item.a}</span>` : item.a}
+                        </td>
+                        <td class="py-3 px-4 text-slate-700 text-xs sm:text-sm">${item.note}</td>
+                    </tr>`;
+                });
+            });
+
+            if (!rowsHtml) {
+                rowsHtml = `<tr><td colspan="5" class="py-8 text-center text-slate-500 font-bold">لا توجد عناصر مطابقة للفلتر الحالي.</td></tr>`;
+            }
+            tbody.innerHTML = rowsHtml;
+
+            tbody.querySelectorAll('.star-toggle-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const key = btn.getAttribute('data-star');
+                    state.starredItems[key] = !state.starredItems[key];
+                    saveState();
+                    renderAll();
+                });
+            });
+
+            tbody.querySelectorAll('.reveal-single-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    btn.classList.add('hidden');
+                    btn.nextElementSibling.classList.remove('hidden');
+                });
+            });
+        }
+
+        function renderMasterNumbersTab() {
+            const grid = document.getElementById('masterNumbersGrid');
+            let cardsHtml = '';
+            CHAPTERS_DATA.forEach(ch => {
+                if (state.selectedChapter !== 'all' && state.selectedChapter !== ch.id) return;
+                const cStyle = getColorClasses(ch.color);
+                ch.numbers.forEach((item, idx) => {
+                    const key = `num_${ch.id}_${idx}`;
+                    if (state.onlyStarred && !state.starredItems[key]) return;
+                    if (!matchesSearch({ l: item.label, v: item.val, d: item.detail, ch: ch.arTitle + ' ' + ch.title })) return;
+                    const starred = !!state.starredItems[key];
+                    cardsHtml += `
+                    <div class="bg-white rounded-2xl border border-slate-200 p-4 shadow-sm flex flex-col justify-between hover:border-sky-300 transition">
+                        <div>
+                            <div class="flex items-center justify-between gap-2 mb-2">
+                                <span class="inline-flex items-center gap-1 text-xs font-bold px-2.5 py-0.5 rounded-full ${cStyle.badge}">
+                                    <span>${ch.icon}</span>
+                                    <span>${ch.arTitle}</span>
+                                </span>
+                                <button data-star="${key}" class="star-toggle-btn text-base">${starred ? '⭐' : '☆'}</button>
+                            </div>
+                            <h3 class="font-extrabold text-slate-900 text-sm sm:text-base en-text mb-2">${item.label}</h3>
+                            <div class="p-3 rounded-xl bg-slate-900 text-sky-300 font-extrabold text-xs sm:text-sm en-text mb-2.5">
+                                ${state.hideNumbersVal ? `<button class="reveal-num-btn px-3 py-1 rounded bg-sky-600 text-white text-xs font-bold">إظهار الرقم 👁️</button><span class="hidden">${item.val}</span>` : item.val}
+                            </div>
+                        </div>
+                        <p class="text-xs sm:text-sm text-slate-600 border-t border-slate-100 pt-2">${item.detail}</p>
+                    </div>`;
+                });
+            });
+
+            if (!cardsHtml) {
+                cardsHtml = `<div class="col-span-full bg-white rounded-2xl p-8 text-center border border-slate-200 font-bold text-slate-500">لا توجد أرقام مطابقة للبحث الحالي.</div>`;
+            }
+            grid.innerHTML = cardsHtml;
+
+            grid.querySelectorAll('.star-toggle-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const key = btn.getAttribute('data-star');
+                    state.starredItems[key] = !state.starredItems[key];
+                    saveState();
+                    renderAll();
+                });
+            });
+
+            grid.querySelectorAll('.reveal-num-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    btn.classList.add('hidden');
+                    btn.nextElementSibling.classList.remove('hidden');
+                });
+            });
+        }
+
+        function renderCalculator() {
+            const ageY = parseFloat(document.getElementById('calcAgeYears').value) || 0;
+            const ageM = parseFloat(document.getElementById('calcAgeMonths').value) || 0;
+            const wt = parseFloat(document.getElementById('calcWeightKg').value) || 10;
+
+            // Expected Weight
+            let expWt = '';
+            if (ageM <= 12) {
+                expWt = ((ageM + 9) / 2).toFixed(1) + ' kg (Formula: [Age(m)+9]/2)';
+            } else if (ageY <= 6) {
+                expWt = ((ageY * 2) + 8).toFixed(1) + ' kg (Formula: Age(y)×2 + 8)';
+            } else {
+                expWt = (((ageY * 7) - 5) / 2).toFixed(1) + ' kg (Formula: [Age(y)×7 - 5]/2)';
+            }
+
+            // Expected Height
+            let expHt = ageY >= 2 ? ((ageY * 6) + 77).toFixed(0) + ' cm (Formula: Age(y)×6 + 77)' : (ageM <= 12 ? '~50–75 cm (Birth 50cm, 1y 75cm)' : '~75–87 cm');
+
+            // Teeth count
+            let milkTeeth = (ageM >= 6 && ageM <= 30) ? Math.min(20, Math.max(0, Math.round(ageM - 6))) + ' سِنة لبنية (Age in months - 6)' : (ageM < 6 ? '0 (يبدأ عند 6 شهور)' : '20 سِنة لبنية مكتملة');
+
+            // Maintenance Fluid (4-2-1)
+            let hourlyFluid = 0;
+            if (wt <= 10) hourlyFluid = wt * 4;
+            else if (wt <= 20) hourlyFluid = 40 + (wt - 10) * 2;
+            else hourlyFluid = 60 + (wt - 20) * 1;
+            let dailyFluid = hourlyFluid * 24;
+
+            // Shock Bolus
+            let bolus20 = (wt * 20).toFixed(0);
+            let bolus10 = (wt * 10).toFixed(0);
+
+            // ETT Size & Depth
+            let uncuffed = ageY >= 1 ? ((ageY / 4) + 4).toFixed(1) : '3.0 – 3.5';
+            let cuffed = ageY >= 1 ? ((ageY / 4) + 3.5).toFixed(1) : '3.0';
+            let ettDepth = ageY >= 1 ? ((ageY / 2) + 12).toFixed(1) + ' cm' : (wt + 6).toFixed(1) + ' cm (Wt + 6)';
+
+            // BP Cutoffs
+            let minSbp = ageY >= 1 ? Math.round(70 + 2 * ageY) : 60;
+            let normSbp = ageY >= 1 ? Math.round(90 + 2 * ageY) : 75;
+
+            // Defib & Epinephrine
+            let defib1 = (wt * 2).toFixed(0) + ' J';
+            let defib2 = (wt * 4).toFixed(0) + ' J';
+            let epiArrestMl = (wt * 0.1).toFixed(2) + ' mL (من 1:10,000)';
+            let d25Ml = (wt * 2).toFixed(0) + ' mL of D25W (أو ' + (wt * 5).toFixed(0) + ' mL D10W)';
+
+            const cards = [
+                { title: 'الوزن والطول المتوقعين بالمعادلة', val: `الوزن المتوقع: ${expWt}`, sub: `الطول المتوقع: ${expHt} | التسنين: ${milkTeeth}`, color: 'border-emerald-200 bg-emerald-50/60' },
+                { title: 'محاليل الصيانة اليومية (4-2-1 Rule)', val: `${hourlyFluid.toFixed(0)} mL/hr (${dailyFluid.toFixed(0)} mL/day)`, sub: 'أول 10 كجم × 4 | ثاني 10 كجم × 2 | كل كجم إضافي × 1', color: 'border-sky-200 bg-sky-50/60' },
+                { title: 'محلول الصدمة (Shock Fluid Bolus)', val: `${bolus20} mL Normal Saline (20 mL/kg)`, sub: `في حديثي الولادة أو DKA أو القلب (10 mL/kg): ${bolus10} mL`, color: 'border-rose-200 bg-rose-50/60' },
+                { title: 'مقاس وعمق الأنبوبة الحنجرية (ETT)', val: `Uncuffed: ${uncuffed} mm | Cuffed: ${cuffed} mm`, sub: `عمق التثبيت عند الشفاه: ${ettDepth}`, color: 'border-indigo-200 bg-indigo-50/60' },
+                { title: 'جرعات الإنعاش والصدمات الكهربائية', val: `Defib: 1st ${defib1} → 2nd ${defib2}`, sub: `Epinephrine IV (Arrest): ${epiArrestMl}`, color: 'border-amber-200 bg-amber-50/60' },
+                { title: 'ضغط الدم الانقباضي وعلاج الهيبوجلايسيميا', val: `Normal SBP: ~${normSbp} mmHg (Hypotension < ${minSbp})`, sub: `Dextrose Rule of 50: ${d25Ml}`, color: 'border-purple-200 bg-purple-50/60' }
+            ];
+
+            document.getElementById('calculatorResultsGrid').innerHTML = cards.map(c => `
+                <div class="rounded-xl border ${c.color} p-4">
+                    <h4 class="text-xs font-bold text-slate-600 mb-1">${c.title}</h4>
+                    <div class="text-sm sm:text-base font-extrabold text-slate-900 en-text mb-1.5">${c.val}</div>
+                    <p class="text-xs text-slate-700">${c.sub}</p>
+                </div>
+            `).join('');
+        }
+
+        // Build flat deck for flashcards & MCQs
+        function getAllQuizItems() {
+            const deck = [];
+            CHAPTERS_DATA.forEach(ch => {
+                if (state.selectedChapter !== 'all' && state.selectedChapter !== ch.id) return;
+                ch.mostCommon.forEach(item => {
+                    deck.push({ chTitle: ch.arTitle, q: item.q, a: item.a, note: item.note });
+                });
+                ch.numbers.forEach(item => {
+                    deck.push({ chTitle: ch.arTitle, q: item.label, a: item.val, note: item.detail });
+                });
+            });
+            return deck.length > 0 ? deck : [{ chTitle: 'عام', q: 'Most common CHD', a: 'VSD', note: 'Perimembranous VSD' }];
+        }
+
+        function renderFlashcard() {
+            const deck = getAllQuizItems();
+            if (state.fcIndex >= deck.length) state.fcIndex = 0;
+            if (state.fcIndex < 0) state.fcIndex = deck.length - 1;
+            const item = deck[state.fcIndex];
+
+            document.getElementById('flashcardCounter').textContent = (state.fcIndex + 1) + ' / ' + deck.length;
+            document.getElementById('fcChapterBadge').textContent = item.chTitle;
+            document.getElementById('fcQuestionText').textContent = item.q;
+            document.getElementById('fcAnswerText').textContent = item.a;
+            document.getElementById('fcNoteText').textContent = item.note;
+
+            const ansWrap = document.getElementById('fcAnswerWrap');
+            const hint = document.getElementById('fcHintPrompt');
+            if (state.fcShowAnswer) {
+                ansWrap.classList.remove('hidden');
+                hint.textContent = 'اضغط لإخفاء الإجابة';
+            } else {
+                ansWrap.classList.add('hidden');
+                hint.textContent = 'اضغط على البطاقة لإظهار الإجابة 👆';
+            }
+        }
+
+        function generateNewMcq() {
+            const deck = getAllQuizItems();
+            const targetIdx = Math.floor(Math.random() * deck.length);
+            const target = deck[targetIdx];
+
+            // Pick 3 distractors
+            const pool = CHAPTERS_DATA.flatMap(c => c.mostCommon.map(m => m.a));
+            const distractors = [];
+            let guard = 0;
+            while (distractors.length < 3 && guard < 100) {
+                guard++;
+                const cand = pool[Math.floor(Math.random() * pool.length)];
+                if (cand !== target.a && !distractors.includes(cand)) {
+                    distractors.push(cand);
+                }
+            }
+
+            const options = [target.a, ...distractors].sort(() => Math.random() - 0.5);
+            state.currentMcq = { ...target, options, answered: false };
+            renderMcq();
+        }
+
+        function renderMcq() {
+            if (!state.currentMcq) return generateNewMcq();
+            const mcq = state.currentMcq;
+            document.getElementById('mcqCategoryTag').textContent = mcq.chTitle;
+            document.getElementById('mcqPrompt').textContent = mcq.q;
+            document.getElementById('mcqScoreBadge').textContent = `النتيجة: ${state.mcqCorrect} / ${state.mcqTotal}`;
+
+            const feedbackBox = document.getElementById('mcqFeedbackBox');
+            feedbackBox.classList.add('hidden');
+
+            const list = document.getElementById('mcqOptionsList');
+            list.innerHTML = mcq.options.map((opt, i) => `
+                <button data-opt-idx="${i}" class="mcq-opt-btn w-full text-left en-text p-3 rounded-xl border border-slate-200 hover:border-sky-400 hover:bg-sky-50/40 text-xs sm:text-sm font-semibold text-slate-800 transition flex items-center justify-between">
+                    <span>${opt}</span>
+                </button>
+            `).join('');
+
+            list.querySelectorAll('.mcq-opt-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    if (mcq.answered) return;
+                    mcq.answered = true;
+                    state.mcqTotal++;
+                    const chosenIdx = parseInt(btn.getAttribute('data-opt-idx'), 10);
+                    const chosenVal = mcq.options[chosenIdx];
+                    const isCorrect = chosenVal === mcq.a;
+                    if (isCorrect) state.mcqCorrect++;
+
+                    document.getElementById('mcqScoreBadge').textContent = `النتيجة: ${state.mcqCorrect} / ${state.mcqTotal}`;
+
+                    list.querySelectorAll('.mcq-opt-btn').forEach((b, idx) => {
+                        const val = mcq.options[idx];
+                        if (val === mcq.a) {
+                            b.className = 'w-full text-left en-text p-3 rounded-xl border-2 border-emerald-500 bg-emerald-50 text-xs sm:text-sm font-extrabold text-emerald-900';
+                        } else if (idx === chosenIdx) {
+                            b.className = 'w-full text-left en-text p-3 rounded-xl border-2 border-rose-500 bg-rose-50 text-xs sm:text-sm font-bold text-rose-900';
+                        }
+                    });
+
+                    feedbackBox.classList.remove('hidden');
+                    feedbackBox.className = `p-3 rounded-xl text-xs sm:text-sm font-semibold ${isCorrect ? 'bg-emerald-50 text-emerald-900 border border-emerald-200' : 'bg-rose-50 text-rose-900 border border-rose-200'}`;
+                    feedbackBox.textContent = (isCorrect ? '✅ إجابة صحيحة! ' : '❌ إجابة غير دقيقة. ') + mcq.note;
+                });
+            });
+        }
+
+        function switchTab(tabId) {
+            state.activeTab = tabId;
+            document.querySelectorAll('.tab-panel').forEach(p => p.classList.add('hidden'));
+            const activePanel = document.getElementById('tab-' + tabId);
+            if (activePanel) activePanel.classList.remove('hidden');
+
+            document.querySelectorAll('.main-tab-btn').forEach(btn => {
+                if (btn.getAttribute('data-tab') === tabId) {
+                    btn.className = 'main-tab-btn px-3.5 py-1.5 rounded-lg text-xs sm:text-sm font-bold bg-sky-600 text-white shadow-sm whitespace-nowrap transition flex items-center gap-1.5';
+                } else {
+                    btn.className = 'main-tab-btn px-3.5 py-1.5 rounded-lg text-xs sm:text-sm font-bold bg-slate-800 text-slate-300 hover:bg-slate-700 whitespace-nowrap transition flex items-center gap-1.5';
+                }
+            });
+        }
+
+        function renderAll() {
+            updateHeaderStats();
+            renderChapterPills();
+            renderChaptersTab();
+            renderMasterMostCommonTab();
+            renderMasterNumbersTab();
+            renderCalculator();
+            renderFlashcard();
+        }
+
+        // Event Listeners Setup
+        window.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.main-tab-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    switchTab(btn.getAttribute('data-tab'));
+                });
+            });
+
+            const searchInput = document.getElementById('globalSearchInput');
+            const clearBtn = document.getElementById('clearSearchBtn');
+            searchInput.addEventListener('input', (e) => {
+                state.searchQuery = e.target.value;
+                clearBtn.classList.toggle('hidden', !state.searchQuery);
+                renderAll();
+            });
+
+            clearBtn.addEventListener('click', () => {
+                state.searchQuery = '';
+                searchInput.value = '';
+                clearBtn.classList.add('hidden');
+                renderAll();
+            });
+
+            document.getElementById('filterStarredBtn').addEventListener('click', () => {
+                state.onlyStarred = !state.onlyStarred;
+                renderAll();
+            });
+
+            document.getElementById('resetAllFiltersBtn').addEventListener('click', () => {
+                state.searchQuery = '';
+                state.onlyStarred = false;
+                state.selectedChapter = 'all';
+                searchInput.value = '';
+                clearBtn.classList.add('hidden');
+                renderAll();
+            });
+
+            document.getElementById('resetProgressBtn').addEventListener('click', () => {
+                state.completedChapters = {};
+                state.starredItems = {};
+                saveState();
+                renderAll();
+            });
+
+            document.getElementById('printGuideBtn').addEventListener('click', () => {
+                window.print();
+            });
+
+            document.getElementById('toggleHideAnswersMcBtn').addEventListener('click', (e) => {
+                state.hideMcAnswers = !state.hideMcAnswers;
+                e.currentTarget.textContent = state.hideMcAnswers ? '👁️ إظهار كل الإجابات' : '🙈 إخفاء الإجابات للتسميع';
+                renderMasterMostCommonTab();
+            });
+
+            document.getElementById('toggleHideNumbersBtn').addEventListener('click', (e) => {
+                state.hideNumbersVal = !state.hideNumbersVal;
+                e.currentTarget.textContent = state.hideNumbersVal ? '👁️ إظهار كل الأرقام' : '🙈 إخفاء الأرقام للتسميع الذاتي';
+                renderMasterNumbersTab();
+            });
+
+            // Calculator inputs
+            const ageYInput = document.getElementById('calcAgeYears');
+            const ageMInput = document.getElementById('calcAgeMonths');
+            const wtInput = document.getElementById('calcWeightKg');
+
+            ageYInput.addEventListener('input', () => {
+                const y = parseFloat(ageYInput.value) || 0;
+                ageMInput.value = Math.round(y * 12);
+                renderCalculator();
+            });
+            ageMInput.addEventListener('input', () => {
+                const m = parseFloat(ageMInput.value) || 0;
+                ageYInput.value = (m / 12).toFixed(1);
+                renderCalculator();
+            });
+            wtInput.addEventListener('input', renderCalculator);
+
+            document.querySelectorAll('.calc-preset-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const p = btn.getAttribute('data-preset');
+                    if (p === 'infant') { ageYInput.value = 0.5; ageMInput.value = 6; wtInput.value = 7.5; }
+                    if (p === 'toddler') { ageYInput.value = 4; ageMInput.value = 48; wtInput.value = 16; }
+                    if (p === 'school') { ageYInput.value = 8; ageMInput.value = 96; wtInput.value = 25; }
+                    renderCalculator();
+                });
+            });
+
+            // Flashcards controls
+            document.getElementById('flashcardBox').addEventListener('click', () => {
+                state.fcShowAnswer = !state.fcShowAnswer;
+                renderFlashcard();
+            });
+            document.getElementById('flipFcBtn').addEventListener('click', () => {
+                state.fcShowAnswer = !state.fcShowAnswer;
+                renderFlashcard();
+            });
+            document.getElementById('prevFcBtn').addEventListener('click', () => {
+                state.fcIndex--;
+                state.fcShowAnswer = false;
+                renderFlashcard();
+            });
+            document.getElementById('nextFcBtn').addEventListener('click', () => {
+                state.fcIndex++;
+                state.fcShowAnswer = false;
+                renderFlashcard();
+            });
+
+            document.getElementById('newMcqBtn').addEventListener('click', generateNewMcq);
+
+            renderAll();
+            generateNewMcq();
+        });
+    </script>
+</body>
+</html>
