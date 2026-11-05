@@ -1,32 +1,47 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="en" dir="ltr" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
     <title>Pediatrics Master Exam Hub | Clinical High-Yield Knowledge Engine</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com/3.4.17"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
-        body {
+        /* Mobile-First Global Viewport & Touch Protection */
+        html, body {
+            overflow-x: hidden !important;
+            width: 100% !important;
+            max-width: 100vw !important;
+            margin: 0;
+            padding: 0;
+            position: relative;
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             background-color: #f8fafc;
             color: #0f172a;
             direction: ltr;
             text-align: left;
+            -webkit-tap-highlight-color: transparent;
         }
+
+        button, input, select, label, a {
+            touch-action: manipulation;
+        }
+
         .font-mono-numbers {
             font-family: 'JetBrains Mono', monospace;
             font-feature-settings: 'tnum' on, 'zero' on;
         }
+
+        /* Subtle and touch-friendly scrollbars */
         .custom-scrollbar::-webkit-scrollbar {
-            width: 6px;
-            height: 6px;
+            width: 5px;
+            height: 5px;
         }
         .custom-scrollbar::-webkit-scrollbar-track {
-            background: #f1f5f9;
+            background: rgba(241, 245, 249, 0.6);
         }
         .custom-scrollbar::-webkit-scrollbar-thumb {
             background: #cbd5e1;
@@ -35,150 +50,161 @@
         .custom-scrollbar::-webkit-scrollbar-thumb:hover {
             background: #94a3b8;
         }
+
+        /* Print Optimization */
         @media print {
             .no-print { display: none !important; }
-            body { background: white !important; font-size: 11pt !important; }
+            body { background: white !important; font-size: 10.5pt !important; }
             .print-break-inside { break-inside: avoid; }
-            .print-card { border: 1px solid #e2e8f0 !important; box-shadow: none !important; }
+            .print-card { border: 1px solid #cbd5e1 !important; box-shadow: none !important; margin-bottom: 1rem !important; }
         }
     </style>
 </head>
 <body class="min-h-screen flex flex-col bg-slate-50 text-slate-900 antialiased selection:bg-sky-500 selection:text-white">
 
-    <!-- Top Sticky Navigation & Search Header -->
-    <header class="sticky top-0 z-40 bg-slate-900 text-white shadow-xl border-b border-slate-800 no-print">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
-            <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
-                <div class="flex items-center justify-between">
-                    <div class="flex items-center gap-3">
-                        <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-sky-500 via-indigo-500 to-cyan-400 flex items-center justify-center text-2xl shadow-lg ring-2 ring-sky-400/20">
+    <!-- Sticky Header (Optimized for Mobile & Desktop) -->
+    <header class="sticky top-0 z-40 bg-slate-900 text-white shadow-lg border-b border-slate-800 no-print">
+        <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-2.5 sm:py-3">
+            <div class="flex flex-col gap-2.5 sm:gap-3">
+                <!-- Row 1: Logo & Title & Actions -->
+                <div class="flex items-center justify-between gap-2">
+                    <div class="flex items-center gap-2.5 min-w-0">
+                        <div class="w-9 h-9 sm:w-11 sm:h-11 rounded-xl sm:rounded-2xl bg-gradient-to-tr from-sky-500 via-indigo-500 to-cyan-400 flex items-center justify-center text-xl sm:text-2xl shadow-md shrink-0">
                             🩺
                         </div>
-                        <div>
-                            <div class="flex items-center gap-2">
-                                <h1 class="text-lg sm:text-xl font-black tracking-tight text-white">
+                        <div class="min-w-0">
+                            <div class="flex items-center gap-1.5 flex-wrap">
+                                <h1 class="text-sm sm:text-lg lg:text-xl font-black tracking-tight text-white truncate">
                                     Pediatrics Master Exam Hub
                                 </h1>
-                                <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-sky-500/20 text-sky-300 border border-sky-400/30 uppercase tracking-wider">
+                                <span class="text-[9px] sm:text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-sky-500/20 text-sky-300 border border-sky-400/30 uppercase tracking-wider shrink-0">
                                     11 Chapters
                                 </span>
                             </div>
-                            <p class="text-xs text-slate-400 font-medium">
-                                High-Yield Clinical Companion • Most Common Causes • Vital Numbers • Calculators • Active Recall
+                            <p class="hidden sm:block text-xs text-slate-400 font-medium truncate">
+                                High-Yield Clinical Companion • Most Common Causes • Vital Cutoffs • Calculators • Active Recall
                             </p>
                         </div>
                     </div>
-                    <button id="resetProgressBtn" class="md:hidden text-xs px-2.5 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 transition" title="Reset local storage study progress">
-                        Reset
-                    </button>
+
+                    <div class="flex items-center gap-1.5 shrink-0">
+                        <button id="resetProgressBtn" class="text-[11px] sm:text-xs px-2.5 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 transition" title="Reset study progress">
+                            Reset
+                        </button>
+                        <button id="printGuideBtn" class="hidden sm:flex px-3 py-1.5 rounded-xl bg-sky-600 hover:bg-sky-500 text-white text-xs font-semibold items-center gap-1.5 shadow transition" title="Print revision guide">
+                            <span>🖨️</span>
+                            <span>Print</span>
+                        </button>
+                    </div>
                 </div>
 
-                <!-- Search & Quick Filters -->
-                <div class="flex items-center gap-2 sm:gap-3 flex-1 max-w-xl">
-                    <div class="relative flex-1">
+                <!-- Row 2: Search Bar & Favorites Filter (Full Width on Mobile) -->
+                <div class="flex items-center gap-2">
+                    <div class="relative flex-1 min-w-0">
                         <input id="globalSearchInput" type="text"
-                            placeholder="Search any disease, formula, cutoff or pearl (e.g. Kawasaki, VSD, 4-2-1, Jaundice)..."
-                            class="w-full rounded-xl bg-slate-800/90 border border-slate-700 text-white placeholder-slate-400 text-xs sm:text-sm pl-10 pr-9 py-2 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent transition shadow-inner">
-                        <span class="absolute left-3.5 top-2.5 text-slate-400 text-xs">🔍</span>
-                        <button id="clearSearchBtn" class="hidden absolute right-3 top-2.5 text-slate-400 hover:text-white text-xs font-bold px-1" title="Clear Search">✕</button>
+                            placeholder="Search any disease, formula, cutoff or pearl..."
+                            class="w-full rounded-xl bg-slate-800/90 border border-slate-700 text-white placeholder-slate-400 text-xs sm:text-sm pl-9 pr-8 py-2 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent transition shadow-inner">
+                        <span class="absolute left-3 top-2.5 text-slate-400 text-xs">🔍</span>
+                        <button id="clearSearchBtn" class="hidden absolute right-2.5 top-2 text-slate-400 hover:text-white text-xs font-bold px-1" title="Clear Search">✕</button>
                     </div>
-                    <button id="filterStarredBtn" class="px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-xs sm:text-sm font-semibold flex items-center gap-1.5 transition shrink-0" title="Filter to starred items only">
+                    <button id="filterStarredBtn" class="px-2.5 sm:px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-xs sm:text-sm font-semibold flex items-center gap-1.5 transition shrink-0" title="Filter to starred favorites only">
                         <span class="text-amber-400">⭐</span>
                         <span class="hidden sm:inline">Favorites</span>
-                        <span id="starredCountBadge" class="px-1.5 py-0.2 rounded-full bg-amber-500/20 text-amber-300 text-xs font-bold">0</span>
-                    </button>
-                    <button id="printGuideBtn" class="hidden sm:flex px-3.5 py-2 rounded-xl bg-sky-600 hover:bg-sky-500 text-white text-xs sm:text-sm font-semibold items-center gap-1.5 shadow-md transition shrink-0" title="Print or save as PDF">
-                        <span>🖨️</span>
-                        <span>Print</span>
+                        <span id="starredCountBadge" class="px-1.5 py-0.2 rounded-full bg-amber-500/20 text-amber-300 text-[11px] font-bold">0</span>
                     </button>
                 </div>
             </div>
 
-            <!-- Main Tab Bar -->
-            <nav class="flex items-center gap-1.5 sm:gap-2 mt-3 pt-2 border-t border-slate-800/80 overflow-x-auto custom-scrollbar pb-1 text-xs sm:text-sm font-bold">
-                <button data-tab="chapters" class="main-tab-btn px-3.5 py-1.5 rounded-xl bg-sky-600 text-white shadow-sm whitespace-nowrap transition flex items-center gap-1.5">
+            <!-- Row 3: Mobile-Optimized Tab Navigation Bar -->
+            <nav class="flex items-center gap-1 sm:gap-2 mt-2.5 pt-2 border-t border-slate-800/80 overflow-x-auto custom-scrollbar pb-1 text-xs sm:text-sm font-bold -mx-1 px-1">
+                <button data-tab="chapters" class="main-tab-btn px-2.5 sm:px-3.5 py-1.5 rounded-xl bg-sky-600 text-white shadow-sm whitespace-nowrap transition flex items-center gap-1.5 shrink-0">
                     <span>📚</span>
-                    <span>11 Clinical Chapters</span>
+                    <span class="sm:hidden">Chapters</span>
+                    <span class="hidden sm:inline">11 Chapters</span>
                 </button>
-                <button data-tab="mostcommon" class="main-tab-btn px-3.5 py-1.5 rounded-xl bg-slate-800 text-slate-300 hover:bg-slate-700 whitespace-nowrap transition flex items-center gap-1.5">
+                <button data-tab="mostcommon" class="main-tab-btn px-2.5 sm:px-3.5 py-1.5 rounded-xl bg-slate-800 text-slate-300 hover:bg-slate-700 whitespace-nowrap transition flex items-center gap-1.5 shrink-0">
                     <span>🎯</span>
-                    <span>Master "Most Common" Table</span>
+                    <span class="sm:hidden">Most Common</span>
+                    <span class="hidden sm:inline">Most Common Causes</span>
                 </button>
-                <button data-tab="numbers" class="main-tab-btn px-3.5 py-1.5 rounded-xl bg-slate-800 text-slate-300 hover:bg-slate-700 whitespace-nowrap transition flex items-center gap-1.5">
+                <button data-tab="numbers" class="main-tab-btn px-2.5 sm:px-3.5 py-1.5 rounded-xl bg-slate-800 text-slate-300 hover:bg-slate-700 whitespace-nowrap transition flex items-center gap-1.5 shrink-0">
                     <span>🔢</span>
-                    <span>Numbers & Cutoff Vault</span>
+                    <span class="sm:hidden">Numbers</span>
+                    <span class="hidden sm:inline">Numbers & Vitals</span>
                 </button>
-                <button data-tab="calculator" class="main-tab-btn px-3.5 py-1.5 rounded-xl bg-slate-800 text-slate-300 hover:bg-slate-700 whitespace-nowrap transition flex items-center gap-1.5">
+                <button data-tab="calculator" class="main-tab-btn px-2.5 sm:px-3.5 py-1.5 rounded-xl bg-slate-800 text-slate-300 hover:bg-slate-700 whitespace-nowrap transition flex items-center gap-1.5 shrink-0">
                     <span>🧮</span>
-                    <span>Clinical Calculators</span>
+                    <span class="sm:hidden">Calculators</span>
+                    <span class="hidden sm:inline">Clinical Calculators</span>
                 </button>
-                <button data-tab="quiz" class="main-tab-btn px-3.5 py-1.5 rounded-xl bg-slate-800 text-slate-300 hover:bg-slate-700 whitespace-nowrap transition flex items-center gap-1.5">
+                <button data-tab="quiz" class="main-tab-btn px-2.5 sm:px-3.5 py-1.5 rounded-xl bg-slate-800 text-slate-300 hover:bg-slate-700 whitespace-nowrap transition flex items-center gap-1.5 shrink-0">
                     <span>⚡</span>
-                    <span>Active Recall (Flashcards & MCQs)</span>
+                    <span class="sm:hidden">Quizzes</span>
+                    <span class="hidden sm:inline">Active Recall Quiz</span>
                 </button>
             </nav>
         </div>
     </header>
 
-    <!-- Filter & Study Progress Sub-bar -->
+    <!-- Sub-bar: Filter & Study Progress Indicator -->
     <section class="bg-white border-b border-slate-200/90 shadow-sm no-print">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2.5">
-            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-2">
-                <div class="flex items-center gap-2 flex-wrap">
-                    <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Chapter Filter:</span>
-                    <span id="activeFilterLabel" class="text-xs font-bold text-sky-700 bg-sky-50 px-2.5 py-0.5 rounded-md border border-sky-200">All Chapters (11/11)</span>
+        <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-2">
+            <div class="flex items-center justify-between gap-2 mb-1.5">
+                <div class="flex items-center gap-1.5 min-w-0">
+                    <span class="text-[10px] sm:text-xs font-bold text-slate-400 uppercase tracking-wider shrink-0">Filter:</span>
+                    <span id="activeFilterLabel" class="text-[11px] sm:text-xs font-bold text-sky-700 bg-sky-50 px-2 py-0.5 rounded-md border border-sky-200 truncate">All Chapters (11/11)</span>
                 </div>
-                <div class="flex items-center gap-3">
-                    <div class="flex items-center gap-2 text-xs font-semibold text-slate-600">
-                        <span>Study Progress:</span>
-                        <div class="w-32 h-2.5 bg-slate-100 rounded-full overflow-hidden border border-slate-200">
-                            <div id="studyProgressBar" class="h-full bg-emerald-500 transition-all duration-300" style="width: 0%"></div>
-                        </div>
-                        <span id="studyProgressText" class="font-bold text-emerald-700">0/11</span>
+                <div class="flex items-center gap-2 shrink-0">
+                    <div class="w-20 sm:w-28 h-2 bg-slate-100 rounded-full overflow-hidden border border-slate-200">
+                        <div id="studyProgressBar" class="h-full bg-emerald-500 transition-all duration-300" style="width: 0%"></div>
                     </div>
+                    <span id="studyProgressText" class="text-[11px] sm:text-xs font-bold text-emerald-700">0/11</span>
                 </div>
             </div>
-            <!-- Dynamic Chapter Pills -->
-            <div id="chapterFilterPills" class="flex items-center gap-1.5 overflow-x-auto custom-scrollbar pb-1"></div>
+            <!-- Horizontal Scrollable Chapter Pills with Touch Support -->
+            <div id="chapterFilterPills" class="flex items-center gap-1.5 overflow-x-auto custom-scrollbar pb-1 -mx-1 px-1"></div>
         </div>
     </section>
 
-    <!-- Main Dynamic Content Workspace -->
-    <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
+    <!-- Main Content Workspace (Padding calibrated for mobile) -->
+    <main class="flex-1 max-w-7xl w-full mx-auto px-3 sm:px-6 lg:px-8 py-4 sm:py-6">
 
-        <!-- Search / Filter Status Banner -->
-        <div id="searchStatusBanner" class="hidden mb-5 p-3 rounded-xl bg-sky-50 border border-sky-200 flex items-center justify-between text-xs sm:text-sm">
-            <div class="text-sky-900 font-semibold" id="searchStatusText"></div>
-            <button id="resetAllFiltersBtn" class="text-xs font-bold px-3 py-1 rounded-lg bg-sky-600 text-white hover:bg-sky-700 transition">Reset Filters</button>
+        <!-- Active Filter Alert Banner -->
+        <div id="searchStatusBanner" class="hidden mb-4 p-3 rounded-xl bg-sky-50 border border-sky-200 flex items-center justify-between text-xs sm:text-sm">
+            <div class="text-sky-900 font-semibold truncate mr-2" id="searchStatusText"></div>
+            <button id="resetAllFiltersBtn" class="text-xs font-bold px-2.5 py-1 rounded-lg bg-sky-600 text-white hover:bg-sky-700 transition shrink-0">Reset</button>
         </div>
 
         <!-- ========================================== -->
         <!-- TAB 1: 11 Clinical Chapters Explorer      -->
         <!-- ========================================== -->
-        <section id="tab-chapters" class="tab-panel space-y-6">
+        <section id="tab-chapters" class="tab-panel space-y-4 sm:space-y-6">
             <!-- Populated dynamically by JS -->
         </section>
 
         <!-- ========================================== -->
-        <!-- TAB 2: Master "Most Common" Table          -->
+        <!-- TAB 2: Master "Most Common" Table & Cards  -->
         <!-- ========================================== -->
         <section id="tab-mostcommon" class="tab-panel hidden space-y-4">
             <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
-                <div class="p-4 sm:p-5 bg-gradient-to-r from-slate-900 to-slate-800 text-white flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                <!-- Section Header -->
+                <div class="p-3.5 sm:p-5 bg-gradient-to-r from-slate-900 to-slate-800 text-white flex flex-col sm:flex-row sm:items-center justify-between gap-2.5">
                     <div>
-                        <h2 class="text-lg font-black flex items-center gap-2">
+                        <h2 class="text-base sm:text-lg font-black flex items-center gap-2">
                             <span>🎯</span>
-                            <span>The Master "Most Common Causes" Golden Table</span>
+                            <span>The Master "Most Common Causes" Vault</span>
                         </h2>
-                        <p class="text-xs text-slate-300 mt-0.5">Comprehensive board questions organized by chapter with high-yield exam clues, pitfalls, and rationale</p>
+                        <p class="text-[11px] sm:text-xs text-slate-300 mt-0.5">High-yield pediatric board questions with clinical pearls and rationale</p>
                     </div>
-                    <div class="flex items-center gap-2">
-                        <button id="toggleHideAnswersMcBtn" class="px-3.5 py-1.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs transition shadow-sm">
-                            🙈 Hide Answers for Self-Drill
+                    <div class="flex items-center gap-2 self-start sm:self-auto">
+                        <button id="toggleHideAnswersMcBtn" class="px-3 py-1.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs transition shadow-sm">
+                            🙈 Hide Answers for Drill
                         </button>
                     </div>
                 </div>
-                <div class="overflow-x-auto">
+
+                <!-- Desktop Table View (Hidden on mobile) -->
+                <div class="hidden md:block overflow-x-auto">
                     <table class="w-full text-left border-collapse">
                         <thead>
                             <tr class="bg-slate-100 border-b border-slate-200 text-slate-700 text-xs font-extrabold uppercase tracking-wider">
@@ -194,26 +220,31 @@
                         </tbody>
                     </table>
                 </div>
+
+                <!-- Mobile Responsive Cards View (Visible on mobile only) -->
+                <div id="masterMostCommonMobileList" class="md:hidden divide-y divide-slate-100 p-2 sm:p-3 space-y-3">
+                    <!-- Populated by JS -->
+                </div>
             </div>
         </section>
 
         <!-- ========================================== -->
         <!-- TAB 3: Master Numbers & Formulas Vault     -->
         <!-- ========================================== -->
-        <section id="tab-numbers" class="tab-panel hidden space-y-6">
-            <div class="bg-gradient-to-r from-indigo-900 via-slate-900 to-sky-900 rounded-2xl p-5 text-white shadow-md flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <section id="tab-numbers" class="tab-panel hidden space-y-4 sm:space-y-6">
+            <div class="bg-gradient-to-r from-indigo-900 via-slate-900 to-sky-900 rounded-2xl p-4 sm:p-5 text-white shadow-md flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                 <div>
-                    <h2 class="text-lg sm:text-xl font-black flex items-center gap-2">
+                    <h2 class="text-base sm:text-xl font-black flex items-center gap-2">
                         <span>🔢</span>
-                        <span>Pediatric High-Yield Numbers & Cutoff Vault</span>
+                        <span>High-Yield Numbers & Vital Cutoff Vault</span>
                     </h2>
-                    <p class="text-xs sm:text-sm text-sky-200 mt-1">Every vital sign, emergency drug dosage, growth milestone formula, and diagnostic cutoff tested in MCQs & OSCEs</p>
+                    <p class="text-xs text-sky-200 mt-0.5">Vital signs by age, emergency drug dosages, growth milestone formulas, and diagnostic cutoffs</p>
                 </div>
-                <button id="toggleHideNumbersBtn" class="px-3.5 py-2 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-xs shrink-0 transition shadow-sm">
-                    🙈 Hide Values for Self-Drill
+                <button id="toggleHideNumbersBtn" class="px-3.5 py-2 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-xs shrink-0 transition shadow-sm self-start sm:self-auto">
+                    🙈 Hide Values for Drill
                 </button>
             </div>
-            <div id="masterNumbersGrid" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div id="masterNumbersGrid" class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                 <!-- Populated by JS -->
             </div>
         </section>
@@ -221,106 +252,160 @@
         <!-- ========================================== -->
         <!-- TAB 4: Interactive Clinical Calculators   -->
         <!-- ========================================== -->
-        <section id="tab-calculator" class="tab-panel hidden space-y-6">
-            <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-5 sm:p-6">
-                <div class="border-b border-slate-200 pb-4 mb-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-                    <div>
-                        <h2 class="text-lg sm:text-xl font-black text-slate-900 flex items-center gap-2">
-                            <span>🧮</span>
-                            <span>Interactive Pediatric Clinical & Emergency Calculators</span>
-                        </h2>
-                        <p class="text-xs sm:text-sm text-slate-600 mt-0.5">Enter age and weight to automatically compute Holliday-Segar fluids, resuscitation boluses, ETT sizes, and vital cutoffs</p>
-                    </div>
-                    <div class="flex items-center gap-1.5 flex-wrap">
-                        <span class="text-xs font-semibold text-slate-400 mr-1">Presets:</span>
-                        <button data-preset="infant" class="calc-preset-btn text-xs font-bold px-2.5 py-1.5 rounded-lg bg-slate-100 hover:bg-sky-50 text-slate-700 border border-slate-200 transition">6m Infant (7.5 kg)</button>
-                        <button data-preset="toddler" class="calc-preset-btn text-xs font-bold px-2.5 py-1.5 rounded-lg bg-slate-100 hover:bg-sky-50 text-slate-700 border border-slate-200 transition">4y Child (16 kg)</button>
-                        <button data-preset="school" class="calc-preset-btn text-xs font-bold px-2.5 py-1.5 rounded-lg bg-slate-100 hover:bg-sky-50 text-slate-700 border border-slate-200 transition">8y School (25 kg)</button>
+        <section id="tab-calculator" class="tab-panel hidden space-y-4 sm:space-y-6">
+            <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-4 sm:p-6">
+                <!-- Calculator Header -->
+                <div class="border-b border-slate-200 pb-3 sm:pb-4 mb-4 sm:mb-5">
+                    <h2 class="text-base sm:text-xl font-black text-slate-900 flex items-center gap-2">
+                        <span>🧮</span>
+                        <span>Pediatric Clinical & Emergency Calculators</span>
+                    </h2>
+                    <p class="text-xs sm:text-sm text-slate-600 mt-0.5">Calculates Holliday-Segar maintenance fluids, shock boluses, ETT sizing, and vitals by age</p>
+                </div>
+
+                <!-- Presets Button Grid (3 columns on mobile) -->
+                <div class="mb-4">
+                    <label class="block text-xs font-bold text-slate-400 mb-1.5 uppercase tracking-wider">Quick Age Presets:</label>
+                    <div class="grid grid-cols-3 gap-1.5">
+                        <button data-preset="infant" class="calc-preset-btn text-xs font-bold py-2 px-1 rounded-xl bg-slate-100 hover:bg-sky-50 text-slate-700 border border-slate-200 transition text-center truncate">6m (7.5 kg)</button>
+                        <button data-preset="toddler" class="calc-preset-btn text-xs font-bold py-2 px-1 rounded-xl bg-slate-100 hover:bg-sky-50 text-slate-700 border border-slate-200 transition text-center truncate">4y (16 kg)</button>
+                        <button data-preset="school" class="calc-preset-btn text-xs font-bold py-2 px-1 rounded-xl bg-slate-100 hover:bg-sky-50 text-slate-700 border border-slate-200 transition text-center truncate">8y (25 kg)</button>
                     </div>
                 </div>
 
                 <!-- Input Controls -->
-                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6 bg-slate-50 p-4 rounded-xl border border-slate-200">
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-5 bg-slate-50 p-3 sm:p-4 rounded-xl border border-slate-200">
                     <div>
-                        <label class="block text-xs font-bold text-slate-700 mb-1">Child Age (Years)</label>
-                        <input id="calcAgeYears" type="number" min="0" max="16" step="0.5" value="4" class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm font-bold text-slate-900 focus:ring-2 focus:ring-sky-500 focus:outline-none transition">
+                        <label class="block text-xs font-bold text-slate-700 mb-1">Age (Years)</label>
+                        <input id="calcAgeYears" type="number" min="0" max="16" step="0.5" value="4" inputmode="decimal" class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm font-bold text-slate-900 focus:ring-2 focus:ring-sky-500 focus:outline-none transition">
                     </div>
                     <div>
-                        <label class="block text-xs font-bold text-slate-700 mb-1">Or Age in Months (for infants &lt; 2 yrs)</label>
-                        <input id="calcAgeMonths" type="number" min="1" max="192" step="1" value="48" class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm font-bold text-slate-900 focus:ring-2 focus:ring-sky-500 focus:outline-none transition">
+                        <label class="block text-xs font-bold text-slate-700 mb-1">Or Age (Months)</label>
+                        <input id="calcAgeMonths" type="number" min="1" max="192" step="1" value="48" inputmode="numeric" class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm font-bold text-slate-900 focus:ring-2 focus:ring-sky-500 focus:outline-none transition">
                     </div>
                     <div>
-                        <label class="block text-xs font-bold text-slate-700 mb-1">Actual or Measured Weight (kg)</label>
-                        <input id="calcWeightKg" type="number" min="1" max="80" step="0.5" value="16" class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm font-bold text-slate-900 focus:ring-2 focus:ring-sky-500 focus:outline-none transition">
+                        <label class="block text-xs font-bold text-slate-700 mb-1">Weight (kg)</label>
+                        <input id="calcWeightKg" type="number" min="1" max="80" step="0.5" value="16" inputmode="decimal" class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm font-bold text-slate-900 focus:ring-2 focus:ring-sky-500 focus:outline-none transition">
                     </div>
                 </div>
 
-                <!-- Output Cards Grid -->
-                <div id="calculatorResultsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                <!-- Calculated Output Cards Grid -->
+                <div id="calculatorResultsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
                     <!-- Populated dynamically by JS -->
                 </div>
             </div>
 
-            <!-- Interactive APGAR Score Section -->
-            <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-5 sm:p-6">
-                <div class="border-b border-slate-200 pb-3 mb-4 flex items-center justify-between">
+            <!-- Interactive APGAR Score Section (Mobile-Optimized) -->
+            <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-4 sm:p-6">
+                <!-- APGAR Header & Score Banner -->
+                <div class="border-b border-slate-200 pb-3 mb-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                     <div>
                         <h3 class="text-base sm:text-lg font-black text-slate-900 flex items-center gap-2">
                             <span>👶</span>
-                            <span>Interactive APGAR Score Calculator (1 & 5 Minutes)</span>
+                            <span>Interactive APGAR Score Calculator</span>
                         </h3>
-                        <p class="text-xs text-slate-500">Select the findings across the 5 domains to calculate the total APGAR score (0 to 10)</p>
+                        <p class="text-xs text-slate-500">Assess neonate at 1 & 5 minutes across the 5 cardinal domains</p>
                     </div>
-                    <div class="text-right">
-                        <span class="text-xs text-slate-500 font-bold block">Total Score:</span>
-                        <span id="apgarTotalScore" class="text-2xl font-black text-sky-600">10 / 10</span>
-                        <span id="apgarScoreBadge" class="text-xs font-bold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 ml-1">Normal / Reassuring</span>
+                    <!-- Prominent Score Badge -->
+                    <div class="flex items-center justify-between sm:justify-end gap-2 bg-slate-100 sm:bg-transparent p-2.5 sm:p-0 rounded-xl">
+                        <span class="text-xs text-slate-600 font-bold sm:hidden">Total APGAR:</span>
+                        <div class="text-right">
+                            <span id="apgarTotalScore" class="text-xl sm:text-2xl font-black text-sky-600 mr-1.5">10 / 10</span>
+                            <span id="apgarScoreBadge" class="text-xs font-bold px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-800">Normal / Reassuring</span>
+                        </div>
                     </div>
                 </div>
-                <div class="grid grid-cols-1 sm:grid-cols-5 gap-3" id="apgarCriteriaGrid">
+
+                <!-- APGAR Domain Criteria Grid (Touch-Friendly Radios) -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3" id="apgarCriteriaGrid">
                     <!-- 1. Appearance -->
                     <div class="p-3 rounded-xl bg-slate-50 border border-slate-200 text-xs">
-                        <div class="font-bold text-slate-900 mb-2">Appearance (Skin Color)</div>
+                        <div class="font-extrabold text-slate-900 mb-2">Appearance (Skin Color)</div>
                         <div class="space-y-1.5">
-                            <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="apgar_a" value="0" class="apgar-radio"> Blue, pale (0)</label>
-                            <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="apgar_a" value="1" class="apgar-radio"> Acrocyanosis (1)</label>
-                            <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="apgar_a" value="2" checked class="apgar-radio"> Completely pink (2)</label>
+                            <label class="flex items-center gap-2 p-2 rounded-lg bg-white border border-slate-200 cursor-pointer hover:border-sky-300 transition">
+                                <input type="radio" name="apgar_a" value="0" class="apgar-radio w-4 h-4 text-sky-600">
+                                <span>Blue, pale (0)</span>
+                            </label>
+                            <label class="flex items-center gap-2 p-2 rounded-lg bg-white border border-slate-200 cursor-pointer hover:border-sky-300 transition">
+                                <input type="radio" name="apgar_a" value="1" class="apgar-radio w-4 h-4 text-sky-600">
+                                <span>Acrocyanosis (1)</span>
+                            </label>
+                            <label class="flex items-center gap-2 p-2 rounded-lg bg-white border border-slate-200 cursor-pointer hover:border-sky-300 transition">
+                                <input type="radio" name="apgar_a" value="2" checked class="apgar-radio w-4 h-4 text-sky-600">
+                                <span>Completely pink (2)</span>
+                            </label>
                         </div>
                     </div>
                     <!-- 2. Pulse -->
                     <div class="p-3 rounded-xl bg-slate-50 border border-slate-200 text-xs">
-                        <div class="font-bold text-slate-900 mb-2">Pulse (Heart Rate)</div>
+                        <div class="font-extrabold text-slate-900 mb-2">Pulse (Heart Rate)</div>
                         <div class="space-y-1.5">
-                            <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="apgar_p" value="0" class="apgar-radio"> Absent (0)</label>
-                            <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="apgar_p" value="1" class="apgar-radio"> &lt; 100 bpm (1)</label>
-                            <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="apgar_p" value="2" checked class="apgar-radio"> ≥ 100 bpm (2)</label>
+                            <label class="flex items-center gap-2 p-2 rounded-lg bg-white border border-slate-200 cursor-pointer hover:border-sky-300 transition">
+                                <input type="radio" name="apgar_p" value="0" class="apgar-radio w-4 h-4 text-sky-600">
+                                <span>Absent (0)</span>
+                            </label>
+                            <label class="flex items-center gap-2 p-2 rounded-lg bg-white border border-slate-200 cursor-pointer hover:border-sky-300 transition">
+                                <input type="radio" name="apgar_p" value="1" class="apgar-radio w-4 h-4 text-sky-600">
+                                <span>&lt; 100 bpm (1)</span>
+                            </label>
+                            <label class="flex items-center gap-2 p-2 rounded-lg bg-white border border-slate-200 cursor-pointer hover:border-sky-300 transition">
+                                <input type="radio" name="apgar_p" value="2" checked class="apgar-radio w-4 h-4 text-sky-600">
+                                <span>≥ 100 bpm (2)</span>
+                            </label>
                         </div>
                     </div>
                     <!-- 3. Grimace -->
                     <div class="p-3 rounded-xl bg-slate-50 border border-slate-200 text-xs">
-                        <div class="font-bold text-slate-900 mb-2">Grimace (Reflex)</div>
+                        <div class="font-extrabold text-slate-900 mb-2">Grimace (Reflex Response)</div>
                         <div class="space-y-1.5">
-                            <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="apgar_g" value="0" class="apgar-radio"> No response (0)</label>
-                            <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="apgar_g" value="1" class="apgar-radio"> Grimace / weak cry (1)</label>
-                            <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="apgar_g" value="2" checked class="apgar-radio"> Cry, cough, sneeze (2)</label>
+                            <label class="flex items-center gap-2 p-2 rounded-lg bg-white border border-slate-200 cursor-pointer hover:border-sky-300 transition">
+                                <input type="radio" name="apgar_g" value="0" class="apgar-radio w-4 h-4 text-sky-600">
+                                <span>No response (0)</span>
+                            </label>
+                            <label class="flex items-center gap-2 p-2 rounded-lg bg-white border border-slate-200 cursor-pointer hover:border-sky-300 transition">
+                                <input type="radio" name="apgar_g" value="1" class="apgar-radio w-4 h-4 text-sky-600">
+                                <span>Grimace / weak cry (1)</span>
+                            </label>
+                            <label class="flex items-center gap-2 p-2 rounded-lg bg-white border border-slate-200 cursor-pointer hover:border-sky-300 transition">
+                                <input type="radio" name="apgar_g" value="2" checked class="apgar-radio w-4 h-4 text-sky-600">
+                                <span>Cry, cough, sneeze (2)</span>
+                            </label>
                         </div>
                     </div>
                     <!-- 4. Activity -->
                     <div class="p-3 rounded-xl bg-slate-50 border border-slate-200 text-xs">
-                        <div class="font-bold text-slate-900 mb-2">Activity (Muscle Tone)</div>
+                        <div class="font-extrabold text-slate-900 mb-2">Activity (Muscle Tone)</div>
                         <div class="space-y-1.5">
-                            <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="apgar_act" value="0" class="apgar-radio"> Flaccid / limp (0)</label>
-                            <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="apgar_act" value="1" class="apgar-radio"> Some flexion (1)</label>
-                            <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="apgar_act" value="2" checked class="apgar-radio"> Active motion (2)</label>
+                            <label class="flex items-center gap-2 p-2 rounded-lg bg-white border border-slate-200 cursor-pointer hover:border-sky-300 transition">
+                                <input type="radio" name="apgar_act" value="0" class="apgar-radio w-4 h-4 text-sky-600">
+                                <span>Flaccid / limp (0)</span>
+                            </label>
+                            <label class="flex items-center gap-2 p-2 rounded-lg bg-white border border-slate-200 cursor-pointer hover:border-sky-300 transition">
+                                <input type="radio" name="apgar_act" value="1" class="apgar-radio w-4 h-4 text-sky-600">
+                                <span>Some flexion (1)</span>
+                            </label>
+                            <label class="flex items-center gap-2 p-2 rounded-lg bg-white border border-slate-200 cursor-pointer hover:border-sky-300 transition">
+                                <input type="radio" name="apgar_act" value="2" checked class="apgar-radio w-4 h-4 text-sky-600">
+                                <span>Active motion (2)</span>
+                            </label>
                         </div>
                     </div>
                     <!-- 5. Respiration -->
                     <div class="p-3 rounded-xl bg-slate-50 border border-slate-200 text-xs">
-                        <div class="font-bold text-slate-900 mb-2">Respiration (Effort)</div>
+                        <div class="font-extrabold text-slate-900 mb-2">Respiration (Effort)</div>
                         <div class="space-y-1.5">
-                            <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="apgar_r" value="0" class="apgar-radio"> Absent (0)</label>
-                            <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="apgar_r" value="1" class="apgar-radio"> Weak, irregular (1)</label>
-                            <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="apgar_r" value="2" checked class="apgar-radio"> Good, strong cry (2)</label>
+                            <label class="flex items-center gap-2 p-2 rounded-lg bg-white border border-slate-200 cursor-pointer hover:border-sky-300 transition">
+                                <input type="radio" name="apgar_r" value="0" class="apgar-radio w-4 h-4 text-sky-600">
+                                <span>Absent (0)</span>
+                            </label>
+                            <label class="flex items-center gap-2 p-2 rounded-lg bg-white border border-slate-200 cursor-pointer hover:border-sky-300 transition">
+                                <input type="radio" name="apgar_r" value="1" class="apgar-radio w-4 h-4 text-sky-600">
+                                <span>Weak, irregular (1)</span>
+                            </label>
+                            <label class="flex items-center gap-2 p-2 rounded-lg bg-white border border-slate-200 cursor-pointer hover:border-sky-300 transition">
+                                <input type="radio" name="apgar_r" value="2" checked class="apgar-radio w-4 h-4 text-sky-600">
+                                <span>Good, strong cry (2)</span>
+                            </label>
                         </div>
                     </div>
                 </div>
@@ -330,53 +415,54 @@
         <!-- ========================================== -->
         <!-- TAB 5: Active Recall Flashcards & MCQs     -->
         <!-- ========================================== -->
-        <section id="tab-quiz" class="tab-panel hidden space-y-6">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <section id="tab-quiz" class="tab-panel hidden space-y-4 sm:space-y-6">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
 
                 <!-- Interactive Flashcard Deck -->
-                <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-5 flex flex-col justify-between">
+                <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-4 sm:p-5 flex flex-col justify-between">
                     <div>
-                        <div class="flex items-center justify-between mb-4">
-                            <h3 class="text-base sm:text-lg font-black text-slate-900 flex items-center gap-2">
+                        <div class="flex items-center justify-between mb-3">
+                            <h3 class="text-sm sm:text-base font-black text-slate-900 flex items-center gap-1.5">
                                 <span>🃏</span>
                                 <span>Active Recall Flashcards</span>
                             </h3>
-                            <span id="flashcardCounter" class="text-xs font-bold px-2.5 py-1 rounded-full bg-sky-100 text-sky-800">1 / 100</span>
+                            <span id="flashcardCounter" class="text-xs font-bold px-2.5 py-0.5 rounded-full bg-sky-100 text-sky-800">1 / 100</span>
                         </div>
-                        <div id="flashcardBox" class="cursor-pointer rounded-2xl border-2 border-sky-200 bg-gradient-to-br from-sky-50 via-white to-indigo-50 p-6 min-h-[240px] flex flex-col items-center justify-center text-center transition hover:shadow-md select-none">
-                            <span id="fcChapterBadge" class="text-xs font-bold px-3 py-0.5 rounded-full bg-sky-600 text-white mb-3">Chapter</span>
-                            <p id="fcQuestionText" class="text-base sm:text-lg font-extrabold text-slate-900 text-center mb-3 leading-snug"></p>
-                            <div id="fcAnswerWrap" class="hidden mt-3 pt-3 border-t border-sky-200 w-full">
-                                <p id="fcAnswerText" class="text-sm sm:text-base font-bold text-emerald-700 text-center mb-2 leading-relaxed"></p>
-                                <p id="fcNoteText" class="text-xs sm:text-sm text-slate-600 leading-relaxed"></p>
+                        <div id="flashcardBox" class="cursor-pointer rounded-2xl border-2 border-sky-200 bg-gradient-to-br from-sky-50 via-white to-indigo-50 p-4 sm:p-6 min-h-[200px] sm:min-h-[240px] flex flex-col items-center justify-center text-center transition hover:shadow-md select-none">
+                            <span id="fcChapterBadge" class="text-[11px] sm:text-xs font-bold px-3 py-0.5 rounded-full bg-sky-600 text-white mb-2 sm:mb-3">Chapter</span>
+                            <p id="fcQuestionText" class="text-sm sm:text-base lg:text-lg font-extrabold text-slate-900 text-center mb-2 leading-snug"></p>
+                            <div id="fcAnswerWrap" class="hidden mt-2 pt-2 sm:mt-3 sm:pt-3 border-t border-sky-200 w-full">
+                                <p id="fcAnswerText" class="text-xs sm:text-sm font-bold text-emerald-700 text-center mb-1.5 leading-relaxed"></p>
+                                <p id="fcNoteText" class="text-[11px] sm:text-xs text-slate-600 leading-relaxed"></p>
                             </div>
-                            <p id="fcHintPrompt" class="text-xs text-sky-600 font-semibold mt-4">Click card to reveal answer 👆</p>
+                            <p id="fcHintPrompt" class="text-xs text-sky-600 font-semibold mt-3">Tap card to reveal answer 👆</p>
                         </div>
                     </div>
-                    <div class="flex items-center justify-between gap-2 mt-4 pt-3 border-t border-slate-100">
-                        <button id="prevFcBtn" class="px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs sm:text-sm transition">Previous</button>
-                        <button id="flipFcBtn" class="px-5 py-2 rounded-xl bg-sky-600 hover:bg-sky-500 text-white font-bold text-xs sm:text-sm transition shadow-sm">Reveal / Hide</button>
-                        <button id="nextFcBtn" class="px-4 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs sm:text-sm transition">Next</button>
+                    <!-- 3-Button Responsive Grid (Equal sizing on mobile) -->
+                    <div class="grid grid-cols-3 gap-2 mt-4 pt-3 border-t border-slate-100">
+                        <button id="prevFcBtn" class="py-2.5 px-1 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs sm:text-sm transition text-center">Previous</button>
+                        <button id="flipFcBtn" class="py-2.5 px-1 rounded-xl bg-sky-600 hover:bg-sky-500 text-white font-bold text-xs sm:text-sm transition shadow-sm text-center">Flip Card</button>
+                        <button id="nextFcBtn" class="py-2.5 px-1 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs sm:text-sm transition text-center">Next</button>
                     </div>
                 </div>
 
                 <!-- High-Yield Board MCQ Simulator -->
-                <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-5 flex flex-col justify-between">
+                <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-4 sm:p-5 flex flex-col justify-between">
                     <div>
-                        <div class="flex items-center justify-between mb-4">
-                            <h3 class="text-base sm:text-lg font-black text-slate-900 flex items-center gap-2">
+                        <div class="flex items-center justify-between mb-3">
+                            <h3 class="text-sm sm:text-base font-black text-slate-900 flex items-center gap-1.5">
                                 <span>🏆</span>
-                                <span>Pediatric Board MCQ Simulator</span>
+                                <span>Pediatric MCQ Simulator</span>
                             </h3>
-                            <div class="flex items-center gap-2">
-                                <span id="mcqScoreBadge" class="text-xs font-bold px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-800">Score: 0 / 0</span>
-                                <button id="newMcqBtn" class="text-xs font-bold px-2.5 py-1 rounded-lg bg-slate-900 text-white hover:bg-slate-800 transition">Next MCQ 🔄</button>
+                            <div class="flex items-center gap-1.5">
+                                <span id="mcqScoreBadge" class="text-[11px] sm:text-xs font-bold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800">Score: 0 / 0</span>
+                                <button id="newMcqBtn" class="text-xs font-bold px-2.5 py-1 rounded-lg bg-slate-900 text-white hover:bg-slate-800 transition">Next 🔄</button>
                             </div>
                         </div>
                         <div id="mcqContainer" class="space-y-3">
-                            <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200">
-                                <span id="mcqCategoryTag" class="inline-block text-xs font-bold text-indigo-700 bg-indigo-50 px-2 py-0.5 rounded border border-indigo-200 mb-2"></span>
-                                <p id="mcqPrompt" class="text-sm sm:text-base font-bold text-slate-900 leading-snug"></p>
+                            <div class="p-3 rounded-xl bg-slate-50 border border-slate-200">
+                                <span id="mcqCategoryTag" class="inline-block text-[10px] sm:text-xs font-bold text-indigo-700 bg-indigo-50 px-2 py-0.5 rounded border border-indigo-200 mb-1.5"></span>
+                                <p id="mcqPrompt" class="text-xs sm:text-sm lg:text-base font-bold text-slate-900 leading-snug"></p>
                             </div>
                             <div id="mcqOptionsList" class="space-y-2">
                                 <!-- Options populated by JS -->
@@ -391,15 +477,15 @@
 
     </main>
 
-    <!-- Clean Footer -->
-    <footer class="bg-white border-t border-slate-200 py-4 mt-8 no-print">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-2">
+    <!-- Footer -->
+    <footer class="bg-white border-t border-slate-200 py-3.5 mt-8 no-print">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-1.5 text-center sm:text-left">
             <p class="font-medium">Pediatrics Master Exam Hub • Full 11-Chapter Clinical Curriculum</p>
-            <p class="text-slate-400">Offline-Ready Single HTML Application • Built for Clinical Rounds, OSCEs & Board Exams</p>
+            <p class="text-slate-400">Offline-Ready Single HTML • Fully Responsive on Mobile, Tablet & Desktop</p>
         </div>
     </footer>
 
-    <!-- Comprehensive JavaScript Application Engine -->
+    <!-- JavaScript Application Engine -->
     <script>
         const CHAPTERS_DATA = [{"id": "emergency", "title": "Pediatric Emergencies & PALS", "icon": "🚨", "color": "rose", "summary": "Core emergency management: pediatric cardiac arrest protocols, shock classification and fluid resuscitation, status epilepticus, diabetic ketoacidosis (DKA), anaphylaxis, and airway foreign body obstruction.", "mostCommon": [{"q": "Most common cause of Cardiac Arrest in children", "a": "Hypoxia & Respiratory failure / Progressive Shock (leading to Asystole / Bradycardia) — NOT primary arrhythmia", "note": "Unlike adults (who arrest from primary VF/VT due to ischemic heart disease), pediatric arrest is almost always secondary to asphyxia, airway obstruction, or uncompensated shock. Initial rhythm is typically profound bradycardia progressing to PEA or asystole."}, {"q": "Most common type of shock in pediatrics overall", "a": "Hypovolemic Shock (secondary to Acute Gastroenteritis / dehydration)", "note": "Septic shock is the second most common. First-line therapy for hypovolemic/septic shock is an immediate IV/IO bolus of 20 mL/kg isotonic crystalloid (Normal Saline or Ringer's Lactate) over 5–20 minutes. Note: Use 10 mL/kg cautiously in cardiogenic shock or DKA."}, {"q": "Most common pathological tachycardia / arrhythmia in infants & children", "a": "Supraventricular Tachycardia (SVT) — HR > 220 bpm in infants, > 180 bpm in children", "note": "ECG shows narrow QRS (<0.09s), absent or abnormal P waves, and fixed R-R intervals with no beat-to-beat variability. Stable: Vagal maneuvers (ice bag to face in infants; modified Valsalva in older children) -> IV Adenosine (0.1 mg/kg rapid flush, then 0.2 mg/kg). Unstable: Immediate Synchronized Cardioversion (0.5–1 J/kg)."}, {"q": "Most common cause of convulsions in children aged 6 months to 5 years", "a": "Febrile Seizures (Simple vs. Complex)", "note": "Simple Febrile Seizure: Generalized tonic-clonic, duration < 15 minutes, occurs only once in a 24-hour period, with no post-ictal neurological deficit. Complex: Focal onset, duration > 15 minutes, or recurs within 24 hours."}, {"q": "Most common etiology of Status Epilepticus in children", "a": "Prolonged febrile seizure, acute CNS infection (meningitis/encephalitis), or anti-epileptic medication withdrawal", "note": "Defined as seizure activity lasting > 5 minutes or recurrent seizures without return to baseline consciousness between episodes. 1st-line: IV Lorazepam 0.1 mg/kg or IM Midazolam 0.2 mg/kg / rectal Diazepam. 2nd-line (> 10-15 min): IV Levetiracetam (Keppra 60 mg/kg) or Fosphenytoin (20 mg PE/kg)."}, {"q": "Most common trigger of Anaphylaxis in children", "a": "Food allergens (Peanuts, tree nuts, cow's milk, eggs, seafood)", "note": "First-line lifesaving drug: Intramuscular (IM) Epinephrine 1:1,000 (0.01 mg/kg, max 0.3 mg in prepubertal child / 0.5 mg in adolescents) injected into the anterolateral mid-thigh. Never delay epinephrine for antihistamines or corticosteroids."}, {"q": "Most common foreign body aspirated by toddlers (1–3 years)", "a": "Organic matter / Peanuts, seeds, popcorn, or small toy parts", "note": "Most frequent anatomical lodgment is the Right Mainstem Bronchus (steeper vertical angle and wider caliber). Classic triad: sudden choking/gagging crisis, unilateral localized wheeze, and diminished breath sounds. Definitive management: Rigid bronchoscopy."}, {"q": "Most common cause of acute pediatric accidental drug ingestion / poisoning", "a": "Acetaminophen (Paracetamol) and household cleaning agents / cosmetics", "note": "Paracetamol antidote: N-Acetylcysteine (NAC), guided by the Rumack-Matthew nomogram plotting serum levels at 4 to 24 hours post-ingestion."}], "numbers": [{"label": "Isotonic Fluid Resuscitation Bolus", "val": "20 mL/kg", "detail": "Normal Saline (0.9% NaCl) or Ringer's Lactate pushed over 5–20 min. In cardiogenic shock, DKA, or severe acute malnutrition, reduce bolus to 10 mL/kg given over 30–60 min."}, {"label": "Defibrillation Initial Energy (PALS)", "val": "2 J/kg", "detail": "For shockable rhythms (VF / Pulseless VT). Second and subsequent shocks: 4 J/kg (titrate up to max 10 J/kg or adult 200 J biphasic)."}, {"label": "Synchronized Cardioversion Initial Energy", "val": "0.5 – 1.0 J/kg", "detail": "For unstable SVT or VT with pulse. Increase to 2 J/kg if initial cardioversion fails. Ensure 'Sync' mode is actively engaged."}, {"label": "IM Epinephrine Dose for Anaphylaxis", "val": "0.01 mg/kg (1:1,000 concentration)", "detail": "Max dose 0.3 mg child / 0.5 mg adolescent. Administer IM into anterolateral mid-thigh (vastus lateralis). May repeat every 5–15 min."}, {"label": "IV/IO Epinephrine Dose for Cardiac Arrest", "val": "0.01 mg/kg (1:10,000 concentration)", "detail": "Equals 0.1 mL/kg of 1:10,000 concentration. Repeat every 3–5 minutes during CPR. Follow with a 5 mL normal saline flush."}, {"label": "CPR Compression-to-Ventilation Ratio", "val": "15:2 (Two Rescuers) / 30:2 (Single Rescuer)", "detail": "Rate: 100–120 compressions/min. Depth: at least 1/3 of the AP diameter of the chest (~4 cm in infants, ~5 cm in children)."}, {"label": "Hypoglycemia Diagnostic Cutoff", "val": "< 60 mg/dL (< 3.3 mmol/L)", "detail": "In neonates during first 24-48 hours: < 45 mg/dL (< 2.5 mmol/L). Acute symptomatic treatment: 2–5 mL/kg of 10% Dextrose in water (D10W) IV bolus."}, {"label": "Maintenance Fluids (Holliday-Segar Formula)", "val": "100 / 50 / 20 mL/kg/day", "detail": "First 10 kg: 100 mL/kg/day (4 mL/kg/hr). Next 10 kg (11-20 kg): +50 mL/kg/day (+2 mL/kg/hr). Each kg > 20 kg: +20 mL/kg/day (+1 mL/kg/hr)."}], "pearls": ["Respiratory failure precedes Cardiac Arrest in children: Unlike adults with primary coronary events, pediatric cardiopulmonary arrest is the terminal result of progressive hypoxia or shock. Prompt airway opening, effective bag-valve-mask ventilation with high-flow oxygen, and early fluid resuscitation prevent arrest in over 85% of critically ill children.", "Hypotension is a LATE and ominous sign of Decompensated Shock: Pediatric physiology compensates through profound tachycardia and intense peripheral vasoconstriction to maintain central blood pressure. Once systolic blood pressure drops below the 5th percentile, cardiopulmonary collapse is imminent. Diagnose and treat shock in the compensated phase (tachycardia, prolonged capillary refill > 2 sec, cool mottled extremities, diminished peripheral pulses).", "The 5-Minute Status Epilepticus Rule: Do not wait 30 minutes to initiate emergency anticonvulsant therapy. Any seizure lasting beyond 5 minutes has a high likelihood of refractory progression. Administer first-line benzodiazepines immediately (IV Lorazepam 0.1 mg/kg or IM Midazolam 0.2 mg/kg) and prepare second-line IV anticonvulsants if seizure persists beyond 10-15 minutes."]}, {"id": "neonatology", "title": "Neonatology & Perinatal Medicine", "icon": "👶", "color": "sky", "summary": "Essential neonatal medicine: APGAR scoring, neonatal respiratory distress (RDS vs. TTN vs. MAS), physiological and pathological jaundice, neonatal sepsis, birth trauma, and infants of diabetic mothers (IDM).", "mostCommon": [{"q": "Most common cause of Respiratory Distress in Preterm infants (< 34 weeks)", "a": "Respiratory Distress Syndrome (RDS / Hyaline Membrane Disease) due to Surfactant Deficiency", "note": "Chest X-ray shows diffuse bilateral reticulogranular 'ground-glass' appearance with prominent air bronchograms. Prevention: Antenatal corticosteroids (Betamethasone or Dexamethasone) given to mothers at risk of preterm delivery (24-34 weeks). Treatment: Early CPAP and intratracheal exogenous surfactant."}, {"q": "Most common cause of Respiratory Distress in Term / Near-Term infants born via elective Cesarean delivery", "a": "Transient Tachypnea of the Newborn (TTN / Wet Lung Syndrome)", "note": "Pathophysiology: Delayed clearance and resorption of fetal lung fluid (lack of labor thoracic squeeze and catecholamine surge). CXR: Perihilar streaking, fluid in interlobar fissures, hyperinflation. Benign, self-limiting within 24 to 72 hours with supportive oxygen."}, {"q": "Most common cause of Respiratory Distress in Post-Term infants (> 41 weeks) with fetal distress", "a": "Meconium Aspiration Syndrome (MAS)", "note": "Caused by intrauterine hypoxia stimulating fetal gasping and meconium passage into amniotic fluid. CXR: Coarse, patchy, asymmetric infiltrates with hyperinflation and diaphragmatic flattening. High risk of chemical pneumonitis and Persistent Pulmonary Hypertension of the Newborn (PPHN)."}, {"q": "Most common cause of Pathological Jaundice appearing in the first 24 hours of life", "a": "Hemolytic Disease of the Newborn (ABO Incompatibility > Rh Isoimmunization)", "note": "ANY jaundice within the first 24 hours of life is PATHOLOGICAL until proven otherwise. ABO incompatibility occurs when mother is blood type O and infant is A or B (milder, direct Coombs test often weakly positive). Rh disease occurs when mother is Rh-negative and infant is Rh-positive (more severe, Coombs strongly positive)."}, {"q": "Most common cause of Direct (Conjugated) Hyperbilirubinemia in neonates (> 2 weeks old)", "a": "Biliary Atresia", "note": "Direct bilirubin > 1.0 mg/dL (or > 20% of total) is never physiological. Presents with acholic (pale chalky clay-colored) stools, dark amber urine, and hepatomegaly. Urgent diagnosis: Ultrasound (triangular cord sign), HIDA scan, liver biopsy. Timely surgical intervention: Kasai portoenterostomy best performed before 60 days of age."}, {"q": "Most common pathogens causing Early-Onset Neonatal Sepsis (< 72 hours of life)", "a": "Group B Streptococcus (GBS - Streptococcus agalactiae) and Escherichia coli", "note": "Acquired vertically from the maternal genital tract during labor. Empirical antibiotic therapy: IV Ampicillin (covers GBS and Listeria) + IV Gentamicin (covers E. coli and Gram-negative bacilli). Ceftriaxone is contraindicated in neonates due to biliary sludging and bilirubin displacement."}, {"q": "Most common pathogen causing Late-Onset Neonatal Sepsis in NICU hospitalized preterms", "a": "Coagulase-Negative Staphylococci (CoNS - Staphylococcus epidermidis)", "note": "Associated with prolonged indwelling central venous catheters, endotracheal tubes, and parenteral nutrition. Empirical therapy: IV Vancomycin + Gentamicin (or Cefepime/Amikacin)."}, {"q": "Most common metabolic complication in Infants of Diabetic Mothers (IDM)", "a": "Hypoglycemia (peak onset at 1–3 hours after delivery)", "note": "Pathophysiology: Maternal hyperglycemia causes chronic fetal hyperglycemia -> fetal pancreatic beta-cell hyperplasia and fetal hyperinsulinism. At birth, maternal glucose supply abruptly ceases while infant's hyperinsulinemia persists. Also associated with macrosomia, cardiac septal hypertrophy, polycythemia, hypocalcemia, and sacral agenesis."}, {"q": "Most common benign scalp swelling crossing suture lines in neonates", "a": "Caput Succedaneum (subcutaneous serosanguinous edema)", "note": "Crosses cranial suture lines, soft, present at birth, resolves spontaneously in a few days. In contrast: Cephalohematoma (subperiosteal hemorrhage) does NOT cross suture lines, appears hours after birth, increases hyperbilirubinemia risk, and takes weeks to months to resorb."}], "numbers": [{"label": "Normal Full-Term Birth Weight Range", "val": "2.5 – 4.0 kg (Mean: 3.5 kg)", "detail": "< 2.5 kg is Low Birth Weight (LBW); < 1.5 kg is Very Low Birth Weight (VLBW); < 1.0 kg is Extremely Low Birth Weight (ELBW). Macrosomia is > 4.0 kg."}, {"label": "Normal Full-Term Head Circumference (OFC)", "val": "33 – 35 cm (Mean: 35 cm)", "detail": "Head circumference normally equals chest circumference minus 2 cm at birth. Equals chest circumference at 1 year, then chest circumference exceeds head."}, {"label": "Normal Physiological Neonatal Weight Loss", "val": "Up to 7% – 10% of birth weight", "detail": "Occurs over the first 3 to 5 days of life due to fluid excretion. Birth weight is normally regained by day 10 to 14 of life."}, {"label": "Full-Term Gestational Age Definition", "val": "37 completed weeks to 41 weeks + 6 days", "detail": "Preterm: < 37 completed weeks. Extreme preterm: < 28 weeks. Post-term: ≥ 42 completed weeks."}, {"label": "Critical Cord Bilirubin / Rate of Rise Warning", "val": "> 0.5 mg/dL/hour (or > 5 mg/dL/day)", "detail": "A rise rate > 0.5 mg/dL/hr indicates aggressive active hemolysis requiring immediate phototherapy and preparation for double-volume exchange transfusion."}, {"label": "Exchange Transfusion Blood Volume", "val": "160 – 170 mL/kg (Double Volume)", "detail": "Double volume exchange transfusion removes ~85% of circulating sensitized red blood cells and reduces serum unconjugated bilirubin by approximately 50%."}], "pearls": ["Never assume Jaundice on Day 1 is Physiological: Jaundice visible within the first 24 hours of life is always pathological and demands an immediate stat diagnostic workup (Total & Direct Bilirubin, blood group, Rh, Direct Coombs Test, Complete Blood Count, and peripheral smear for spherocytes/reticulocytes).", "APGAR Score evaluates Resuscitation Response, NOT long-term prognosis: The APGAR score assesses the neonate's transition at 1 and 5 minutes (and every 5 min up to 20 min if score < 7). It guide the ongoing resuscitation but does NOT predict individual long-term neurological outcome or intelligence.", "Ceftriaxone is Contraindicated in Neonates: Never use Ceftriaxone in neonates under 28 days of age. It displaces bilirubin from albumin (precipitating kernicterus / bilirubin encephalopathy) and precipitates with IV calcium-containing solutions to form fatal insoluble crystalline deposits in lungs and kidneys. Use Cefotaxime or Gentamicin instead."]}, {"id": "growth", "title": "Growth, Development & Nutrition", "icon": "📈", "color": "emerald", "summary": "Fundamental developmental milestones, anthropometric formulas (weight, length/height, head circumference), fontanelle closure timelines, dentition rules, and clinical evaluation of short stature.", "mostCommon": [{"q": "Most common cause of Non-Organic Failure to Thrive (FTT)", "a": "Inadequate caloric intake / Psychosocial deprivation & Poverty / Improper infant formula preparation", "note": "Accounts for > 80% of all FTT cases. Characterized by weight percentile dropping first, followed by length/height percentile, while head circumference is spared until late (Weight-for-age < 5th percentile or crossing 2 major percentile lines)."}, {"q": "Most common pathological endocrine cause of Short Stature", "a": "Congenital or Acquired Hypothyroidism (followed by Growth Hormone Deficiency)", "note": "Key differentiator: In endocrine short stature, weight-for-height is preserved or increased (child looks chubby or overweight for height), and bone age is significantly delayed. In constitutional delay of growth, bone age equals height age, and final adult height is normal."}, {"q": "Most common nutritional deficiency in toddlers and infants worldwide", "a": "Iron Deficiency Anemia (IDA) — secondary to excessive cow's milk intake (> 500 mL/day) after 1 year", "note": "Excess unfortified cow's milk causes occult gastrointestinal micro-bleeding and displaces iron-rich solid foods. Microcytic hypochromic anemia with high RDW (> 15%) and low serum ferritin (< 12 ng/mL)."}, {"q": "Most common developmental delay noticed by parents in the first 2 years", "a": "Expressive Speech and Language Delay", "note": "Rule of thumb for speech milestones: 1 year = 1 single word with meaning; 2 years = 2-word telegraphic phrases (50% intelligible to strangers); 3 years = 3-word sentences (75% intelligible); 4 years = 4-word sentences (100% intelligible). Always screen hearing first!"}], "numbers": [{"label": "Weight Doubling Timeline", "val": "4 – 5 months", "detail": "Infant birth weight doubles by 4-5 months of age (e.g., 3.5 kg at birth -> 7 kg at 5 months)."}, {"label": "Weight Tripling Timeline", "val": "12 months (1 year)", "detail": "Birth weight triples by 1 year (e.g., 3.5 kg -> 10.5 kg). Birth weight quadruples by 2 years (~12-14 kg)."}, {"label": "Weight Estimation Formula (1 to 6 years)", "val": "(Age in years × 2) + 8 kg", "detail": "Example: A 4-year-old child weighs approximately (4 × 2) + 8 = 16 kg. For 7–12 years: (Age × 3) + 7 kg."}, {"label": "Birth Length / Height Milestones", "val": "50 cm at birth -> 75 cm at 1 year -> 100 cm at 4 years", "detail": "Increases by 25 cm in year 1, 12 cm in year 2, then ~5-6 cm/year until puberty. Height doubles birth length at 4 years (100 cm). Height triples birth length at 12 years (150 cm)."}, {"label": "Height Estimation Formula (2 to 12 years)", "val": "(Age in years × 6) + 77 cm", "detail": "Example: A 4-year-old child's estimated height is (4 × 6) + 77 = 101 cm."}, {"label": "Anterior Fontanelle Closure Age", "val": "9 – 18 months (Average: 12–14 months)", "detail": "Delayed closure (> 18 mo) seen in Rickets, Hypothyroidism, Hydrocephalus, Down syndrome, Achondroplasia. Posterior fontanelle closes early by 6–8 weeks."}, {"label": "Primary Dentition (First Tooth Eruption)", "val": "6 – 8 months (Lower Central Incisor)", "detail": "Delayed dentition is defined as absence of teeth by 13 months. Total primary teeth = 20 teeth (all present by 2.5 to 3 years)."}, {"label": "Gross Motor Milestones Rule (3-6-9-12)", "val": "3 mo: Head steady | 6 mo: Sits unsupported | 9 mo: Crawls & pulls to stand | 12 mo: Walks independent", "detail": "Red flag: Not walking independently by 18 months, or not sitting without support by 9 months requires immediate neuromuscular/developmental evaluation."}], "pearls": ["Constitutional Delay vs. Familial Short Stature: In Constitutional Delay of Growth and Puberty, bone age is delayed and matches height age (child is a 'late bloomer'), with normal growth velocity and normal predicted adult height. In Familial (Genetic) Short Stature, bone age equals chronological age, growth velocity is normal, but the child tracks along a low percentile consistent with mid-parental height.", "Weight drops first in Nutritional FTT; Height drops first in Endocrine disease: In acute caloric malnutrition, weight falls first while height and head circumference remain preserved ('wasted' appearance). In chronic endocrine disorders (hypothyroidism, Cushing, GH deficiency), linear growth slows down early while weight is preserved ('stunted, stocky' appearance).", "Screen Hearing in EVERY child presenting with Speech Delay: Never diagnose autism spectrum disorder, developmental language disorder, or behavioral mutism without first performing formal audiological testing (Brainstem Auditory Evoked Response - BAER, or audiometry) to rule out sensorineural or conductive hearing loss."]}, {"id": "genetics", "title": "Genetics & Dysmorphology", "icon": "🧬", "color": "purple", "summary": "Chromosomal aneuploidies (Down, Edwards, Patau, Turner, Klinefelter), Mendelian inheritance patterns, dysmorphic feature recognition, and inborn errors of metabolism (IEM).", "mostCommon": [{"q": "Most common chromosomal cause of Intellectual Disability and dysmorphic features", "a": "Down Syndrome (Trisomy 21) — 95% due to Maternal Meiotic Nondisjunction", "note": "4% due to Robertsonian translocation (usually t(14;21)), 1% mosaicism. Advanced maternal age is the primary risk factor for nondisjunction. Features: Upward slanting palpebral fissures, epicanthal folds, flat facial profile, single palmar crease (simian crease), Sandal gap between 1st and 2nd toes, brushfield spots in iris, hypotonia."}, {"q": "Most common Congenital Heart Defect in Down Syndrome", "a": "Complete Atrioventricular Septal Defect (AV Canal Defect / Endocardial Cushion Defect) — ~40%", "note": "Followed by Ventricular Septal Defect (VSD) and Patent Ductus Arteriosus (PDA). All infants with Down syndrome must undergo echocardiography at birth."}, {"q": "Most common Gastrointestinal anomaly in Down Syndrome", "a": "Duodenal Atresia (presents with bilious vomiting on day 1 with 'Double Bubble' sign on abdominal X-ray)", "note": "Hirschsprung disease and Annular pancreas are also significantly increased in Down syndrome."}, {"q": "Most common inherited (monogenic) cause of Intellectual Disability and Autism spectrum", "a": "Fragile X Syndrome (CGG Trinucleotide Repeat Expansion in FMR1 gene on X chromosome)", "note": "Features: Long narrow face, prominent jaw (prognathism), large everted ears, macroorchidism (post-pubertal enlarged testes), joint hypermobility, mitral valve prolapse, and hand-flapping behavior."}, {"q": "Most common sex chromosome abnormality in females presenting with primary amenorrhea & short stature", "a": "Turner Syndrome (45,XO or mosaic 45,XO/46,XX)", "note": "Features: Short stature, streak ovaries (hypergonadotropic hypogonadism), webbed neck (cystic hygroma in utero), shield chest with widely spaced nipples, cubitus valgus, lymphedema of hands/feet in neonates. Cardiac: Bicuspid Aortic Valve (most common, ~30%) and Coarctation of the Aorta (~10-15%). Renal: Horseshoe kidney."}, {"q": "Most common sex chromosome abnormality in males presenting with tall stature & gynecomastia", "a": "Klinefelter Syndrome (47,XXY)", "note": "Tall, thin habitus with eunuchoid proportions (long legs), small firm testes, gynecomastia, hypergonadotropic hypogonadism (low testosterone, high LH/FSH), infertility (azoospermia), and mild learning/executive function difficulties."}, {"q": "Most common Inborn Error of Amino Acid Metabolism", "a": "Phenylketonuria (PKU) — Autosomal Recessive deficiency of Phenylalanine Hydroxylase (PAH)", "note": "Accumulation of phenylalanine and toxic phenylketones. Clinical presentation (if untreated): Severe intellectual disability, microcephaly, seizures, hypopigmentation (fair skin, blonde hair, blue eyes due to melanin synthesis inhibition), and classic 'musty / mousy' odor. Treatment: Lifelong dietary phenylalanine restriction with tyrosine supplementation."}], "numbers": [{"label": "Down Syndrome Incidence", "val": "1 in 700 live births (rises to 1 in 100 at maternal age 40)", "detail": "Karyotyping is essential for all confirmed clinical cases to distinguish nondisjunction (low recurrence risk ~1%) from unbalanced translocation (recurrence risk up to 10-15% if mother is carrier)."}, {"label": "Fragile X Full Mutation CGG Repeat Cutoff", "val": "> 200 CGG repeats (with FMR1 hypermethylation)", "detail": "Normal range: 5 to 44 repeats. Premutation: 55 to 200 repeats (risk of Fragile X-Associated Tremor/Ataxia Syndrome - FXTAS in males, and Primary Ovarian Insufficiency - FXPOI in females)."}, {"label": "Edwards Syndrome Karyotype", "val": "Trisomy 18", "detail": "Micrognathia, low-set malformed ears, prominent occiput, clenched fists with overlapping fingers (2nd over 3rd, 5th over 4th), rocker-bottom feet, congenital heart defects. > 90% mortality in first year."}, {"label": "Patau Syndrome Karyotype", "val": "Trisomy 13", "detail": "Microphthalmia, cleft lip/palate, holoprosencephaly, post-axial polydactyly, scalp defects (cutis aplasia), cystic kidneys. > 90% mortality in first year."}, {"label": "Neonatal Blood Spot Screening Window", "val": "24 to 72 hours after birth (Guthrie card test)", "detail": "Must be performed after initiation of milk feeding (for aminoacidopathies like PKU) to avoid false negatives. Screen includes PKU, Congenital Hypothyroidism, CAH, Galactosemia, and Sickle Cell Disease."}], "pearls": ["Coarctation of Aorta + Bicuspid Aortic Valve in a Female = Think Turner Syndrome: Any female neonate or child with unexplained hypertension in upper extremities, diminished or delayed femoral pulses, or heart murmur must be evaluated for Turner syndrome with chromosomal karyotype. Approximately 30% of Turner patients have bicuspid aortic valve and 12% have aortic coarctation.", "Atlantoaxial Instability in Down Syndrome: 10% to 20% of children with Down syndrome have asymptomatic laxity of the transverse ligament at C1-C2 (Atlantoaxial Instability). Obtain cervical spine flexion-extension radiographs if symptomatic (neck pain, torticollis, gait deterioration, hyperreflexia, bowel/bladder dysfunction) and avoid high-impact collision sports or forced neck flexion.", "Lethargy + Vomiting + Tachypnea without lung pathology in a previously healthy neonate = Think Inborn Error of Metabolism: A newborn who is born healthy, feeds well for 24-48 hours, and then suddenly deteriorates with lethargy, vomiting, seizures, or coma has an inborn error of metabolism until proven otherwise. Immediately check blood ammonia, blood gases (anion gap metabolic acidosis), blood glucose, and urine ketones."]}, {"id": "immunology", "title": "Pediatric Immunology & Vaccinations", "icon": "🛡️", "color": "amber", "summary": "Primary immunodeficiency disorders (B-cell, T-cell, SCID, phagocytic, complement), pediatric vaccination schedules, live attenuated vaccine contraindications, and vaccine adverse events.", "mostCommon": [{"q": "Most common Primary Immunodeficiency Disorder overall", "a": "Selective IgA Deficiency (prevalence ~ 1 in 600 individuals)", "note": "Most patients are asymptomatic. Symptomatic patients present with recurrent sinopulmonary infections, chronic giardiasis, and increased risk of autoimmune diseases and atopy. CRITICAL EXAM KEY: Severe anaphylactic transfusion reactions if given blood products containing IgA (patients develop anti-IgA antibodies); must receive washed RBCs."}, {"q": "Most common symptomatic Primary B-Cell Immunodeficiency presenting after 6 months of age", "a": "X-Linked Agammaglobulinemia (XLA / Bruton's Disease) — mutation in BTK (Bruton Tyrosine Kinase)", "note": "Affects males. Symptom onset at 6–9 months (as maternal transplacental IgG wanes). Recurrent severe encapsulated bacterial infections (Streptococcus pneumoniae, Haemophilus influenzae). Key physical finding: Absence of tonsils, adenoids, and peripheral lymph nodes. Laboratory: Profoundly low or absent all immunoglobulin classes (IgG, IgA, IgM) and absent circulating mature B cells (CD19+ / CD20+ < 1%)."}, {"q": "Most critical pediatric immunologic emergency requiring immediate stem cell transplant", "a": "Severe Combined Immunodeficiency (SCID) — most common form is X-linked common gamma chain mutation (IL2RG)", "note": "Presents in first months of life with failure to thrive, chronic candidiasis (thrush resistant to nystatin), persistent diarrhea, and severe opportunistic infections (Pneumocystis jirovecii pneumonia, CMV). Fatal in the first year of life without allogeneic Hematopoietic Stem Cell Transplantation (HSCT). CONTRAINDICATION: All live vaccines (BCG, Rotavirus, OPV, MMR) are strictly prohibited."}, {"q": "Most common Phagocytic Immunodeficiency presenting with recurrent catalase-positive bacterial & fungal abscesses", "a": "Chronic Granulomatous Disease (CGD) — defect in NADPH oxidase enzyme complex", "note": "Impaired phagocyte respiratory burst (inability to generate superoxide radicals and hydrogen peroxide). Recurrent deep-seated abscesses and granulomas in lymph nodes, skin, liver, and bones. Organisms: Catalase-positive pathogens: Staphylococcus aureus, Burkholderia cepacia, Serratia marcescens, Nocardia, and Aspergillus. Diagnostic test: Dihydrorhodamine (DHR) flow cytometry (or Nitroblue Tetrazolium - NBT test)."}, {"q": "Most common live attenuated vaccines administered in the standard pediatric schedule", "a": "MMR (Measles, Mumps, Rubella), Varicella, Rotavirus, Oral Polio (OPV), and BCG", "note": "Rule: Live vaccines are strictly contraindicated in immunocompromised children (congenital T-cell defects, leukemia, lymphoma, high-dose systemic corticosteroid therapy ≥ 2 mg/kg/day for > 14 days) and in pregnant patients. Exception: MMR and Varicella are safe in HIV-infected children if CD4+ T-cell percentage ≥ 15%."}, {"q": "Most common neurological contraindication to Pertussis (DTaP / DTP) vaccine", "a": "Encephalopathy (e.g., coma, decreased level of consciousness, prolonged seizures) within 7 days of a previous pertussis dose", "note": "If this occurs, the pertussis component is permanently discontinued; future doses are given as DT (Diphtheria and Tetanus toxoid) only. Note: Stable well-controlled epilepsy or family history of seizures are NOT contraindications."}], "numbers": [{"label": "MMR & Varicella 1st Dose Administration Age", "val": "12 – 15 months (Booster dose at 4 – 6 years)", "detail": "Given at ≥ 12 months because circulating maternal antibodies before 12 months neutralize the live measles virus and interfere with active immune response. In severe measles outbreaks, may give dose 0 at 6-11 months (must still repeat doses at 12 mo and 4-6 yr)."}, {"label": "Rotavirus Vaccine Maximum First Dose Age", "val": "14 weeks and 6 days (Final dose before 8 months 0 days)", "detail": "Do not initiate rotavirus series in infants ≥ 15 weeks of age due to the historically observed small increased risk of intussusception. Strict contraindication: History of uncorrected intussusception or SCID."}, {"label": "Fever Cutoff for Deferring Routine Vaccines", "val": "> 38.5 °C (Moderate to Severe Acute Febrile Illness)", "detail": "Minor acute illness (e.g., mild upper respiratory infection, afebrile otitis media, low-grade fever < 38.0 °C, mild diarrhea) is NOT a valid contraindication to vaccination."}, {"label": "Live Vaccine Separation Interval (if not given concurrently)", "val": "Minimum 4 weeks (28 days)", "detail": "Two injectable live attenuated vaccines (e.g., MMR and Varicella) must either be administered on the exact same day at different anatomical sites, or separated by at least 28 days to prevent immune interference."}, {"label": "High-Dose Corticosteroid Threshold Contraindicating Live Vaccines", "val": "≥ 2 mg/kg/day (or ≥ 20 mg/day of Prednisone) for ≥ 14 days", "detail": "Must wait at least 1 month (4 weeks) after discontinuing high-dose corticosteroid therapy before administering any live attenuated vaccine."}], "pearls": ["B-cell defects present after 6 months; T-cell defects present from birth: B-cell immunodeficiencies (Bruton XLA, CVID) are clinically silent during the first 6 months of life because transplacental maternal IgG provides protective passive immunity. Conversely, T-cell and combined defects (SCID, DiGeorge) present immediately in the first weeks of life with severe opportunistic infections, candidiasis, and persistent diarrhea.", "Tonsils and Lymph Nodes are the Physical Clue for Agammaglobulinemia: In any male infant with recurrent bacterial otitis, pneumonia, or skin infections, examine the oropharynx. Complete absence of tonsillar tissue and unpalpable cervical lymph nodes strongly points to Bruton's X-linked Agammaglobulinemia (failure of pre-B cells to develop into mature B cells).", "Screen for SCID Before Giving Rotavirus Vaccine: Because rotavirus vaccine is an oral live virus vaccine administered at 2 months of age, administering it to an infant with unrecognized SCID can cause severe, fatal vaccine-strain rotavirus enteritis and viremia. In countries with newborn T-cell receptor excision circle (TREC) screening, SCID is identified before rotavirus administration."]}, {"id": "cardiology", "title": "Pediatric Cardiology", "icon": "❤️", "color": "red", "summary": "Congenital heart disease (acyanotic L->R shunts and cyanotic 5 T's), acute rheumatic fever (Jones criteria), infective endocarditis, and pediatric congestive heart failure management.", "mostCommon": [{"q": "Most common Congenital Heart Defect (CHD) overall", "a": "Ventricular Septal Defect (VSD) — ~30% of all congenital cardiac malformations", "note": "Most common anatomical type is Perimembranous VSD (70-80%), followed by Muscular VSD (which has the highest rate of spontaneous closure). Physical exam: Harsh, holosystolic (pansystolic) murmur loudest at the left lower sternal border. Small VSD (Maladie de Roger): Loud, harsh murmur with minimal hemodynamic consequence. Large VSD: Soft murmur with loud P2, congestive heart failure, and Eisenmenger syndrome risk."}, {"q": "Most common Acyanotic Congenital Heart Defect in adults and older children", "a": "Atrial Septal Defect (ASD) — Ostium Secundum type (70%)", "note": "Pathognomonic auscultatory finding: Fixed, wide splitting of the Second Heart Sound (S2) with an ejection systolic flow murmur at the left upper sternal border (pulmonary flow murmur, not flow through the ASD itself). Ostium Primum ASD is associated with Down syndrome (AV canal defect)."}, {"q": "Most common Cyanotic Congenital Heart Defect presenting in infancy beyond the neonatal period", "a": "Tetralogy of Fallot (TOF) — Four components: VSD, Pulmonary Infundibular Stenosis, Overriding Aorta, Right Ventricular Hypertrophy", "note": "Degree of right ventricular outflow tract (pulmonary) stenosis determines the clinical severity and cyanosis. Chest X-ray: 'Boot-shaped heart' (Coeur en sabot) with diminished pulmonary vascular markings. 'Tet Spells' (hypercyanotic hypoxic spells): Treatment: Knee-chest position, 100% Oxygen, Morphine, IV fluid bolus, and beta-blocker (Propranolol / Esmolol)."}, {"q": "Most common Cyanotic Congenital Heart Defect presenting in the first 24 hours of life", "a": "Transposition of the Great Arteries (D-TGA) — Aorta arises from RV, Pulmonary Artery arises from LV", "note": "Creates two parallel, non-communicating circulatory loops. Incompatible with life unless an inter-circulatory mixing shunt exists (PDA, ASD, or VSD). Chest X-ray: 'Egg on a string' cardiac silhouette with increased pulmonary vascularity. Immediate lifesaving medical therapy: Continuous IV infusion of Prostaglandin E1 (Alprostadil 0.05-0.1 mcg/kg/min) to maintain ductal patency, followed by Rashkind balloon atrial septostomy and definitive Arterial Switch operation (Jatene procedure) in the first 2 weeks."}, {"q": "Most common cause of Acquired Heart Disease in children in developing countries", "a": "Acute Rheumatic Fever (ARF) and Rheumatic Heart Disease", "note": "Follows Group A beta-hemolytic Streptococcus (Streptococcus pyogenes) pharyngeal infection by 2 to 4 weeks. Most commonly damaged valve: Mitral Valve (Mitral regurgitation in acute phase, progressing to Mitral stenosis in chronic phase), followed by Aortic valve."}, {"q": "Most common cause of Acquired Heart Disease in children in developed / high-income countries", "a": "Kawasaki Disease (Mucocutaneous Lymph Node Syndrome)", "note": "Acute systemic necrotizing vasculitis of medium-sized arteries with predilection for Coronary Arteries (coronary artery aneurysms develop in 20-25% of untreated cases). Treatment: High-dose IVIG (2 g/kg single infusion over 10-12 hours) + High-dose Aspirin."}, {"q": "Most common pathogen causing Subacute Bacterial Infective Endocarditis (IE)", "a": "Viridans group Streptococci (Streptococcus sanguinis, S. mitis, S. mutans) — often following dental procedures", "note": "In acute native valve endocarditis or post-cardiac surgery: Staphylococcus aureus is most common. Duke Criteria used for diagnosis. High-risk patients with prosthetic valves, previous IE, or unrepaired cyanotic CHD require antibiotic prophylaxis (oral Amoxicillin 50 mg/kg 30-60 min before dental procedures involving gingival manipulation)."}, {"q": "Most common functional innocent (benign) heart murmur in healthy school-age children", "a": "Still's Murmur", "note": "A vibratory, musical, or twanging low-frequency ejection systolic murmur (grade 1-2/6), loudest at the left lower sternal border and apex. Characteristically decreases in intensity or disappears when standing, and increases in intensity when supine, with fever, or during exercise."}], "numbers": [{"label": "Prostaglandin E1 (Alprostadil) Initial Infusion Rate", "val": "0.05 – 0.1 mcg/kg/min IV", "detail": "Lifesaving in ductal-dependent congenital cardiac lesions (e.g., TGA, severe Coarctation of Aorta, Hypoplastic Left Heart, Pulmonary Atresia). Major side effect to prepare for: Apnea (occurs in 10-12% of infants; must be prepared to intubate)."}, {"label": "Jones Criteria for Acute Rheumatic Fever Diagnosis", "val": "2 Major Criteria OR 1 Major + 2 Minor (+ evidence of antecedent GAS infection)", "detail": "Major (JONES): Joint involvement (migratory polyarthritis), O (carditis), Nodules (subcutaneous), Erythema marginatum, Sydenham chorea. Minor (CAFE PAL): CRP/ESR elevated, Arthralgia, Fever, Prolonged PR interval."}, {"label": "Secondary Rheumatic Fever Antibiotic Prophylaxis", "val": "Benzathine Penicillin G 1.2 million units IM every 3 – 4 weeks", "detail": "For children < 27 kg: 600,000 units IM. Duration: ARF without carditis: 5 years or until age 21 (whichever longer). ARF with carditis but no residual valve damage: 10 years or until age 21. With residual valve disease: 10 years or until age 40 (often lifelong)."}, {"label": "Eisenmenger Syndrome Hemodynamic Definition", "val": "Pulmonary Artery Pressure ≥ Systemic Arterial Pressure", "detail": "Reversal of initial Left-to-Right shunt into a Right-to-Left cyanotic shunt due to irreversible severe pulmonary vascular remodeling. Surgical shunt closure is strictly contraindicated once Eisenmenger syndrome is established."}, {"label": "Pediatric Digoxin Toxicity Serum Therapeutic Range", "val": "0.8 – 2.0 ng/mL", "detail": "Toxicity potentiated by hypokalemia, hypomagnesemia, and hypercalcemia. Signs: Vomiting, anorexia, bradycardia, heart block. Treatment: Digoxin immune Fab (Digibind)."}], "pearls": ["Hyperoxia Test Differentiates Cardiac from Pulmonary Cyanosis: Place the cyanotic neonate in 100% FiO2 (headbox or tight mask) for 10 minutes. If arterial PaO2 rises > 150–200 mmHg, cyanosis is primary pulmonary (e.g., RDS, pneumonia). If PaO2 remains < 100–150 mmHg with minimal change, cyanosis is due to fixed Right-to-Left intracardiac cardiac shunting (Cyanotic CHD).", "Differential Cyanosis Points to Coarctation or Interrupted Aortic Arch: If pre-ductal oxygen saturation (right hand) is normal (> 95%) but post-ductal oxygen saturation (feet) is significantly lower (< 90%), blood to the lower body is being supplied by deoxygenated right ventricular blood through a Patent Ductus Arteriosus (PDA). Suspect critical Coarctation of the Aorta, Interrupted Aortic Arch, or Persistent Pulmonary Hypertension.", "Never Give Oxygen Alone in Ductal-Dependent Systemic Lesions: In critical aortic coarctation or hypoplastic left heart syndrome, high-flow oxygen acts as a potent pulmonary vasodilator and systemic ductal constrictor. Oxygen constricts the PDA and precipitates sudden cardiovascular collapse and cardiogenic shock. Maintain ductal patency with Prostaglandin E1 first."]}, {"id": "rheumatology", "title": "Pediatric Rheumatology & Vasculitis", "icon": "🦴", "color": "orange", "summary": "Key childhood vasculitides and autoimmune conditions: Kawasaki disease, Henoch-Schönlein purpura (IgA vasculitis), Juvenile Idiopathic Arthritis (JIA), and systemic lupus erythematosus (SLE).", "mostCommon": [{"q": "Most common systemic vasculitis in pediatric patients overall", "a": "Henoch-Schönlein Purpura (HSP / IgA Vasculitis)", "note": "Immune-mediated small-vessel leukocytoclastic vasculitis with IgA deposition. Classic diagnostic tetrad: 1. Palpable non-thrombocytopenic purpura (gravitationally distributed over buttocks, lower extremities); 2. Arthralgia/arthritis; 3. Abdominal pain (colicky, risk of ileo-ileal intussusception); 4. Renal involvement (hematuria/proteinuria - IgA nephropathy). Normal platelet count distinguishes HSP from ITP."}, {"q": "Most serious clinical complication of Kawasaki Disease", "a": "Coronary Artery Aneurysms, thrombosis, and myocardial infarction", "note": "Diagnostic criteria: Fever lasting ≥ 5 days PLUS at least 4 of 5 classic clinical criteria (CRASH): 1. Conjunctivitis (bilateral, bulbar, non-exudative); 2. Rash (polymorphous, non-vesicular); 3. Adenopathy (cervical, usually unilateral > 1.5 cm); 4. Strawberry tongue & cracked red lips / oral erythema; 5. Hands and feet erythema and indurative edema (followed by periungual peeling in subacute phase)."}, {"q": "Most common subtype of Juvenile Idiopathic Arthritis (JIA)", "a": "Oligoarticular JIA (Pauciarticular JIA) — involvement of ≤ 4 joints in first 6 months", "note": "Most common in young females (< 6 years). Typically involves large joints (knees, ankles) asymmetrically. High risk: Asymptomatic, chronic anterior uveitis (iridocyclitis) in patients with positive Antinuclear Antibodies (ANA). Requires routine slit-lamp ophthalmologic surveillance every 3–6 months to prevent blindness."}, {"q": "Most common subtype of JIA presenting with high spiking fevers & salmon-pink rash", "a": "Systemic JIA (Still's Disease)", "note": "Quotidian (daily) spiking high fevers (temperature spikes once or twice daily, returning to normal between spikes), evanescent salmon-pink maculopapular rash appearing during fever peaks, hepatosplenomegaly, generalized lymphadenopathy, polyserositis. Life-threatening complication: Macrophage Activation Syndrome (MAS — elevated ferritin > 10,000, cytopenias, elevated AST/ALT, coagulopathy)."}, {"q": "Most common cause of isolated profound thrombocytopenia with petechiae in a previously healthy child", "a": "Immune Thrombocytopenic Purpura (ITP) — post-viral anti-platelet autoantibody destruction", "note": "Typically follows a viral infection by 1 to 4 weeks. Child appears completely well except for acute onset petechiae, purpura, and mucosal bleeding (epistaxis). Bone marrow exam is only indicated if atypical features are present (abnormal WBC, anemia, hepatosplenomegaly, bone pain). Treatment threshold: Watchful waiting if only skin symptoms; IVIG (1 g/kg) or oral Prednisone if active mucosal bleeding or platelet count < 10,000-20,000/mcL."}, {"q": "Most common autoantibody associated with Congenital Heart Block in neonatal lupus", "a": "Anti-Ro (SSA) and Anti-La (SSB) maternal IgG antibodies", "note": "Transplacental crossing of maternal anti-Ro/SSA antibodies binds to fetal cardiac conduction tissue causing irreversible inflammation and fibrosis of the Atrioventricular (AV) Node -> Complete (Third-Degree) Heart Block, presenting with severe fetal or neonatal bradycardia (HR < 60-80 bpm)."}], "numbers": [{"label": "Kawasaki Disease Minimum Fever Duration Criterion", "val": "≥ 5 days of high fever", "detail": "Fever is typically unremitting (> 39-40 °C) and unresponsive to standard antibiotics and antipyretics. Must meet at least 4 of the 5 CRASH criteria (or meet incomplete Kawasaki criteria if echocardiogram shows coronary involvement)."}, {"label": "Kawasaki Disease IVIG Single Infusion Dose", "val": "2 g/kg IV over 10 – 12 hours", "detail": "Administered within the first 10 days of illness to reduce the incidence of coronary artery aneurysms from 25% to < 4%. Combined with high-dose Aspirin (80–100 mg/kg/day during acute phase, reduced to 3–5 mg/kg/day antiplatelet dose for 6–8 weeks)."}, {"label": "Oligoarticular JIA Joint Count Definition", "val": "≤ 4 joints involved during the first 6 months of disease", "detail": "Polyarticular JIA involves ≥ 5 joints during the first 6 months. Oligoarticular has the highest risk of insidious ANA-positive anterior uveitis."}, {"label": "JIA Minimum Duration of Chronic Arthritis", "val": "≥ 6 continuous weeks (in a child aged < 16 years)", "detail": "Essential criterion to distinguish true chronic idiopathic arthritis from transient post-infectious, reactive, or viral synovitis (which resolves in < 6 weeks)."}], "pearls": ["Normal Platelet Count is the Golden Rule for HSP: In a child presenting with dramatic lower-extremity purpura, always obtain a Complete Blood Count. Henoch-Schönlein purpura produces PALPABLE purpura with a NORMAL (or elevated) platelet count because it is a vasculitis, not a thrombocytopenia. If platelets are low, consider ITP, meningococcemia, leukemia, or HUS.", "Asymptomatic Slit-Lamp Surveillance Saves Vision in JIA: Oligoarticular JIA-associated anterior uveitis is completely asymptomatic (the eye is NOT red, painful, or photophobic). Without routine screening slit-lamp biomicroscopy every 3 to 6 months, irreversible cataracts, glaucoma, and band keratopathy will develop before parents notice any visual defect.", "Aspirin Exception in Children — Kawasaki Disease: While Aspirin is generally contraindicated in pediatric febrile viral illnesses due to the risk of Reye syndrome, Kawasaki disease is the major clear clinical exception where high-dose aspirin is mandatory in the acute phase, transitioning to low-dose antiplatelet aspirin for coronary protection."]}, {"id": "endocrinology", "title": "Pediatric Endocrinology & Metabolism", "icon": "🧪", "color": "teal", "summary": "High-yield endocrine disorders: congenital hypothyroidism, congenital adrenal hyperplasia (CAH), type 1 diabetes & DKA management, precocious vs. delayed puberty, and nutritional rickets.", "mostCommon": [{"q": "Most common preventable cause of severe Intellectual Disability (Cretinism) worldwide", "a": "Congenital Hypothyroidism (1 in 3,000 live births) — Thyroid Dysgenesis (85%)", "note": "Most neonates are clinically asymptomatic at birth due to maternal T4 transplacental transfer. Early signs: Prolonged unconjugated jaundice, large posterior fontanelle (> 0.5 cm), umbilical hernia, macroglossia, hoarse cry, hypothermia, constipation, mottled dry skin, and profound hypotonia. Screened on routine newborn bloodspot (elevated TSH). Treatment: Immediate Levothyroxine (10–15 mcg/kg/day) initiated within the first 2 weeks to prevent permanent cognitive impairment."}, {"q": "Most common cause of Congenital Adrenal Hyperplasia (CAH) and Ambiguous Genitalia in 46,XX females", "a": "21-Hydroxylase Deficiency (CYP21A2 mutation) — > 90% of CAH cases", "note": "Blocks synthesis of Cortisol and Aldosterone -> Accumulation of 17-Hydroxyprogesterone (17-OHP) shunted into excessive androgen pathway. Classic Salt-Wasting form: Presents at 1–2 weeks of life with life-threatening adrenal crisis: Hyponatremia, Hyperkalemia, Hypoglycemia, dehydration, shock, and failure to thrive. 46,XX females have virilized ambiguous genitalia (clitoromegaly, labial fusion). 46,XY males have normal external genitalia and present solely with salt-wasting shock."}, {"q": "Most common acute life-threatening endocrine emergency in pediatric Type 1 Diabetes", "a": "Diabetic Ketoacidosis (DKA)", "note": "Biochemical diagnostic triad: Hyperglycemia (blood glucose > 200 mg/dL), Anion gap metabolic acidosis (venous pH < 7.30 or serum HCO3 < 15 mEq/L), and Ketosis (ketonemia or moderate/large ketonuria). Clinical: Kussmaul respirations (deep rapid breathing to blow off CO2), fruity acetone breath odor, abdominal pain, nausea/vomiting, and dehydration."}, {"q": "Most feared and lethal complication of DKA treatment in children", "a": "Cerebral Edema (responsible for 60-80% of DKA deaths)", "note": "Risk factors: Rapid fluid administration (> 4 L/m2/day), rapid fall in blood glucose (> 100 mg/dL/hr), rapid drop in serum osmolality, administration of insulin bolus (insulin boluses are strictly forbidden in pediatric DKA), and bicarbonate administration. Early warning signs: Headache, bradycardia, hypertension, declining consciousness, abnormal posturing. Immediate treatment: IV Mannitol (0.5–1.0 g/kg over 20 min) or 3% Hypertonic Saline (3–5 mL/kg over 10-15 min)."}, {"q": "Most common cause of Precocious Puberty in females", "a": "Idiopathic Central (GnRH-Dependent) Precocious Puberty (80-90% of cases in girls)", "note": "Early activation of the hypothalamic-pituitary-gonadal axis. In contrast: in boys, 50% of central precocious puberty cases have an underlying CNS lesion (hypothalamic hamartoma, astrocytoma, optic glioma); mandatory Brain MRI with contrast is required in all boys with central precocious puberty."}, {"q": "Most common nutritional cause of defective bone mineralization in infants (Rickets)", "a": "Vitamin D Deficiency (Nutritional Rickets) — especially in exclusively breastfed infants without supplementation", "note": "Physical signs: Craniotabes (ping-pong ball skull softening, earliest sign in young infants), Rachitic rosary (swollen costochondral junctions), widening of wrists and ankles, delayed anterior fontanelle closure, delayed dentition, frontal bossing, and genu varum (bowlegs) or genu valgum (knock-knees). Laboratory: Low or normal Calcium, Low Phosphate, markedly ELEVATED Alkaline Phosphatase (ALP), high PTH."}, {"q": "Most common cause of Hypoglycemia in non-diabetic infants aged 1 to 5 years", "a": "Ketotic Hypoglycemia of Childhood", "note": "Benign condition occurring after prolonged overnight fasting or acute illness with reduced caloric intake. Child wakes up lethargic or having a seizure. Laboratory shows hypoglycemia with marked ketonuria and ketonemia, but normal insulin, cortisol, and GH levels. Resolves spontaneously by age 7-9 years."}], "numbers": [{"label": "Pediatric DKA Continuous IV Insulin Infusion Rate", "val": "0.05 – 0.1 units/kg/hour (NO IV BOLUS)", "detail": "Start regular insulin infusion 1 hour AFTER initiating fluid resuscitation. Never give an IV insulin bolus in pediatric DKA due to dramatic increased risk of fatal cerebral edema."}, {"label": "DKA IV Fluids Glucose Addition Threshold", "val": "When blood glucose drops to ≤ 250 – 300 mg/dL", "detail": "Add 5% Dextrose (D5W or D5/0.45% NS) to IV fluids to maintain blood glucose around 150-200 mg/dL while continuing insulin infusion to clear blood ketones and close the anion gap."}, {"label": "DKA Potassium Replacement Timing", "val": "Add 40 mEq/L Potassium to fluids once urine output is confirmed (and K+ < 5.5)", "detail": "Total body potassium is always depleted in DKA despite normal or high initial serum levels. Insulin drives potassium intracellularly; failing to supplement potassium leads to severe hypokalemic cardiac arrhythmias."}, {"label": "Central Precocious Puberty Age Definition", "val": "Secondary sexual characteristics before age 8 in girls, before age 9 in boys", "detail": "Girls: Breast development (thelarche) before age 8. Boys: Testicular enlargement (volume ≥ 4 mL / length ≥ 2.5 cm) before age 9."}, {"label": "Infant Vitamin D Daily Prophylaxis Dose", "val": "400 IU/day orally", "detail": "American Academy of Pediatrics (AAP) and WHO recommendation: Initiate 400 IU/day within the first few days of life for all exclusively breastfed or partially breastfed infants, continuing until weaned to at least 1 liter/day of vitamin D-fortified milk."}], "pearls": ["Never Give an Insulin Bolus in Pediatric DKA: Pediatric DKA management guidelines explicitly forbid insulin boluses. Start continuous low-dose regular insulin (0.05–0.1 U/kg/hr) only after the patient has received initial fluid expansion for at least 1 hour. A rapid drop in plasma osmolality and blood glucose is the prime trigger for cerebral herniation.", "Hyponatremia + Hyperkalemia in a Sick Neonate = Adrenal Crisis until proven otherwise: In any newborn or young infant (typically day 7 to 14 of life) presenting with poor feeding, vomiting, dehydration, shock, and weight loss: immediately check electrolytes. The combination of low Sodium (< 130 mEq/L) and high Potassium (> 6.0 mEq/L) with hypoglycemia is classic for 21-Hydroxylase Deficiency CAH. Treat stat with IV Normal Saline bolus, 10% Dextrose, and IV Hydrocortisone stress dose (50-100 mg/m2).", "Evaluate Pubertal Staging by Testicular Volume in Boys: The earliest physical sign of true central puberty in males is testicular enlargement (testicular volume ≥ 4 mL using a Prader orchidometer, or length ≥ 2.5 cm), caused by FSH stimulation of seminiferous tubules. If pubic hair or penile growth occurs without testicular enlargement, puberty is peripheral (adrenal androgens, CAH, or Leydig cell tumor)."]}, {"id": "nephrology", "title": "Pediatric Nephrology & Urology", "icon": "🫘", "color": "indigo", "summary": "Core nephrology syndromes: Nephrotic syndrome (Minimal Change Disease), Acute Post-Streptococcal Glomerulonephritis (PSGN), Hemolytic Uremic Syndrome (HUS), urinary tract infections, and vesicoureteral reflux (VUR).", "mostCommon": [{"q": "Most common cause of Nephrotic Syndrome in children (1 to 10 years)", "a": "Minimal Change Disease (MCD / Nil Lesion Disease) — accounts for 85–90% of cases", "note": "Pathophysiology: T-cell mediated podocyte cytokine injury causing effacement of podocyte foot processes with loss of glomerular polyanion (heparan sulfate) negative charge. Hallmarks: Heavy selective proteinuria (> 40 mg/m2/hr or spot urine protein/creatinine ratio > 2.0), profound Hypoalbuminemia (< 2.5 g/dL), generalized edema (periorbital, ascites, scrotal), and Hyperlipidemia. Light microscopy is normal; electron microscopy shows diffuse foot process effacement. Treatment: Oral Prednisone (60 mg/m2/day for 4-6 weeks); > 90% respond completely (Steroid-Sensitive Nephrotic Syndrome)."}, {"q": "Most common life-threatening bacterial infection in active Nephrotic Syndrome", "a": "Spontaneous Bacterial Peritonitis (SBP) — caused by Streptococcus pneumoniae", "note": "Nephrotic children are profoundly immunocompromised due to urinary loss of immunoglobulin G (IgG), complement factors (Factor B and D), and opsonins. SBP presents with fever, severe diffuse abdominal pain, rebound tenderness, and peritoneal irritation. Immediate therapy: IV Cefotaxime / Ceftriaxone. Routine pneumococcal vaccination is mandatory."}, {"q": "Most common cause of Post-Infectious Glomerulonephritis / Acute Nephritic Syndrome in children", "a": "Post-Streptococcal Glomerulonephritis (PSGN) — follows Group A Streptococcus infection", "note": "Immune complex deposition in subepithelial space ('subepithelial humps' on EM). Latent period: 1 to 3 weeks after streptococcal pharyngitis, or 3 to 6 weeks after streptococcal pyoderma/impetigo. Classic nephritic triad: 1. Gross hematuria (tea-colored / cola-colored urine with RBC casts); 2. Hypertension; 3. Oliguria with periorbital edema. Laboratory: Low serum C3 complement (returns to normal within 6-8 weeks) and elevated ASO titer or Anti-DNase B (best marker after skin infections)."}, {"q": "Most common cause of Acute Renal Failure in infants and toddlers worldwide", "a": "Hemolytic Uremic Syndrome (HUS) — typical D+ HUS secondary to Shiga toxin-producing E. coli (STEC O157:H7)", "note": "Typically follows acute bloody diarrhea (gastroenteritis) by 3 to 10 days. Diagnostic triad: 1. Microangiopathic Hemolytic Anemia (Coombs-negative, abundant schistocytes and helmet cells on blood smear); 2. Thrombocytopenia (platelets consumed in microthrombi); 3. Acute Kidney Injury (oliguria/anuria, elevated BUN and creatinine). CONTRAINDICATION: Antibiotics and antimotility agents (loperamide) are strictly contraindicated because they increase Shiga toxin release and worsen renal injury."}, {"q": "Most common pathogen causing Urinary Tract Infection (UTI) in children", "a": "Escherichia coli (Uropathogenic E. coli — accounts for 80–85% of cases)", "note": "Followed by Klebsiella pneumoniae, Proteus mirabilis (associated with alkaline urine and staghorn calculi), and Enterococcus. In uncircumcised male infants < 3 months, UTI rate is 4-8 times higher than circumcised males. Gold standard diagnosis: Urine culture via bladder catheterization or suprapubic aspiration in non-toilet-trained infants."}, {"q": "Most common congenital anomaly of the urinary tract predisposing to recurrent febrile UTIs and renal scarring", "a": "Vesicoureteral Reflux (VUR) — incompetence of the ureterovesical junction", "note": "Retrograde flow of urine from the bladder into the ureters and renal collecting system. Gold standard diagnostic imaging: Voiding Cystourethrogram (VCUG) graded I through V. High grades (IV-V) carry substantial risk of reflux nephropathy, hypertension, and chronic kidney disease."}, {"q": "Most common cause of Bilateral Hydronephrosis and Bladder Outlet Obstruction in male neonates", "a": "Posterior Urethral Valves (PUV)", "note": "Congenital obstructing folds of tissue in the posterior urethra of males. Antenatal ultrasound shows bilateral hydroureteronephrosis, distended thick-walled bladder ('keyhole sign'), and oligohydramnios (risk of pulmonary hypoplasia). Neonate presents with weak dribbling urinary stream and palpable distended bladder. Immediate management: Urethral catheterization to decompress bladder, followed by endoscopic valve ablation."}, {"q": "Most common pediatric renal malignancy", "a": "Wilms Tumor (Nephroblastoma) — peak incidence at 2 to 4 years of age", "note": "Most common presentation is an asymptomatic, smooth, firm, nontender unilateral flank mass that does NOT cross the midline (in contrast to Neuroblastoma, which typically crosses midline, is irregular/calcified, and occurs in younger infants). Associated syndromes: WAGR syndrome (Wilms, Aniridia, Genitourinary anomalies, Retardation) and Beckwith-Wiedemann syndrome."}], "numbers": [{"label": "Nephrotic-Range Proteinuria Diagnostic Threshold", "val": "> 40 mg/m2/hour (or Urine Protein:Creatinine Ratio > 2.0 mg/mg)", "detail": "On standard urine dipstick: 3+ or 4+ (≥ 300 mg/dL). Normal urinary protein excretion in healthy children is < 4 mg/m2/hr."}, {"label": "PSGN Complement C3 Normalization Window", "val": "Normalizes within 6 to 8 weeks", "detail": "If serum C3 complement remains low beyond 8 to 12 weeks, consider alternative glomerulonephritides: Membranoproliferative Glomerulonephritis (MPGN) or Lupus Nephritis; renal biopsy is indicated."}, {"label": "Normal Pediatric Urine Output Threshold", "val": "1.0 – 2.0 mL/kg/hour", "detail": "Oliguria definition: < 1.0 mL/kg/hr in infants; < 0.5 mL/kg/hr in children and adolescents. Anuria: < 0.1 mL/kg/hr."}, {"label": "UTI Diagnostic Colony Count (Catheterized Specimen)", "val": "≥ 50,000 CFU/mL of a single uropathogen", "detail": "On suprapubic aspiration: ANY growth (> 1 CFU/mL) of Gram-negative bacilli is diagnostic. On clean catch midstream in toilet-trained child: ≥ 100,000 CFU/mL."}, {"label": "First-Line Oral Corticosteroid Dose for Minimal Change Disease", "val": "Prednisone 60 mg/m2/day (or 2 mg/kg/day; max 60 mg/day)", "detail": "Administered daily for 4 to 6 weeks, followed by alternate-day Prednisone (40 mg/m2 every other day) for another 4 to 6 weeks, then tapered gradually."}], "pearls": ["Never Give Antibiotics or Antimotility Drugs in STEC-induced HUS: In a child with acute bloody diarrhea and suspected Shiga toxin E. coli (STEC O157:H7), administering antibiotics triggers massive bacterial lysis and release of huge quantities of preformed Shiga toxin into the bloodstream, tripling the risk of developing full-blown Hemolytic Uremic Syndrome and catastrophic renal microthrombosis.", "Do Not Routinely Biopsy Nephrotic Children Aged 1 to 10 Years: The vast majority (> 85%) have Minimal Change Disease and respond completely to oral corticosteroids. Reserve percutaneous renal biopsy for atypical presentations: Age < 1 year (congenital nephrotic syndrome), age > 10-12 years, persistent hypertension, gross hematuria, low C3 complement, elevated serum creatinine, or steroid resistance.", "Always Obtain a Renal Bladder Ultrasound (RBUS) after First Febrile UTI in Infants: AAP guidelines mandate a renal and bladder ultrasound for all infants aged 2 to 24 months after their first confirmed febrile UTI to detect structural anomalies (hydronephrosis, renal dysplasia, PUV). VCUG is indicated if the ultrasound is abnormal or if febrile UTI recurs."]}, {"id": "git", "title": "Pediatric Gastroenterology & Hepatology", "icon": "🥣", "color": "lime", "summary": "Core pediatric digestive pathology: acute gastroenteritis and dehydration degrees, hypertrophic pyloric stenosis, intussusception, Meckel diverticulum, Hirschsprung disease, biliary atresia, and celiac disease.", "mostCommon": [{"q": "Most common viral cause of Severe Dehydrating Diarrhea in infants worldwide", "a": "Rotavirus (followed by Norovirus, which is now #1 in vaccinated populations)", "note": "Causes watery, non-bloody diarrhea with vomiting and low-grade fever. Pathophysiology: Osmotic and secretory diarrhea due to intestinal villus blunting and NSP4 enterotoxin. Preventable by oral rotavirus vaccination."}, {"q": "Most common cause of Non-Bilious Projectile Vomiting in infants aged 3 to 6 weeks", "a": "Hypertrophic Pyloric Stenosis (HPS) — hypertrophy of circular pyloric muscle", "note": "Most common in first-born males. Classic clinical presentation: Hungry infant who feeds voraciously and immediately vomits projectile, non-bilious milk. Physical exam: Palpable firm 'olive-like' mass in right upper quadrant / epigastrium with visible gastric peristaltic waves. Diagnostic ultrasound: Pyloric muscle thickness ≥ 3 mm and canal length ≥ 14 mm. Classic metabolic derangement: Hypochloremic, Hypokalemic Metabolic Alkalosis. Surgical cure: Ramstedt pyloromyotomy (must correct electrolytes and dehydration prior to surgery!)."}, {"q": "Most common cause of Acute Intestinal Obstruction in infants aged 6 to 36 months", "a": "Intussusception (Idiopathic Ileocolic Intussusception — 90%)", "note": "Telescoping of a proximal bowel segment into an adjacent distal segment (usually terminal ileum into cecum through ileocecal valve). Peyer's patch hypertrophy following viral adenovirus/enterovirus infection serves as the lead point. Classic triad: 1. Sudden episodic, severe colicky abdominal pain with leg flexion and screaming; 2. Palpable sausage-shaped abdominal mass in RUQ with emptiness in RLQ (Dance sign); 3. 'Red Currant Jelly' stools (late sign composed of blood, mucus, and sloughed mucosa). Diagnostic & Therapeutic procedure of choice: Air (pneumatic) or hydrostatic contrast enema reduction under fluoroscopic/ultrasound guidance."}, {"q": "Most common Congenital Gastrointestinal Malformation", "a": "Meckel Diverticulum (Rule of 2's: 2% of population, within 2 feet of ileocecal valve, 2 inches long, 2 types of ectopic mucosa, presents by 2 years)", "note": "Remnant of the omphalomesenteric (vitelline) duct. Contains ectopic gastric mucosa (80%) or pancreatic tissue. Ectopic acid secretion causes ulceration of adjacent normal ileal mucosa. Classic presentation: Painless, massive rectal bleeding (maroon or dark red melena) in a toddler. Diagnostic gold standard: Technetium-99m pertechnetate scan (Meckel Scan) which is taken up by ectopic gastric parietal cells."}, {"q": "Most common cause of Neonatal Lower Bowel Obstruction and Failure to Pass Meconium", "a": "Hirschsprung Disease (Congenital Aganglionic Megacolon)", "note": "Failure of neural crest cells to migrate craniocaudally into the distal bowel wall, leading to complete absence of enteric ganglion cells (Auerbach myenteric and Meissner submucosal plexuses) in the rectosigmoid. The aganglionic distal segment remains permanently contracted and tonic, causing massive proximal dilation (megacolon). Presentation: Failure to pass meconium within first 48 hours of life, bilious vomiting, and abdominal distension. Explosive expulsion of gas and liquid stool upon digital rectal exam ('Squirt sign' / blast sign). Definitive diagnosis: Rectal suction biopsy demonstrating absence of ganglion cells and hypertrophied nerve trunks with high acetylcholinesterase."}, {"q": "Most sensitive and specific serological screening test for Celiac Disease", "a": "Anti-Tissue Transglutaminase IgA (anti-tTG IgA) with concurrent Total Serum IgA", "note": "Autoimmune enteropathy triggered by ingestion of dietary gluten (wheat, barley, rye) in genetically predisposed individuals (HLA-DQ2 and HLA-DQ8). Total serum IgA must be measured simultaneously to rule out Selective IgA Deficiency (which causes false-negative anti-tTG IgA; in IgA-deficient patients, measure Deamidated Gliadin Peptide IgG or tTG IgG). Small bowel biopsy: Villous atrophy, crypt hyperplasia, and intraepithelial lymphocytosis (Marsh classification)."}, {"q": "Most common cause of acute liver failure requiring urgent pediatric liver transplantation", "a": "Acetaminophen Toxicity and Idiopathic Pediatric Acute Liver Failure (followed by Biliary Atresia for chronic transplantation)", "note": "Defined by acute liver injury within 8 weeks, coagulopathy not corrected by vitamin K (PT > 15s or INR > 1.5 with encephalopathy, or INR > 2.0 without encephalopathy), in the absence of pre-existing chronic liver disease."}], "numbers": [{"label": "Failure to Pass Meconium Normal Time Limit", "val": "Within first 24 to 48 hours of life", "detail": "> 99% of normal full-term infants pass meconium within 24 hours, and > 99.8% within 48 hours. Delayed meconium > 48 hours strongly suggests Hirschsprung disease, Meconium Ileus (Cystic Fibrosis), or imperforate anus."}, {"label": "Dehydration Percentage Classification in Children", "val": "Mild: 3–5% | Moderate: 6–9% | Severe: ≥ 10% (Body weight loss)", "detail": "Mild (fluid deficit 30-50 mL/kg): Slightly dry lips, normal vital signs. Moderate (60-90 mL/kg): Sunken eyes, sunken fontanelle, dry mucous membranes, delayed cap refill (2-3s), tachycardia. Severe (≥ 100 mL/kg): Lethargy/coma, unmeasurable BP, absent peripheral pulses, cap refill > 3s, parched mouth, skin tenting."}, {"label": "WHO Oral Rehydration Salts (ORS) Volume for Mild-Moderate Dehydration", "val": "50 – 100 mL/kg over 4 hours", "detail": "Administer frequently in small sips (e.g., 5 mL every 2-5 minutes using a spoon or syringe). Plus replacement of ongoing losses: 10 mL/kg for each watery diarrheal stool, and 2 mL/kg for each vomiting episode."}, {"label": "Hypertrophic Pyloric Stenosis Ultrasound Criteria", "val": "Muscle wall thickness ≥ 3 mm (Canal length ≥ 14 mm)", "detail": "'Pyloric double track sign' and 'string sign' on contrast upper GI series. Pre-operative priority: Rehydrate and fully correct hypochloremic alkalosis before anesthesia to prevent post-op apnea."}, {"label": "Kasai Portoenterostomy Ideal Age Window", "val": "Before 60 days of life (< 2 months)", "detail": "Surgical success rate for restoring bile flow in biliary atresia is > 80% when performed before 60 days of life, but drops below 20% if delayed beyond 90 days."}], "pearls": ["Bilious Vomiting in a Neonate is a Surgical Emergency: Vomiting containing green or bright yellow-green bile in a newborn or infant is intestinal malrotation with midgut volvulus until proven otherwise by urgent Upper GI fluoroscopy. Any delay in diagnosis leads to complete ischemic necrosis of the entire small intestine within hours.", "Never Operate on Pyloric Stenosis until Alkalosis is Completely Corrected: Hypertrophic pyloric stenosis is a medical emergency, NOT a surgical emergency. The surgical pyloromyotomy should never be performed until the child is fully rehydrated and the hypochloremic hypokalemic metabolic alkalosis is completely corrected (serum Chloride > 100 mEq/L, Bicarbonate < 26 mEq/L, and normal Potassium). Operating on an alkalotic infant leads to severe central respiratory depression and life-threatening post-operative apnea.", "Intussusception Enema Contraindication — Peritonitis or Shock: Non-operative pneumatic (air) or hydrostatic enema reduction is the first-line treatment for uncomplicated intussusception (success rate > 85-90%). However, if the child presents with signs of peritonitis, bowel perforation, pneumoperitoneum, or hemodynamic shock, enema reduction is strictly contraindicated; immediate resuscitation and emergency laparotomy are required."]}, {"id": "chest", "title": "Pediatric Pulmonology & Respiratory Medicine", "icon": "🫁", "color": "cyan", "summary": "Core respiratory conditions: acute bronchiolitis, viral croup (laryngotracheobronchitis), acute epiglottitis, childhood asthma exacerbations, community-acquired pneumonia, and cystic fibrosis.", "mostCommon": [{"q": "Most common cause of Acute Bronchiolitis in infants (< 2 years)", "a": "Respiratory Syncytial Virus (RSV) — accounts for 75–80% of cases", "note": "Peak incidence at 2 to 6 months of age during winter months. Classic progression: Starts as upper respiratory tract viral prodrome (rhinorrhea, sneezing, low-grade fever) progressing on days 3-5 to lower respiratory tract distress: tachypnea, subcostal/intercostal retractions, nasal flaring, grunting, and diffuse bilateral fine inspiratory crackles and expiratory wheezes. Treatment: Supportive care only! (Hydration, gentle nasal suctioning, supplemental oxygen if SpO2 < 90-92%). Bronchodilators, corticosteroids, and antibiotics are NOT routinely recommended by AAP guidelines."}, {"q": "Most common cause of Acute Stridor and Upper Airway Obstruction in children aged 6 months to 3 years", "a": "Viral Croup (Laryngotracheobronchitis) — Parainfluenza Virus Type 1 (> 70%)", "note": "Pathology: Subglottic airway inflammation and edema. Classic triad: 1. Barking 'seal-like' cough; 2. Inspiratory stridor (worse with agitation); 3. Hoarseness. Neck AP X-ray: Subglottic narrowing known as the 'Steeple Sign'. Treatment: Single dose oral/IM Dexamethasone (0.15–0.6 mg/kg) for all severities. Moderate-severe croup with resting stridor: Nebulized Racemic Epinephrine (0.5 mL of 2.25% solution) or L-epinephrine (5 mL 1:1,000) with 2-3 hours of clinical observation for rebound."}, {"q": "Most critical, life-threatening bacterial upper airway infection requiring immediate airway protection", "a": "Acute Epiglottitis (Supraglottitis) — classically Haemophilus influenzae type b (Hib)", "note": "Dramatic decline since widespread Hib conjugate vaccination; currently caused by Streptococcus pneumoniae, Group A Strep, or Staph aureus. Rapid onset of high fever, toxic appearance, severe sore throat, dysphagia, and the 4 D's: Drooling, Dysphagia, Dysphonia, Distress. Classic posture: 'Tripod' position (leaning forward on hands, neck hyperextended, chin thrust forward, mouth open). Lateral neck X-ray: Swollen, enlarged epiglottis ('Thumbprint Sign'). CRITICAL MANDATE: Never agitate the child! Never examine the oropharynx with a tongue depressor outside the operating room; immediate controlled endotracheal intubation in the OR."}, {"q": "Most common chronic lower respiratory illness in childhood", "a": "Childhood Asthma (Bronchial Asthma)", "note": "Chronic airway inflammation with bronchial hyperresponsiveness and reversible airflow limitation. Hallmark symptoms: Recurrent episodes of wheezing, chronic nocturnal dry cough, breathlessness, and chest tightness, triggered by viral URIs, cold air, exercise, or allergens. First-line acute exacerbation therapy: Inhaled Short-Acting Beta-2 Agonist (Salbutamol/Albuterol) via MDI with spacer + early systemic corticosteroid (oral Prednisolone 1-2 mg/kg/day for 3-5 days)."}, {"q": "Most common bacterial pathogen causing Community-Acquired Pneumonia (CAP) in infants and children > 3 months", "a": "Streptococcus pneumoniae (Pneumococcus)", "note": "In neonates (< 3 weeks): Group B Streptococcus and E. coli. In school-aged children and adolescents (> 5 years): Mycoplasma pneumoniae ('walking pneumonia' / atypical pneumonia) is increasingly prevalent. First-line empirical antibiotic for typical bacterial CAP in immunized outpatient children: High-dose oral Amoxicillin (80–90 mg/kg/day divided BID or TID)."}, {"q": "Most common lethal Autosomal Recessive genetic disorder in Caucasian populations", "a": "Cystic Fibrosis (CF) — mutation in CFTR gene on chromosome 7 (most common is Delta-F508)", "note": "Defective cAMP-dependent chloride channel transport, leading to thick, viscous, inspissated secretions in lungs, pancreas, gastrointestinal tract, and vas deferens. Presentation: Recurrent pulmonary infections (Pseudomonas aeruginosa and Staph aureus), bronchiectasis, pancreatic exocrine insufficiency with malabsorption and foul bulky steatorrhea, failure to thrive, nasal polyps, and meconium ileus at birth. Diagnostic gold standard: Quantitative Pilocarpine Iontophoresis Sweat Chloride Test (Sweat Chloride ≥ 60 mmol/L)."}], "numbers": [{"label": "WHO Tachypnea Respiratory Rate Cutoffs by Age", "val": "< 2 months: ≥ 60/min | 2–11 months: ≥ 50/min | 1–5 years: ≥ 40/min", "detail": "Count respiratory rate for a full 60 seconds when the child is calm and not crying. Tachypnea is the single most sensitive physical sign of childhood pneumonia."}, {"label": "Croup Single-Dose Dexamethasone Dose", "val": "0.15 – 0.6 mg/kg orally or IM (Max 16 mg)", "detail": "Even mild croup benefits from a single dose of oral dexamethasone (0.15 mg/kg is as effective as 0.6 mg/kg). Long biological half-life (~36-72 hours) covers the typical natural duration of subglottic edema."}, {"label": "Cystic Fibrosis Diagnostic Sweat Chloride Cutoff", "val": "≥ 60 mmol/L (on two separate occasions)", "detail": "Normal is ≤ 29 mmol/L. Intermediate / borderline is 30–59 mmol/L (requires repeat testing and CFTR genetic mutation analysis)."}, {"label": "Pulse Oximetry Supplemental Oxygen Threshold", "val": "SpO2 < 90% – 92% on room air", "detail": "Target oxygen saturation is ≥ 92% (or ≥ 90% in previously healthy bronchiolitis infants per AAP guidelines). Administer humidified oxygen via nasal cannula."}], "pearls": ["Never Agitate or Forcefully Examine a Child with Suspected Epiglottitis: In a toxic child leaning forward, drooling, and presenting with stridor: Do NOT place a tongue depressor into the mouth, do NOT perform a throat swab, do NOT separate the child from their parents, and do NOT send them to the radiology department unescorted. Any distress, anxiety, or pharyngeal irritation can provoke complete acute laryngospasm and fatal airway arrest. Keep the child calm in the parent's lap and transfer immediately to the Operating Room for emergency endotracheal intubation by an experienced anesthesiologist/ENT surgeon.", "Bronchiolitis Diagnosis is 100% Clinical — Say NO to Routine X-rays & Bronchodilators: AAP clinical guidelines explicitly advise against routine chest radiographs, viral testing, bronchodilators (albuterol), oral steroids, or antibiotics in typical acute viral bronchiolitis. Chest X-rays typically reveal transient atelectasis that is erroneously misdiagnosed and mistreated as bacterial pneumonia.", "Persistent Foreign Body Aspiration Mimics Unilateral Asthma: A toddler presenting with chronic unresolving unilateral wheezing, recurrent localized right-sided pneumonia, or new-onset asthma that is unresponsive to bronchodilators must be evaluated for an occult aspirated foreign body. Order bilateral decubitus or inspiratory-expiratory chest radiographs (air trapping on the affected side) and perform diagnostic bronchoscopy."]}];
 
@@ -464,15 +550,15 @@
             document.getElementById('starredCountBadge').textContent = starCount;
             const filterStarBtn = document.getElementById('filterStarredBtn');
             if (state.onlyStarred) {
-                filterStarBtn.className = 'px-3 py-2 rounded-xl bg-amber-500 text-slate-950 border border-amber-400 text-xs sm:text-sm font-bold flex items-center gap-1.5 transition shrink-0';
+                filterStarBtn.className = 'px-2.5 sm:px-3 py-2 rounded-xl bg-amber-500 text-slate-950 border border-amber-400 text-xs sm:text-sm font-bold flex items-center gap-1.5 transition shrink-0';
             } else {
-                filterStarBtn.className = 'px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-xs sm:text-sm font-semibold flex items-center gap-1.5 transition shrink-0';
+                filterStarBtn.className = 'px-2.5 sm:px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-xs sm:text-sm font-semibold flex items-center gap-1.5 transition shrink-0';
             }
 
             const doneCount = CHAPTERS_DATA.filter(c => state.completedChapters[c.id]).length;
             const pct = Math.round((doneCount / CHAPTERS_DATA.length) * 100);
             document.getElementById('studyProgressBar').style.width = pct + '%';
-            document.getElementById('studyProgressText').textContent = `${doneCount}/${CHAPTERS_DATA.length} (${pct}%)`;
+            document.getElementById('studyProgressText').textContent = `${doneCount}/${CHAPTERS_DATA.length}`;
 
             const banner = document.getElementById('searchStatusBanner');
             const bannerText = document.getElementById('searchStatusText');
@@ -481,11 +567,11 @@
                 let parts = [];
                 if (state.selectedChapter !== 'all') {
                     const ch = CHAPTERS_DATA.find(c => c.id === state.selectedChapter);
-                    if (ch) parts.push('Chapter: ' + ch.title);
+                    if (ch) parts.push(ch.title);
                 }
-                if (state.searchQuery.trim()) parts.push('Query: "' + state.searchQuery + '"');
+                if (state.searchQuery.trim()) parts.push('"' + state.searchQuery + '"');
                 if (state.onlyStarred) parts.push('Favorites Only ⭐');
-                bannerText.textContent = 'Active Filter: ' + parts.join(' • ');
+                bannerText.textContent = 'Active: ' + parts.join(' • ');
             } else {
                 banner.classList.add('hidden');
             }
@@ -493,14 +579,14 @@
 
         function renderChapterPills() {
             const container = document.getElementById('chapterFilterPills');
-            let html = `<button data-ch="all" class="ch-pill-btn px-3 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap transition ${state.selectedChapter === 'all' ? 'bg-slate-900 text-white shadow-sm' : 'bg-slate-100 text-slate-700 hover:bg-slate-200'}">All (11 Chapters)</button>`;
+            let html = `<button data-ch="all" class="ch-pill-btn px-2.5 py-1 rounded-lg text-xs font-bold whitespace-nowrap transition shrink-0 ${state.selectedChapter === 'all' ? 'bg-slate-900 text-white shadow-sm' : 'bg-slate-100 text-slate-700 hover:bg-slate-200'}">All (11)</button>`;
             CHAPTERS_DATA.forEach(ch => {
                 const isSelected = state.selectedChapter === ch.id;
                 const isDone = !!state.completedChapters[ch.id];
-                html += `<button data-ch="${ch.id}" class="ch-pill-btn px-3 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap transition flex items-center gap-1.5 ${isSelected ? 'bg-sky-600 text-white shadow-sm' : 'bg-slate-100 text-slate-700 hover:bg-slate-200'}">
+                html += `<button data-ch="${ch.id}" class="ch-pill-btn px-2.5 py-1 rounded-lg text-xs font-bold whitespace-nowrap transition flex items-center gap-1 shrink-0 ${isSelected ? 'bg-sky-600 text-white shadow-sm' : 'bg-slate-100 text-slate-700 hover:bg-slate-200'}">
                     <span>${ch.icon}</span>
-                    <span>${ch.title}</span>
-                    ${isDone ? '<span class="text-emerald-400">✓</span>' : ''}
+                    <span>${ch.title.split(' ')[0]}</span>
+                    ${isDone ? '<span class="text-emerald-400 font-bold">✓</span>' : ''}
                 </button>`;
             });
             container.innerHTML = html;
@@ -560,38 +646,38 @@
                 html += `
                 <article class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden print-card">
                     <!-- Chapter Header Card -->
-                    <div class="p-4 sm:p-5 bg-gradient-to-r ${cStyle.header} text-white flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-                        <div class="flex items-center gap-3">
-                            <span class="text-3xl">${ch.icon}</span>
-                            <div>
-                                <h3 class="text-lg sm:text-xl font-black tracking-tight">${ch.title}</h3>
-                                <p class="text-xs text-white/90 font-medium mt-0.5 leading-relaxed">${ch.summary}</p>
+                    <div class="p-3.5 sm:p-5 bg-gradient-to-r ${cStyle.header} text-white flex items-center justify-between gap-3">
+                        <div class="flex items-center gap-2.5 min-w-0">
+                            <span class="text-2xl sm:text-3xl shrink-0">${ch.icon}</span>
+                            <div class="min-w-0">
+                                <h3 class="text-base sm:text-xl font-black tracking-tight truncate">${ch.title}</h3>
+                                <p class="text-xs text-white/90 font-medium mt-0.5 line-clamp-2 leading-relaxed">${ch.summary}</p>
                             </div>
                         </div>
-                        <div class="flex items-center gap-2 self-end sm:self-auto no-print">
-                            <label class="flex items-center gap-1.5 cursor-pointer bg-black/20 hover:bg-black/30 px-3 py-1.5 rounded-xl text-xs font-bold transition">
+                        <div class="shrink-0 no-print">
+                            <label class="flex items-center gap-1.5 cursor-pointer bg-black/20 hover:bg-black/30 px-2.5 py-1.5 rounded-xl text-xs font-bold transition">
                                 <input type="checkbox" data-complete-ch="${ch.id}" ${isCompleted ? 'checked' : ''} class="w-4 h-4 rounded text-emerald-500 focus:ring-0">
-                                <span>Completed</span>
+                                <span class="hidden sm:inline">Completed</span>
                             </label>
                         </div>
                     </div>
 
-                    <div class="p-4 sm:p-6 space-y-6">
+                    <div class="p-3 sm:p-5 space-y-4 sm:space-y-6">
                         <!-- Section A: Most Common Causes -->
                         ${filteredMc.length > 0 ? `
                         <div>
-                            <div class="flex items-center justify-between mb-3 border-b border-slate-100 pb-2">
-                                <h4 class="text-sm font-extrabold text-slate-800 flex items-center gap-1.5 uppercase tracking-wider">
+                            <div class="flex items-center justify-between mb-2.5 border-b border-slate-100 pb-2">
+                                <h4 class="text-xs sm:text-sm font-extrabold text-slate-800 flex items-center gap-1.5 uppercase tracking-wider">
                                     <span>🎯</span>
                                     <span>Most Common Exam Questions (${filteredMc.length})</span>
                                 </h4>
                             </div>
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-2.5 sm:gap-3">
                                 ${filteredMc.map(item => {
                                     const key = `mc_${ch.id}_${item.q}`;
                                     const isStarred = !!state.starredItems[key];
                                     return `
-                                    <div class="rounded-xl border border-slate-200 bg-slate-50/50 hover:bg-white p-3.5 transition flex flex-col justify-between group">
+                                    <div class="rounded-xl border border-slate-200 bg-slate-50/50 hover:bg-white p-3 sm:p-3.5 transition flex flex-col justify-between">
                                         <div>
                                             <div class="flex items-start justify-between gap-2 mb-1.5">
                                                 <p class="text-xs sm:text-sm font-bold text-slate-900 leading-snug">${item.q}</p>
@@ -599,7 +685,7 @@
                                                     ${isStarred ? '★' : '☆'}
                                                 </button>
                                             </div>
-                                            <div class="p-2 rounded-lg bg-emerald-50 border border-emerald-200/80 mb-2">
+                                            <div class="p-2 sm:p-2.5 rounded-lg bg-emerald-50 border border-emerald-200/80 mb-2">
                                                 <p class="text-xs sm:text-sm font-extrabold text-emerald-800 leading-snug">
                                                     ${item.a}
                                                 </p>
@@ -616,30 +702,30 @@
                         <!-- Section B: Key Numbers & Cutoffs -->
                         ${filteredNums.length > 0 ? `
                         <div>
-                            <div class="flex items-center justify-between mb-3 border-b border-slate-100 pb-2">
-                                <h4 class="text-sm font-extrabold text-slate-800 flex items-center gap-1.5 uppercase tracking-wider">
+                            <div class="flex items-center justify-between mb-2.5 border-b border-slate-100 pb-2">
+                                <h4 class="text-xs sm:text-sm font-extrabold text-slate-800 flex items-center gap-1.5 uppercase tracking-wider">
                                     <span>🔢</span>
                                     <span>High-Yield Numbers & Vital Cutoffs (${filteredNums.length})</span>
                                 </h4>
                             </div>
-                            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2.5 sm:gap-3">
                                 ${filteredNums.map(item => {
                                     const key = `num_${ch.id}_${item.label}`;
                                     const isStarred = !!state.starredItems[key];
                                     return `
-                                    <div class="rounded-xl border border-sky-100 bg-gradient-to-br from-sky-50/40 via-white to-slate-50 p-3.5 flex flex-col justify-between">
+                                    <div class="rounded-xl border border-sky-100 bg-gradient-to-br from-sky-50/40 via-white to-slate-50 p-3 sm:p-3.5 flex flex-col justify-between">
                                         <div>
                                             <div class="flex items-start justify-between gap-2 mb-1">
-                                                <span class="text-xs font-bold text-slate-700">${item.label}</span>
+                                                <span class="text-xs font-bold text-slate-700 leading-tight">${item.label}</span>
                                                 <button data-star-key="${key}" class="star-toggle-btn text-sm shrink-0 p-1 rounded-lg hover:bg-slate-200 transition ${isStarred ? 'text-amber-500' : 'text-slate-300 hover:text-amber-400'}" title="Add to favorites">
                                                     ${isStarred ? '★' : '☆'}
                                                 </button>
                                             </div>
-                                            <div class="text-sm sm:text-base font-black text-sky-700 font-mono-numbers py-1">
+                                            <div class="text-xs sm:text-sm lg:text-base font-black text-sky-700 font-mono-numbers py-1 break-words">
                                                 ${item.val}
                                             </div>
                                         </div>
-                                        <p class="text-[11px] text-slate-500 mt-2 pt-2 border-t border-sky-100 leading-relaxed">${item.detail}</p>
+                                        <p class="text-[11px] text-slate-500 mt-1.5 pt-1.5 border-t border-sky-100 leading-relaxed">${item.detail}</p>
                                     </div>`;
                                 }).join('')}
                             </div>
@@ -647,13 +733,13 @@
 
                         <!-- Section C: Clinical Pearls & Traps -->
                         ${filteredPearls.length > 0 ? `
-                        <div class="p-3.5 rounded-xl bg-amber-50/70 border border-amber-200/80">
-                            <h4 class="text-xs font-bold text-amber-900 mb-2 flex items-center gap-1 uppercase tracking-wider">
+                        <div class="p-3 sm:p-3.5 rounded-xl bg-amber-50/70 border border-amber-200/80">
+                            <h4 class="text-xs font-bold text-amber-900 mb-1.5 flex items-center gap-1 uppercase tracking-wider">
                                 <span>⚠️</span>
-                                <span>High-Yield Clinical Traps & Board Pearls</span>
+                                <span>High-Yield Clinical Traps & Pearls</span>
                             </h4>
-                            <ul class="space-y-1.5 text-xs text-slate-800 leading-relaxed">
-                                ${filteredPearls.map(p => `<li class="flex items-start gap-2"><span class="text-amber-600 font-bold">•</span><span>${p}</span></li>`).join('')}
+                            <ul class="space-y-1 text-xs text-slate-800 leading-relaxed">
+                                ${filteredPearls.map(p => `<li class="flex items-start gap-1.5"><span class="text-amber-600 font-bold">•</span><span>${p}</span></li>`).join('')}
                             </ul>
                         </div>` : ''}
                     </div>
@@ -662,10 +748,10 @@
 
             if (visibleChapters === 0) {
                 html = `
-                <div class="bg-white rounded-2xl p-12 text-center border border-slate-200">
-                    <span class="text-4xl block mb-2">🔍</span>
-                    <h3 class="text-base font-bold text-slate-800 mb-1">No matching clinical items found</h3>
-                    <p class="text-xs text-slate-500">Try modifying your search query or reset the filter.</p>
+                <div class="bg-white rounded-2xl p-8 sm:p-12 text-center border border-slate-200">
+                    <span class="text-3xl sm:text-4xl block mb-2">🔍</span>
+                    <h3 class="text-sm sm:text-base font-bold text-slate-800 mb-1">No matching clinical items found</h3>
+                    <p class="text-xs text-slate-500">Try modifying your search or reset the filters.</p>
                 </div>`;
             }
 
@@ -673,7 +759,7 @@
 
             // Bind chapter completion checkboxes
             container.querySelectorAll('input[data-complete-ch]').forEach(cb => {
-                cb.addEventListener('change', (e) => {
+                cb.addEventListener('change', () => {
                     const chId = cb.getAttribute('data-complete-ch');
                     state.completedChapters[chId] = cb.checked;
                     saveState();
@@ -698,7 +784,9 @@
 
         function renderMasterMostCommonTab() {
             const tbody = document.getElementById('masterMostCommonBody');
+            const mobileList = document.getElementById('masterMostCommonMobileList');
             let rowsHtml = '';
+            let cardsHtml = '';
             let count = 0;
 
             CHAPTERS_DATA.forEach(ch => {
@@ -713,6 +801,7 @@
                     const isStarred = !!state.starredItems[key];
                     const cStyle = getColorClasses(ch.color);
 
+                    // 1. Desktop Table Row
                     rowsHtml += `
                     <tr class="hover:bg-slate-50/80 transition group">
                         <td class="py-3 px-3 text-center">
@@ -730,7 +819,7 @@
                             ${item.q}
                         </td>
                         <td class="py-3 px-4">
-                            <div class="mc-answer-cell p-2 rounded-lg bg-emerald-50 border border-emerald-200/80 cursor-pointer font-bold text-emerald-800 text-xs sm:text-sm leading-snug transition hover:bg-emerald-100/70" title="Click to reveal if hidden">
+                            <div class="mc-answer-cell p-2 rounded-lg bg-emerald-50 border border-emerald-200/80 cursor-pointer font-bold text-emerald-800 text-xs sm:text-sm leading-snug transition hover:bg-emerald-100/70" title="Click to reveal">
                                 <span class="${state.hideMcAnswers ? 'filter blur-sm select-none opacity-40' : ''}">
                                     ${item.a}
                                 </span>
@@ -740,17 +829,43 @@
                             ${item.note}
                         </td>
                     </tr>`;
+
+                    // 2. Mobile Card Representation
+                    cardsHtml += `
+                    <div class="p-3 bg-white rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between space-y-2">
+                        <div class="flex items-center justify-between gap-2">
+                            <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded ${cStyle.badge} text-[10px] font-bold uppercase tracking-wider">
+                                <span>${ch.icon}</span>
+                                <span>${ch.title}</span>
+                            </span>
+                            <button data-star-key="${key}" class="star-toggle-btn text-base ${isStarred ? 'text-amber-500' : 'text-slate-300 hover:text-amber-400'}">
+                                ${isStarred ? '★' : '☆'}
+                            </button>
+                        </div>
+                        <p class="text-xs sm:text-sm font-extrabold text-slate-900 leading-snug">${item.q}</p>
+                        <div class="mc-answer-cell p-2.5 rounded-lg bg-emerald-50 border border-emerald-200/80 cursor-pointer font-bold text-emerald-900 text-xs leading-snug transition hover:bg-emerald-100" title="Tap to reveal">
+                            <span class="${state.hideMcAnswers ? 'filter blur-sm select-none opacity-40 block' : 'block'}">
+                                ${item.a}
+                            </span>
+                            ${state.hideMcAnswers ? '<span class="text-[10px] text-emerald-600 font-semibold mt-1 block">Tap to reveal 👆</span>' : ''}
+                        </div>
+                        <p class="text-[11px] text-slate-600 bg-slate-50 p-2 rounded-lg border border-slate-100 leading-relaxed">
+                            💡 <span class="font-semibold text-slate-700">Exam Note:</span> ${item.note}
+                        </p>
+                    </div>`;
                 });
             });
 
             if (count === 0) {
-                tbody.innerHTML = `<tr><td colspan="5" class="py-8 text-center text-xs text-slate-400">No matching questions found in this view.</td></tr>`;
+                tbody.innerHTML = `<tr><td colspan="5" class="py-8 text-center text-xs text-slate-400">No matching questions found.</td></tr>`;
+                mobileList.innerHTML = `<div class="py-8 text-center text-xs text-slate-400">No matching questions found.</div>`;
             } else {
                 tbody.innerHTML = rowsHtml;
+                mobileList.innerHTML = cardsHtml;
             }
 
-            // Bind answer cell unblur on click
-            tbody.querySelectorAll('.mc-answer-cell').forEach(cell => {
+            // Bind click to reveal answers on both table and cards
+            document.querySelectorAll('.mc-answer-cell').forEach(cell => {
                 cell.addEventListener('click', () => {
                     const span = cell.querySelector('span');
                     if (span) {
@@ -760,7 +875,7 @@
             });
 
             // Bind star toggles
-            tbody.querySelectorAll('button[data-star-key]').forEach(btn => {
+            document.querySelectorAll('button[data-star-key]').forEach(btn => {
                 btn.addEventListener('click', () => {
                     const k = btn.getAttribute('data-star-key');
                     state.starredItems[k] = !state.starredItems[k];
@@ -790,25 +905,26 @@
                     const cStyle = getColorClasses(ch.color);
 
                     cardsHtml += `
-                    <div class="bg-white rounded-xl border border-slate-200 p-4 shadow-sm hover:shadow transition flex flex-col justify-between">
+                    <div class="bg-white rounded-xl border border-slate-200 p-3.5 sm:p-4 shadow-sm hover:shadow transition flex flex-col justify-between">
                         <div>
                             <div class="flex items-center justify-between gap-2 mb-2">
-                                <span class="px-2 py-0.5 rounded ${cStyle.badge} text-[10px] font-bold uppercase tracking-wider flex items-center gap-1">
+                                <span class="px-2 py-0.5 rounded ${cStyle.badge} text-[10px] font-bold uppercase tracking-wider flex items-center gap-1 truncate">
                                     <span>${ch.icon}</span>
-                                    <span>${ch.title}</span>
+                                    <span class="truncate">${ch.title}</span>
                                 </span>
-                                <button data-star-key="${key}" class="star-toggle-btn text-base ${isStarred ? 'text-amber-500' : 'text-slate-300 hover:text-amber-400'}">
+                                <button data-star-key="${key}" class="star-toggle-btn text-base shrink-0 ${isStarred ? 'text-amber-500' : 'text-slate-300 hover:text-amber-400'}">
                                     ${isStarred ? '★' : '☆'}
                                 </button>
                             </div>
                             <h4 class="text-xs sm:text-sm font-bold text-slate-800 leading-snug">${item.label}</h4>
-                            <div class="num-val-box my-2.5 p-2.5 rounded-lg bg-sky-50/70 border border-sky-200/80 cursor-pointer text-sm sm:text-base font-black text-sky-800 font-mono-numbers leading-snug hover:bg-sky-100 transition" title="Click to reveal if hidden">
-                                <span class="${state.hideNumbersVal ? 'filter blur-sm select-none opacity-40' : ''}">
+                            <div class="num-val-box my-2 p-2.5 rounded-lg bg-sky-50/70 border border-sky-200/80 cursor-pointer text-xs sm:text-base font-black text-sky-800 font-mono-numbers leading-snug hover:bg-sky-100 transition break-words" title="Tap to reveal">
+                                <span class="${state.hideNumbersVal ? 'filter blur-sm select-none opacity-40 block' : 'block'}">
                                     ${item.val}
                                 </span>
+                                ${state.hideNumbersVal ? '<span class="text-[10px] text-sky-600 font-semibold mt-0.5 block">Tap to reveal 👆</span>' : ''}
                             </div>
                         </div>
-                        <p class="text-xs text-slate-500 border-t border-slate-100 pt-2 mt-1 leading-relaxed">${item.detail}</p>
+                        <p class="text-[11px] sm:text-xs text-slate-500 border-t border-slate-100 pt-1.5 mt-1 leading-relaxed">${item.detail}</p>
                     </div>`;
                 });
             });
@@ -848,18 +964,18 @@
             // 1. Expected Weight
             let expWt = '';
             if (ageM <= 12) {
-                expWt = `${((ageM + 9) / 2).toFixed(1)} kg (Formula: [Age(mo) + 9] / 2)`;
+                expWt = `${((ageM + 9) / 2).toFixed(1)} kg ([Age(mo) + 9] / 2)`;
             } else if (ageY <= 6) {
-                expWt = `${((ageY * 2) + 8).toFixed(1)} kg (Formula: Age(yr) × 2 + 8)`;
+                expWt = `${((ageY * 2) + 8).toFixed(1)} kg (Age(yr) × 2 + 8)`;
             } else {
-                expWt = `${(((ageY * 7) - 5) / 2).toFixed(1)} kg (Formula: [Age(yr) × 7 - 5] / 2)`;
+                expWt = `${(((ageY * 7) - 5) / 2).toFixed(1)} kg ([Age × 7 - 5] / 2)`;
             }
 
             // 2. Expected Height
-            let expHt = ageY >= 2 ? `${((ageY * 6) + 77).toFixed(0)} cm (Formula: Age(yr) × 6 + 77)` : (ageM <= 12 ? '~50–75 cm (Birth: 50 cm, 1 yr: 75 cm)' : '~75–87 cm');
+            let expHt = ageY >= 2 ? `${((ageY * 6) + 77).toFixed(0)} cm (Age(yr) × 6 + 77)` : (ageM <= 12 ? '~50–75 cm (Birth: 50cm, 1y: 75cm)' : '~75–87 cm');
 
             // 3. Deciduous Teeth
-            let milkTeeth = (ageM >= 6 && ageM <= 30) ? `${Math.min(20, Math.max(0, Math.round(ageM - 6)))} primary teeth (Formula: Age in months - 6)` : (ageM < 6 ? '0 teeth (starts at ~6 months)' : '20 primary teeth complete');
+            let milkTeeth = (ageM >= 6 && ageM <= 30) ? `${Math.min(20, Math.max(0, Math.round(ageM - 6)))} primary teeth` : (ageM < 6 ? '0 teeth (starts ~6 mo)' : '20 primary teeth');
 
             // 4. Maintenance Fluids (Holliday-Segar 4-2-1)
             let hourlyFluid = 0;
@@ -884,8 +1000,8 @@
             // 8. Defib & Emergency Drugs
             let defib1 = (wt * 2).toFixed(0) + ' J';
             let defib2 = (wt * 4).toFixed(0) + ' J';
-            let epiArrestMl = (wt * 0.1).toFixed(2) + ' mL (of 1:10,000 IV/IO)';
-            let epiAnaphylaxisMg = Math.min(0.3, wt * 0.01).toFixed(2) + ' mg (of 1:1,000 IM)';
+            let epiArrestMl = (wt * 0.1).toFixed(2) + ' mL (1:10,000 IV/IO)';
+            let epiAnaphylaxisMg = Math.min(0.3, wt * 0.01).toFixed(2) + ' mg (1:1,000 IM)';
 
             // 9. Antipyretic Doses
             let paracetamolMin = (wt * 10).toFixed(0);
@@ -896,20 +1012,20 @@
             const cards = [
                 {
                     title: 'Expected Weight & Height by Age',
-                    val: `Est. Weight: ${expWt}`,
-                    sub: `Est. Height: ${expHt} | Dentition: ${milkTeeth}`,
+                    val: `Weight: ${expWt}`,
+                    sub: `Height: ${expHt} | Dentition: ${milkTeeth}`,
                     color: 'border-emerald-200 bg-emerald-50/60'
                 },
                 {
-                    title: 'Maintenance Fluids (Holliday-Segar 4-2-1 Rule)',
+                    title: 'Maintenance Fluids (Holliday-Segar 4-2-1)',
                     val: `${hourlyFluid.toFixed(0)} mL/hr (${dailyFluid.toFixed(0)} mL/day)`,
-                    sub: '1st 10 kg × 4 mL | 2nd 10 kg × 2 mL | Each kg > 20 × 1 mL/hr',
+                    sub: '1st 10kg × 4mL | 2nd 10kg × 2mL | >20kg × 1mL/hr',
                     color: 'border-sky-200 bg-sky-50/60'
                 },
                 {
-                    title: 'Fluid Resuscitation Boluses (Shock Protocol)',
+                    title: 'Resuscitation Fluid Boluses (Shock)',
                     val: `${bolus20} mL Normal Saline (20 mL/kg)`,
-                    sub: `In Neonates, DKA, or Cardiogenic Shock (10 mL/kg): ${bolus10} mL`,
+                    sub: `Neonates, DKA or Cardiogenic Shock (10 mL/kg): ${bolus10} mL`,
                     color: 'border-rose-200 bg-rose-50/60'
                 },
                 {
@@ -919,7 +1035,7 @@
                     color: 'border-indigo-200 bg-indigo-50/60'
                 },
                 {
-                    title: 'Emergency Resuscitation & Defibrillation',
+                    title: 'Defibrillation & Emergency Resuscitation',
                     val: `Defib: 1st ${defib1} → 2nd ${defib2} | Cardioversion: ${(wt * 0.5).toFixed(0)}–${(wt * 1).toFixed(0)} J`,
                     sub: `Arrest Epi: ${epiArrestMl} | Anaphylaxis Epi: ${epiAnaphylaxisMg} mg IM`,
                     color: 'border-amber-200 bg-amber-50/60'
@@ -933,12 +1049,12 @@
             ];
 
             document.getElementById('calculatorResultsGrid').innerHTML = cards.map(c => `
-                <div class="rounded-xl border ${c.color} p-4 flex flex-col justify-between">
-                    <h4 class="text-xs font-bold text-slate-700 mb-1">${c.title}</h4>
-                    <div class="text-sm sm:text-base font-black text-slate-900 font-mono-numbers py-1">
+                <div class="rounded-xl border ${c.color} p-3 sm:p-4 flex flex-col justify-between">
+                    <h4 class="text-xs font-bold text-slate-700 mb-1 leading-snug">${c.title}</h4>
+                    <div class="text-xs sm:text-sm lg:text-base font-black text-slate-900 font-mono-numbers py-1 break-words">
                         ${c.val}
                     </div>
-                    <p class="text-xs text-slate-600 mt-1">${c.sub}</p>
+                    <p class="text-[11px] sm:text-xs text-slate-600 mt-1 leading-relaxed">${c.sub}</p>
                 </div>
             `).join('');
         }
@@ -953,14 +1069,14 @@
 
             const badge = document.getElementById('apgarScoreBadge');
             if (total >= 7) {
-                badge.className = 'text-xs font-bold px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-800 ml-1';
+                badge.className = 'text-xs font-bold px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-800';
                 badge.textContent = 'Normal / Reassuring (7–10)';
             } else if (total >= 4) {
-                badge.className = 'text-xs font-bold px-2.5 py-0.5 rounded-full bg-amber-100 text-amber-800 ml-1';
+                badge.className = 'text-xs font-bold px-2.5 py-0.5 rounded-full bg-amber-100 text-amber-800';
                 badge.textContent = 'Moderately Depressed (4–6)';
             } else {
-                badge.className = 'text-xs font-bold px-2.5 py-0.5 rounded-full bg-rose-100 text-rose-800 ml-1';
-                badge.textContent = 'Severely Depressed / Resuscitation (0–3)';
+                badge.className = 'text-xs font-bold px-2.5 py-0.5 rounded-full bg-rose-100 text-rose-800';
+                badge.textContent = 'Severely Depressed (0–3)';
             }
         }
 
@@ -994,10 +1110,10 @@
             const hint = document.getElementById('fcHintPrompt');
             if (state.fcShowAnswer) {
                 ansWrap.classList.remove('hidden');
-                hint.textContent = 'Click card to conceal answer 👆';
+                hint.textContent = 'Tap card to conceal answer 👆';
             } else {
                 ansWrap.classList.add('hidden');
-                hint.textContent = 'Click card to reveal answer 👆';
+                hint.textContent = 'Tap card to reveal answer 👆';
             }
         }
 
@@ -1033,10 +1149,12 @@
             const feedbackBox = document.getElementById('mcqFeedbackBox');
             feedbackBox.classList.add('hidden');
 
+            const prefixes = ['A', 'B', 'C', 'D'];
             const list = document.getElementById('mcqOptionsList');
             list.innerHTML = mcq.options.map((opt, i) => `
-                <button data-opt-idx="${i}" class="mcq-opt-btn w-full text-left p-3 rounded-xl border border-slate-200 hover:border-sky-400 hover:bg-sky-50/40 text-xs sm:text-sm font-semibold text-slate-800 transition flex items-center justify-between">
-                    <span>${opt}</span>
+                <button data-opt-idx="${i}" class="mcq-opt-btn w-full text-left p-3 rounded-xl border border-slate-200 hover:border-sky-400 hover:bg-sky-50/40 text-xs sm:text-sm font-semibold text-slate-800 transition flex items-start gap-2.5 min-h-[48px]">
+                    <span class="w-6 h-6 rounded-lg bg-slate-100 text-slate-700 font-bold text-xs flex items-center justify-center shrink-0 mt-0.5">${prefixes[i] || '•'}</span>
+                    <span class="flex-1">${opt}</span>
                 </button>
             `).join('');
 
@@ -1051,18 +1169,18 @@
 
                     if (isCorrect) {
                         state.mcqCorrect++;
-                        btn.className = 'w-full text-left p-3 rounded-xl border-2 border-emerald-500 bg-emerald-50 text-xs sm:text-sm font-bold text-emerald-900 transition flex items-center justify-between';
-                        btn.innerHTML += '<span class="text-emerald-600 font-bold">✓ Correct</span>';
+                        btn.className = 'w-full text-left p-3 rounded-xl border-2 border-emerald-500 bg-emerald-50 text-xs sm:text-sm font-bold text-emerald-900 transition flex items-start gap-2.5 min-h-[48px]';
+                        btn.innerHTML += '<span class="text-emerald-600 font-bold shrink-0 ml-auto">✓ Correct</span>';
                     } else {
-                        btn.className = 'w-full text-left p-3 rounded-xl border-2 border-rose-500 bg-rose-50 text-xs sm:text-sm font-bold text-rose-900 transition flex items-center justify-between';
-                        btn.innerHTML += '<span class="text-rose-600 font-bold">✕ Incorrect</span>';
+                        btn.className = 'w-full text-left p-3 rounded-xl border-2 border-rose-500 bg-rose-50 text-xs sm:text-sm font-bold text-rose-900 transition flex items-start gap-2.5 min-h-[48px]';
+                        btn.innerHTML += '<span class="text-rose-600 font-bold shrink-0 ml-auto">✕ Incorrect</span>';
 
                         // Highlight the correct one
                         list.querySelectorAll('.mcq-opt-btn').forEach(b => {
                             const idx = parseInt(b.getAttribute('data-opt-idx'), 10);
                             if (mcq.options[idx] === mcq.a) {
-                                b.className = 'w-full text-left p-3 rounded-xl border-2 border-emerald-500 bg-emerald-50 text-xs sm:text-sm font-bold text-emerald-900 transition flex items-center justify-between';
-                                b.innerHTML += '<span class="text-emerald-600 font-bold">✓ Correct Answer</span>';
+                                b.className = 'w-full text-left p-3 rounded-xl border-2 border-emerald-500 bg-emerald-50 text-xs sm:text-sm font-bold text-emerald-900 transition flex items-start gap-2.5 min-h-[48px]';
+                                b.innerHTML += '<span class="text-emerald-600 font-bold shrink-0 ml-auto">✓ Correct Answer</span>';
                             }
                         });
                     }
@@ -1079,7 +1197,7 @@
             state.activeTab = tabId;
             document.querySelectorAll('.main-tab-btn').forEach(btn => {
                 const isTarget = btn.getAttribute('data-tab') === tabId;
-                btn.className = `main-tab-btn px-3.5 py-1.5 rounded-xl whitespace-nowrap transition flex items-center gap-1.5 ${isTarget ? 'bg-sky-600 text-white shadow-sm font-bold' : 'bg-slate-800 text-slate-300 hover:bg-slate-700 font-semibold'}`;
+                btn.className = `main-tab-btn px-2.5 sm:px-3.5 py-1.5 rounded-xl whitespace-nowrap transition flex items-center gap-1.5 shrink-0 ${isTarget ? 'bg-sky-600 text-white shadow-sm font-bold' : 'bg-slate-800 text-slate-300 hover:bg-slate-700 font-semibold'}`;
             });
 
             document.querySelectorAll('.tab-panel').forEach(p => p.classList.add('hidden'));
@@ -1149,13 +1267,13 @@
             // Conceal / Reveal toggles
             document.getElementById('toggleHideAnswersMcBtn').addEventListener('click', (e) => {
                 state.hideMcAnswers = !state.hideMcAnswers;
-                e.target.textContent = state.hideMcAnswers ? '👁️ Reveal All Answers' : '🙈 Hide Answers for Self-Drill';
+                e.target.textContent = state.hideMcAnswers ? '👁️ Reveal All' : '🙈 Hide Answers for Drill';
                 renderMasterMostCommonTab();
             });
 
             document.getElementById('toggleHideNumbersBtn').addEventListener('click', (e) => {
                 state.hideNumbersVal = !state.hideNumbersVal;
-                e.target.textContent = state.hideNumbersVal ? '👁️ Reveal All Numbers' : '🙈 Hide Values for Self-Drill';
+                e.target.textContent = state.hideNumbersVal ? '👁️ Reveal All' : '🙈 Hide Values for Drill';
                 renderMasterNumbersTab();
             });
 
